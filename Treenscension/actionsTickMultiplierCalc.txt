@@ -1,0 +1,13 @@
+actions and tickmultiplier calc
+
+ticksSecondBase = 50;
+ticksSecond = a;
+maxActionsBase = 100;
+maxActions = b;
+
+ticksMultiplierBase = ticksSecondBase/ticksSecond;
+if (actionsToCompute > maxActions) {
+ ticksMultiplier = ticksMultiplierBase*actionsToCompute/maxActions;
+} else {
+ ticksMultiplier = ticksMultiplierBase;
+}

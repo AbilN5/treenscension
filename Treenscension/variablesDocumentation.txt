@@ -1,0 +1,62 @@
+------------------------------------------------------------------------------------------------------------------------
+CONSTANT VARIABLES:
+------------------------------------------------------------------------------------------------------------------------
+
+||Age
+	startingBaseAge = 122; (counted in days)
+	startingBaseLongevity = 1;
+	startingBaseNutrientAbsorptionLongevity = 3;
+
+||Size
+	startingBaseSize = 1;
+
+||Nutrients
+	startingBaseNutrientAbsorptionEfficiency = 0.1;
+	startingBaseNutrientAbsorption = 10;
+	startingMinNutrientAbsorptionEfficiency = 0.1;
+	startingMaxNutrientAbsorptionEfficiency = 0.9;
+	startingInitialNutrientAbsorptionEfficiency = startingMinNutrientAbsorptionEfficiency;
+
+||Competition
+	startingBaseCompetition = 2;
+	
+------------------------------------------------------------------------------------------------------------------------
+DIRECT VARIABLES
+------------------------------------------------------------------------------------------------------------------------
+
+||Age
+	baseAge;
+	baseLongevity;
+	baseNutrientAbsorptionLongevity;
+	genesLongevity;
+	startingAge = startingBaseAge*startingBaseCompetition; 
+
+||Size
+	baseSize;
+
+||Nutrients
+	baseNutrientAbsorptionEfficiency;
+	baseNutrientAbsorption;
+	minNutrientAbsorptionEfficiency;
+	maxNutrientAbsorptionEfficiency;
+	initialNutrientAbsorptionEfficiency;
+	nutrientAbsorptionEfficiency;
+
+||Competition
+	baseCompetition;
+
+------------------------------------------------------------------------------------------------------------------------
+INTERMEDIARY VARIABLES
+------------------------------------------------------------------------------------------------------------------------
+
+||Age
+	competitionLongevity = competition/dominance;
+	nutrientAbsorptionLongevity = nutrientAbsorptionLongevityBase^((nutrientAbsorptionEfficiency-	initialNutrientAbsorptionEfficiency)/(maxNutrientAbsorptionEfficiency-initialNutrientAbsorptionEfficiency))
+
+------------------------------------------------------------------------------------------------------------------------
+FINAL VARIABLES
+------------------------------------------------------------------------------------------------------------------------
+
+||Age
+	physicalLongevity = (baseLongevity*nutrientAbsorptionLongevity*genes)/competitionLongevity;
+	Age = baseAge*physicalLongevity*size^(1/3);

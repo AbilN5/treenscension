@@ -1,0 +1,33 @@
+Geometric Progression
+currentLevel;
+baseLevelCost
+currentLevelCost;
+variationLevel;
+changePerLevel;
+progressPointsEarned;
+progressPointsUsed;
+progressPointsRemaining;
+
+progressPointsEarned += progressPointsRemaining;
+variationLevel = customLog(changePerLevel, ((progressPointsEarned)/currentLevelCost)*(1-changePerLevel)+1);
+progressPointsUsed = currentLevelCost*((1-changePerLevel^(floor(variationLevel)))/(1-changePerLevel));
+progressPointsRemaining = progressPointsEarned - progressPointsUsed;
+currentLevel += floor(variationLevel);
+currentLevelCost = baseLevelCost*changePerLevel^(currentLevel-1);
+
+Arithmetic Progression
+currentLevel;
+baseLevelCost
+currentLevelCost;
+variationLevel;
+changePerLevel;
+progressPointsEarned;
+progressPointsUsed;
+progressPointsRemaining;
+
+progressPointsEarned += progressPointsRemaining;
+variationLevel = (-2*currentLevelCost+sqrt(4*(currentLevelCost^2)+8*changePerLevel*progressPointsEarned))/(2*changePerLevel);
+progressPointsUsed = ((floor(variationLevel))/2)*(2*currentLevelCost+((floor(variationLevel))-1)*changePerLevel);
+progressPointsRemaining = progressPointsEarned - progressPointsUsed;
+currentLevel += floor(variationLevel);
+currentLevelCost = baseLevelCost + (currentLevel-1)*changePerLevel;

@@ -1,0 +1,14 @@
+game start:
+input initialization variables;
+load save;
+
+events:
+update list;
+update variables;
+save;
+
+main loop:
+calculations -> update variables -> restart loop
+
+web worker:
+divide (actions to do + actions done on previous loop) by actions on list -> do floor(previous step result) actions, update list -> do remaining actions -> update variables -> send base effects to main -> restart loop
