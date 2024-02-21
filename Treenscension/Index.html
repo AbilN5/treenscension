@@ -29,9 +29,9 @@
 </head>
 <body>
 	
-	<div id="tabsContainer">
-		<button class="tabsButton" >Actions</button>
+	<div id="jsTabs">
 		<button class="tabsButton" id="jsTabsSelected">Actions</button>
+		<button class="tabsButton">Actions</button>
 		<button class="tabsButton">Actions</button>
 		<button class="tabsButton">Actions</button>
 		<button class="tabsButton">Actions</button>
@@ -76,7 +76,7 @@
 					<div id="magicalStats">
 						<p id="jsManaStats">
 							Mana: <span id="mana"></span> 
-						</pp>
+						</p>
 					</div>
 
 
@@ -87,7 +87,7 @@
 						<p class="leftElements" id="jsVoidStats">
 							Void: <span id="void"></span>
 						</p>
-						<br>
+						<div class="clearFloatBoth"></div>
 					</div>
 				</div>
 
@@ -95,16 +95,63 @@
 		</div>
 	</div>
 	<div id="log">
-		<div id="logBorder">
-
+		<div id="logBorder">		
+		
 			<h1 id="logTitle">Log</h1>
 
-			<table id="jsLogTable">
-				
-
-			</table>
+			<div id="logTableContainer">
+				<table id="jsLogTable">
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>				
+					<tr>
+						<td class="jsLogIdentifier">event (4)</span></td>
+						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+					</tr>									
+				</table>
+			</div>
 
 		</div>
 	</div>
+
+	<script>
+		const tabsButtonsParent = document.querySelector('#jsTabs');
+		const tabsID = 'jsTabs'
+		const tabsSelectedID = 'jsTabsSelected'
+
+		tabsButtonsParent.addEventListener('click', selectElement)
+
+		function selectElement(event) {
+
+			if (event.target.id === '') {
+				document.getElementById(tabsSelectedID).id = '';
+
+				event.target.id = tabsSelectedID;
+			}
+		}
+
+
+	</script>
 </body>
 </html>
