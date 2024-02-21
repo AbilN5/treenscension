@@ -2,10 +2,50 @@
 * {
   margin: 0;
   padding: 0;
+	scrollbar-color: rgba(172, 145, 176, 1) rgba(96, 72, 101, 1);
 }
 
 ::-webkit-scrollbar {
-	
+	width: 1.2vw;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(96, 72, 101, 1);
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(172, 145, 176, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(153, 128, 157, 1);
+}
+
+::-webkit-scrollbar-button {
+	background-color: rgba(172, 145, 176, 1);
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+	background-image: url("Images/arrowDownLight.svg");
+	background-size: 17px 17px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+	background-image: url("Images/arrowUpLight.svg");
+	background-size: 17px 17px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+
+::-webkit-scrollbar-button:vertical:decrement:end, ::-webkit-scrollbar-button:vertical:increment:start {
+	display: none;
+}
+
+::-webkit-scrollbar-button:hover {
+	background-color: rgba(153, 128, 157, 1);
 }
 
 body {                      /**/
@@ -40,15 +80,33 @@ body {                      /**/
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px 10px 3px rgba(0, 0, 0, .4);
 	width: 100%;
+	max-height: 22%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	padding: 10px 0px 10px 0px;
 	z-index: 3;
+	overflow-y: auto;
+	overflow-x: auto;
 }
 
-#technicalElements.nonInteractive {
-	cursor: default;
+#technicalElements ul {
+	list-style-type: none;
+}
+
+#technicalElements li {
+	float: inherit;
+}
+
+#technicalElements li:hover {
+	color: white;
+	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
+}
+
+#technicalElements span {
+	float: inherit;
+	margin-left: 8px;
+	margin-right: 8px;
 }
 
 #technicalElements .rightElements {
@@ -62,12 +120,13 @@ body {                      /**/
 }
 
 #tabsContainer {                     /**/
-	background-image: linear-gradient(to left, rgba(128, 91, 135, 1), rgb(196, 173, 200));
+	background-image: linear-gradient(to left, rgba(128, 91, 135, 1), rgba(196, 173, 200, 1));
 	position: fixed;
-	height: calc(100vh - 270px);
+	height: calc(100vh - 340px);
+	min-height: 33%;
 	width: 350px;
 	max-width: 25%;
-	padding-top: 10px;
+	padding-top: 20px;
 	padding-bottom: 10px;
 	left: 0;
 	top: 50px;
@@ -88,7 +147,7 @@ body {                      /**/
 	box-shadow: 0 0 7px 4px rgb(41, 31, 42);
 }
 
-#jsTabsHover {
+.tabsButton:hover {
 	color: rgb(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 }
@@ -104,13 +163,15 @@ body {                      /**/
 }
 
 #stats {                    /**/
+	box-sizing: border-box;
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px 0px 3px 8px rgba(0, 0, 0, .3);
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	height: 180px;
-	width: 25%;
+	height: 260px;
+	max-height: 50%;
+	width: 27%;
 	padding: 10px 10px 70px 10px;
 	z-index: 2;
 }
@@ -122,13 +183,22 @@ body {                      /**/
 	top: 10px;
 	right: 10px;
 	width: 110%;
-	height: 250px;
+	height: 280px;
 	border: 10px solid rgba(128, 91, 135, 1);
 	border-radius: 30px;
 	border-bottom: none;
 	border-left: none;
 	padding: 10px 12%;
-	overflow-y: auto;
+}
+
+#statsGhostContainer { /*This lets the stats border to go offscreen, for the round border not to show up*/ 
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 80%;
+	height: 230px;
+	padding: 0px 12% 10px 12%;
+	overflow-y: auto; 
 }
 
 #statsTitle {
@@ -174,20 +244,23 @@ body {                      /**/
 }
 
 #log {                      /**/
+	box-sizing: border-box;
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px -8px 3px rgba(0, 0, 0, .3);
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	height: 125px;
-	width: 75%;
+	height: 140px;
+	max-height: 35%;
+	width: 73%;
 	z-index: 1;
 }
 
 #logBorder {                /**/
+	box-sizing: border-box;
 	position: absolute;
 	top: 10px;
-	width: 120%;
+	width: 100%;
 	border: 10px solid rgba(128, 91, 135, 1);
 	border-bottom: none;
 	border-left: none;
