@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+::-webkit-scrollbar {
+	
+}
+
 body {                      /**/
 	background-image: url(Images/backgroundTreenscension.jpg);
 	background-repeat: no-repeat;
@@ -19,14 +23,10 @@ body {                      /**/
 
 .leftElements {             /**/
 	float: left;
-	margin-left: 30px;
-	margin-right: 30px;
 }
 
 .rightElements {            /**/
 	float: right;
-	margin-left: 30px;
-	margin-right: 30px;
 }
 
 .clearFloatBoth {
@@ -44,11 +44,21 @@ body {                      /**/
 	top: 0;
 	left: 0;
 	padding: 10px 0px 10px 0px;
-	z-index: 3; 
+	z-index: 3;
 }
 
 #technicalElements.nonInteractive {
 	cursor: default;
+}
+
+#technicalElements .rightElements {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+#technicalElements .leftElements {
+	margin-left: 30px;
+	margin-right: 30px;
 }
 
 #tabsContainer {                     /**/
@@ -78,12 +88,12 @@ body {                      /**/
 	box-shadow: 0 0 7px 4px rgb(41, 31, 42);
 }
 
-#tabsHover {
+#jsTabsHover {
 	color: rgb(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 }
 
-#tabsSelected {
+#jsTabsSelected {
 	color: rgba(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 	box-shadow: 0 0 3px 6px rgb(236, 211, 237);
@@ -140,22 +150,26 @@ body {                      /**/
 	margin: 0px 30px 10px 20px;
 }
 
-.statsText {
+#statsText {
+	margin: 5px 20px 0 20px;
+}
+
+#statsText p {
 	color: rgb(255, 255, 255);
 	font-size: 20px;
 	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	margin: 5px 30px 8px 20px;
+	margin: 0 50px 8px 0;
 }
 
-#manaStats {
+#statsText #jsManaStats {
 	color: rgb(147, 255, 244);
 }
 
-#genesisStats {
+#statsText #jsGenesisStats {
 	color: rgb(171, 255, 178);
 }
 
-#voidStats {
+#statsText #jsVoidStats {
 	color: rgb(219, 189, 255);
 }
 
