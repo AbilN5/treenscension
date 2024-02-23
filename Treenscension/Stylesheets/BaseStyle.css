@@ -1,3 +1,4 @@
+/*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/
 
 * {
   margin: 0;
@@ -5,12 +6,14 @@
 	scrollbar-color: rgba(172, 145, 176, 1) rgba(96, 72, 101, 1);
 }
 
-
 /*Warning: !important tend to be avoided, but this class will always override any other stylying, no matter the specifity. Don't use other classes to hide elements and don't use another display paramater with !important*/
 .hidden {
 	display: none !important;
 }
 
+
+
+/*scrollbar customization*/
 ::-webkit-scrollbar {
 	width: 1.2vw;
 }
@@ -53,7 +56,10 @@
 	background-color: rgba(153, 128, 157, 1);
 }
 
-body {                      /**/
+
+
+/*base body style*/
+body {                      
 	background-image: url(../Media/Backgrounds/backgroundTreenscension.jpg);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -63,15 +69,18 @@ body {                      /**/
 	overflow: hidden;
 }
 
+
+
+/*generic classes*/
 .pointerCursor {
 	cursor: pointer;
 }
 
-.leftElements {             /**/
+.leftElements {             
 	float: left;
 }
 
-.rightElements {            /**/
+.rightElements {            
 	float: right;
 }
 
@@ -79,7 +88,10 @@ body {                      /**/
 	clear: both;
 }
 
-#technicalElements {        /**/
+
+
+/*header*/
+#technicalElements {        
 	font-size: 25px;
 	font-family: fantasy;
 	color: rgb(218, 196, 220);
@@ -135,7 +147,10 @@ body {                      /**/
 	margin-right: 30px;
 }
 
-#side {                     /**/
+
+
+/*side tab*/
+#side {                    
 	background-image: linear-gradient(to left, rgba(128, 91, 135, 1), rgba(196, 173, 200, 1));
 	position: fixed;
 	height: calc(100vh - 340px);
@@ -178,7 +193,10 @@ body {                      /**/
 	z-index: 2;
 }
 
-#stats {                    /**/
+
+
+/*stats section (need to be organized better)*/
+#stats {                    
 	box-sizing: border-box;
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px 0px 3px 8px rgba(0, 0, 0, .3);
@@ -192,7 +210,7 @@ body {                      /**/
 	z-index: 2;
 }
 
-#statsBorder {              /**/
+#statsBorder {              
 	box-sizing: border-box;
 	background: radial-gradient(rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 70%);
 	position: absolute;
@@ -262,7 +280,10 @@ body {                      /**/
 	color: rgb(219, 189, 255);
 }
 
-#log {                      /**/
+
+
+/*log section*/
+#log {                      
 	box-sizing: border-box;
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px -8px 3px rgba(0, 0, 0, .3);
@@ -276,7 +297,7 @@ body {                      /**/
 	overflow: hidden;
 }
 
-#logBorder {                /**/
+#logBorder {
 	box-sizing: border-box;
 	position: absolute;
 	top: 10px;
@@ -287,7 +308,6 @@ body {                      /**/
 	border-left: none;
 	border-right: none;
 }
-
 
 #logTitle {
 	position: relative;
@@ -328,3 +348,6 @@ body {                      /**/
 #jsLogTable tr:nth-child(even) {
 	background-color: rgba(90, 49, 100, 1);
 }
+
+
+/*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/

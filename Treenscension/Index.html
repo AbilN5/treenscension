@@ -142,9 +142,16 @@
 	<script>
 		//UI
 
+
+		//VARIABLES DECLARATION
+
+		//Only change this for name changes
 		const tabElements = {
-			
-			parentElements: {	//for event delegation
+			tabs: {
+				main: 'main',
+			},
+
+			delegatorElements: {	//for event delegation
 				side: 'side',
 			},
 
@@ -153,21 +160,66 @@
 			},
 		}
 
+		//constructed tab objects
+		const groupNamesMain = [tabElements.delegatorElements.side, tabElements.splitElements.header];
+		const mainTab = new tabSelectionObject(tabElements.tabs.main, groupNamesMain);
+
+		//event parameters object
+		const eventParameters = {	//this is tricky, always put event parameter as a string and use a bidimensional array with the second array being the array without 'event'
+			mainTabClick: [['event', mainTab], [mainTab]],	
+		}
+
 		//markers
 		const tabMark = 'tabMark';
 
-		//event listeners
-		const sideButtonsParent = document.getElementById(tabElements.parentElements.side);
-		sideButtonsParent.addEventListener('click', function() {
-			selectTab(event, mainTab);
-		});
 
-		const headerButtons = document.querySelectorAll(`.${tabElements.splitElements.header}Button`);
-		headerButtons.forEach(headerButtons => {
-			headerButtons.addEventListener('click', function() {
-				selectTab(event, mainTab);
+		//LOAD RUN
+
+		//events
+		//main tab click event 
+		//main -> header tab, click
+		const headerButton = `${tabElements.splitElements.header}Button`;
+		splitElements('click', headerButton, selectTab, eventParameters.mainTabClick);
+		delegatorElement('click', tabElements.delegatorElements.side, selectTab, eventParameters.mainTabClick);
+
+
+		//FUNCTIONS
+
+		//event listener functions
+		//adds event listener for each element with a certain class
+		function splitElements(event, splitClass, callback, parametersArray) {
+			const nodeList = document.querySelectorAll(`.${splitClass}`);
+			
+			nodeList.forEach(node => {
+				node.addEventListener(event, function(event) {
+					const hasEvent = parametersArray[0].includes('event');
+
+					if (hasEvent) {
+						callback(event, ...parametersArray[1]); 
+					} else {
+						callback(...parametersArray[1]);
+					}
+					
+				});
 			});
-		});
+		}
+
+		//adds event listener for delegator element
+		function delegatorElement(event, delegatorID, callback, parametersArray) {
+			const delegator = document.getElementById(tabElements.delegatorElements.side);
+			
+			delegator.addEventListener(event, function(event) {
+				const hasEvent = parametersArray[0].includes('event');
+
+				if (hasEvent) {
+					callback(event, ...parametersArray[1]); 
+				} else {
+					callback(...parametersArray[1]);
+				}
+
+			});
+		}
+
 
 		//tab objects constructor
 		function groupObject(className) {
@@ -186,8 +238,7 @@
 			this.jsSelected = `js${parentClassName.charAt(0).toUpperCase() + parentClassName.slice(1)}Selected`
 		}
 		
-		//constructed tab objects
-		const mainTab = new tabSelectionObject('main', ['side', 'header']);
+		
 
 		//event functions
 		function selectTab(event, tabObject) {

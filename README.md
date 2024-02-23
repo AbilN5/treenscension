@@ -4,7 +4,7 @@ Treenscension Game Versioning Repository
 Welcome to the repository for "Treenscension", an idle RPG game that takes you on a journey through the cycles of reincarnation, growth, and exploration of a mystical tree in a fantasy world.
 
 ## Overview
-Treenscension is an idle game with a unique concept, blending incremental progression, RPG features, and spatial exploration. Witness the evolution of a humble tree from its autotrophic origins to becoming the cosmic force that shapes the very fabric of existence.
+Treenscension is an idle game with a unique concept, blending incremental progression, RPG features, and cosmic exploration. Witness the evolution of a humble tree from its autotrophic origins to becoming the cosmic force that shapes the very fabric of existence.
 
 ## Features
 **Incremental Growth**: Experience the tree's reincarnation cycles, each unlocking new powers and abilities.
