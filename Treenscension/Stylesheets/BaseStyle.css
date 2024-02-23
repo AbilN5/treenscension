@@ -135,7 +135,7 @@ body {                      /**/
 	margin-right: 30px;
 }
 
-#tabs {                     /**/
+#side {                     /**/
 	background-image: linear-gradient(to left, rgba(128, 91, 135, 1), rgba(196, 173, 200, 1));
 	position: fixed;
 	height: calc(100vh - 340px);
@@ -151,7 +151,7 @@ body {                      /**/
 	scroll-snap-type: y mandatory;
 }
 
-.tabsButton {
+.sideButton {
 	font-size: 25px;
 	font-family: fantasy;
 	color: rgba(147, 199, 144, 1);
@@ -164,12 +164,12 @@ body {                      /**/
 	transition: 0.3s;
 }
 
-.tabsButton:hover {
+.sideButton:hover {
 	color: rgba(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 }
 
-#tabs .tabsSelected {
+#side .sideSelected {
 	color: rgba(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 	box-shadow: 0 0 3px 6px rgb(236, 211, 237);

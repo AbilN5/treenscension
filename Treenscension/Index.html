@@ -6,43 +6,47 @@
 	<title>Treenscension</title>
 	<link rel="stylesheet" href="Stylesheets/BaseStyle.css">
 	<header id="header">
-		<div id="technicalElements">
+		
+		<div class="main" id="technicalElements">
 			
 			<ul class="leftElements">
-				<li class="pointerCursor headerButton" id="jsOptions">Options</li> 
+				<li class="pointerCursor headerButton tabMark" id="jsOptions">Options</li> 
 				
 				<span>|</span>   
 				
-				<li class="pointerCursor headerButton" id="jsSave">Save</li> 
+				<li class="pointerCursor headerButton tabMark" id="jsSave">Save</li> 
 				
 				<span>|</span>  
 				
-				<li class="pointerCursor headerButton" id="jsChangelog">Changelog</li>
+				<li class="pointerCursor headerButton tabMark" id="jsChangelog">Changelog</li>
 			</ul>
+
 
 			<ul class="rightElements">
 				<li class="pointerCursor" id="discord">Discord</li>
 			</ul>
-
+		
 		</div>
+
 	</header>
 </head>
 <body>
 	
-	<div id="tabs">
-		<button class="tabsButton jsSelectedButton tabsSelected">Statistics</button>
-		<button class="tabsButton">Skills</button>
-		<button class="tabsButton">Growth</button>
-		<button class="tabsButton hidden">Actions</button>
-		<button class="tabsButton hidden">Fight</button>
-		<button class="tabsButton hidden">Astral Realm</button>
-		<button class="tabsButton hidden">Treenscension</button>
-		<button class="tabsButton hidden">Universe</button>
-		<button class="tabsButton hidden">Genesis</button>
-		<button class="tabsButton hidden">Void</button>
-
+	<!--SIDE TAB SELECTOR-->
+	<div class="main" id="side">
+		<button class="sideButton tabMark jsMainSelected sideSelected">Statistics</button>
+		<button class="sideButton tabMark">Skills</button>
+		<button class="sideButton tabMark">Growth</button>
+		<button class="sideButton tabMark hidden">Actions</button>
+		<button class="sideButton tabMark hidden">Fight</button>
+		<button class="sideButton tabMark hidden">Astral Realm</button>
+		<button class="sideButton tabMark hidden">Treenscension</button>
+		<button class="sideButton tabMark hidden">Universe</button>
+		<button class="sideButton tabMark hidden">Genesis</button>
+		<button class="sideButton tabMark hidden">Void</button>
 	</div>
 
+	<!--STATS (need to organize it better)-->
 	<div id="stats">
 		<div id="statsBorder">
 			<div id="statsGhostContainer">
@@ -90,6 +94,8 @@
 			</div>
 		</div>
 	</div>
+
+	<!--LOG-->
 	<div id="log">
 		<div id="logBorder">		
 		
@@ -97,6 +103,7 @@
 
 			<div id="logTableContainer">
 				<table id="jsLogTable">
+					
 					<tr>
 						<td class="jsLogIdentifier">event (4)</span></td>
 						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
@@ -124,7 +131,8 @@
 					<tr>
 						<td class="jsLogIdentifier">event (4)</span></td>
 						<td class="jsLogEvent">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-					</tr>									
+					</tr>
+
 				</table>
 			</div>
 
@@ -132,59 +140,86 @@
 	</div>
 
 	<script>
-		//tabs selection variables
-		//selected button
-		const tabsID = 'tabs';
-		const tabsButtonClass = 'tabsButton';
-		const tabsHeaderButtonClass = 'headerButton';
-		const selectedButtonClass = 'jsSelectedButton';
-		const selectedTabClass = 'tabsSelected';
-		const selectedHeaderClass = 'headerSelected';
-		
-		//event listeners
-		const tabsButtonsParent = document.getElementById(tabsID);
-		tabsButtonsParent.addEventListener('click', selectTab);
+		//UI
 
-		const headerButtons = document.querySelectorAll(`.${tabsHeaderButtonClass}`);
-		headerButtons.forEach(headerButtons => {
-			headerButtons.addEventListener('click', selectTab);
+		const tabElements = {
+			
+			parentElements: {	//for event delegation
+				side: 'side',
+			},
+
+			splitElements: {	//for elements that are tabs but can't use event delegation
+				header: 'header',
+			},
+		}
+
+		//markers
+		const tabMark = 'tabMark';
+
+		//event listeners
+		const sideButtonsParent = document.getElementById(tabElements.parentElements.side);
+		sideButtonsParent.addEventListener('click', function() {
+			selectTab(event, mainTab);
 		});
 
-		//parent class -> tab groups: css, js, default
+		const headerButtons = document.querySelectorAll(`.${tabElements.splitElements.header}Button`);
+		headerButtons.forEach(headerButtons => {
+			headerButtons.addEventListener('click', function() {
+				selectTab(event, mainTab);
+			});
+		});
 
-		function selectTab() {
+		//tab objects constructor
+		function groupObject(className) {
+			this.className = `${className}Button`;
+			this.cssSelected = `${className}Selected`;
+		}
+
+		function tabSelectionObject(parentClassName, groupNamesArray) { 
+			this.class = parentClassName;
+			this.groups = [];
+			groupNamesArray.forEach(className => {
+				const group = new groupObject(className);
+				this.groups.push(group);
+			});
+				
+			this.jsSelected = `js${parentClassName.charAt(0).toUpperCase() + parentClassName.slice(1)}Selected`
+		}
+		
+		//constructed tab objects
+		const mainTab = new tabSelectionObject('main', ['side', 'header']);
+
+		//event functions
+		function selectTab(event, tabObject) {
 			const clickedElement = event.target;
 
 			//ensure it's clickable
-			if (clickedElement.id !== tabsID) {
-				const previousTab = document.querySelector(`.${selectedButtonClass}`);
-				
+			if (clickedElement.classList.contains(tabMark)) {
+				const previousTab = document.querySelector(`.${tabObject.jsSelected}`);
+
 				//ensure it's not the same element
-				if (!clickedElement.classList.contains(selectedButtonClass)) {
-					clickedElement.classList.add(selectedButtonClass);
-					
-					//add CSS class
-					if (clickedElement.classList.contains(tabsHeaderButtonClass)) {
-						clickedElement.classList.add(selectedHeaderClass);
-					} else {
-						clickedElement.classList.add(selectedTabClass);
-					}
+				if (!clickedElement.classList.contains(tabObject.jsSelected)) {
+					clickedElement.classList.add(tabObject.jsSelected);
+
+					//find group to add CSS
+					const clickedElementGroup = findGroup(clickedElement, tabObject);
+					clickedElement.classList.add(clickedElementGroup.cssSelected);
+
 				}
 
-				//remove selected class from previous tab or second click
+				//remove previous tab selected css
 				if (previousTab) {
-					previousTab.classList.remove(selectedButtonClass);	
-
-					//remove CSS class
-					if (previousTab.classList.contains(tabsHeaderButtonClass)) {
-						previousTab.classList.remove(selectedHeaderClass);
-					} else {
-						previousTab.classList.remove(selectedTabClass);
-					}
+					const previousTabGroup = findGroup(previousTab, tabObject);
+					previousTab.classList.remove(tabObject.jsSelected);
+					previousTab.classList.remove(previousTabGroup.cssSelected);
 				}
 			}
 		}
 
+		//Utility functions
+		function findGroup(element, tabObject) {
+			return tabObject.groups.find(group => element.classList.contains(group.className));	
+		}
 
 	</script>
 </body>
