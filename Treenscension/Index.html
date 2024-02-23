@@ -4,20 +4,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Treenscension</title>
-	<link rel="stylesheet" href="BaseStyle.css">
+	<link rel="stylesheet" href="Stylesheets/BaseStyle.css">
 	<header id="header">
 		<div id="technicalElements">
 			
 			<ul class="leftElements">
-				<li class="pointerCursor " id="jsOptions">Options</li> 
+				<li class="pointerCursor headerButton" id="jsOptions">Options</li> 
 				
 				<span>|</span>   
 				
-				<li class="pointerCursor" id="jsSave">Save</li> 
+				<li class="pointerCursor headerButton" id="jsSave">Save</li> 
 				
 				<span>|</span>  
 				
-				<li class="pointerCursor" id="jsChangelog">Changelog</li>
+				<li class="pointerCursor headerButton" id="jsChangelog">Changelog</li>
 			</ul>
 
 			<ul class="rightElements">
@@ -29,21 +29,17 @@
 </head>
 <body>
 	
-	<div id="jsTabs">
-		<button class="tabsButton" id="jsTabsSelected">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
-		<button class="tabsButton">Actions</button>
+	<div id="tabs">
+		<button class="tabsButton jsSelectedButton tabsSelected">Statistics</button>
+		<button class="tabsButton">Skills</button>
+		<button class="tabsButton">Growth</button>
+		<button class="tabsButton hidden">Actions</button>
+		<button class="tabsButton hidden">Fight</button>
+		<button class="tabsButton hidden">Astral Realm</button>
+		<button class="tabsButton hidden">Treenscension</button>
+		<button class="tabsButton hidden">Universe</button>
+		<button class="tabsButton hidden">Genesis</button>
+		<button class="tabsButton hidden">Void</button>
 
 	</div>
 
@@ -51,7 +47,7 @@
 		<div id="statsBorder">
 			<div id="statsGhostContainer">
 				
-				<h1 id="statsTitle">LONGEVOUS WILLOW TREE</h1>
+				<h1 id="jsStatsTitle">LONGEVOUS WILLOW TREE</h1>
 				<div id="dashContainer">
 					<div id="statsDash"></div>
 				</div>
@@ -62,30 +58,30 @@
 							Age: <span id="jsAgeCurrent">1K</span>/<span id="jsAgeExpected">10K</span>
 						</p>
 						<p class="leftElements" id="jsSizeStats">
-							Size: <span id="size">300m</span>
+							Size: <span id="jsSize">300m</span>
 						</p>
 						<div class="clearFloatBoth"></div>
 					</div>
 
-					<div id="jsMentalStats">
+					<div class id="jsMentalStats">
 						<p id="jsIntelligenceStats">
 							Intelligence: <span id="jsIntelligence"></span> 
 						</p>
 					</div>
 					
-					<div id="magicalStats">
+					<div id="jsMagicalStats">
 						<p id="jsManaStats">
-							Mana: <span id="mana"></span> 
+							Mana: <span id="jsMana"></span> 
 						</p>
 					</div>
 
 
 					<div id="jsSpiritualStats">
 						<p class="leftElements" id="jsGenesisStats">
-							Genesis: <span id="genesis"></span> 
+							Genesis: <span id="jsGenesis"></span> 
 						</p>
 						<p class="leftElements" id="jsVoidStats">
-							Void: <span id="void"></span>
+							Void: <span id="jsVoid"></span>
 						</p>
 						<div class="clearFloatBoth"></div>
 					</div>
@@ -136,18 +132,56 @@
 	</div>
 
 	<script>
-		const tabsButtonsParent = document.querySelector('#jsTabs');
-		const tabsID = 'jsTabs'
-		const tabsSelectedID = 'jsTabsSelected'
+		//tabs selection variables
+		//selected button
+		const tabsID = 'tabs';
+		const tabsButtonClass = 'tabsButton';
+		const tabsHeaderButtonClass = 'headerButton';
+		const selectedButtonClass = 'jsSelectedButton';
+		const selectedTabClass = 'tabsSelected';
+		const selectedHeaderClass = 'headerSelected';
+		
+		//event listeners
+		const tabsButtonsParent = document.getElementById(tabsID);
+		tabsButtonsParent.addEventListener('click', selectTab);
 
-		tabsButtonsParent.addEventListener('click', selectElement)
+		const headerButtons = document.querySelectorAll(`.${tabsHeaderButtonClass}`);
+		headerButtons.forEach(headerButtons => {
+			headerButtons.addEventListener('click', selectTab);
+		});
 
-		function selectElement(event) {
+		//parent class -> tab groups: css, js, default
 
-			if (event.target.id === '') {
-				document.getElementById(tabsSelectedID).id = '';
+		function selectTab() {
+			const clickedElement = event.target;
 
-				event.target.id = tabsSelectedID;
+			//ensure it's clickable
+			if (clickedElement.id !== tabsID) {
+				const previousTab = document.querySelector(`.${selectedButtonClass}`);
+				
+				//ensure it's not the same element
+				if (!clickedElement.classList.contains(selectedButtonClass)) {
+					clickedElement.classList.add(selectedButtonClass);
+					
+					//add CSS class
+					if (clickedElement.classList.contains(tabsHeaderButtonClass)) {
+						clickedElement.classList.add(selectedHeaderClass);
+					} else {
+						clickedElement.classList.add(selectedTabClass);
+					}
+				}
+
+				//remove selected class from previous tab or second click
+				if (previousTab) {
+					previousTab.classList.remove(selectedButtonClass);	
+
+					//remove CSS class
+					if (previousTab.classList.contains(tabsHeaderButtonClass)) {
+						previousTab.classList.remove(selectedHeaderClass);
+					} else {
+						previousTab.classList.remove(selectedTabClass);
+					}
+				}
 			}
 		}
 

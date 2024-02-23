@@ -5,6 +5,12 @@
 	scrollbar-color: rgba(172, 145, 176, 1) rgba(96, 72, 101, 1);
 }
 
+
+/*Warning: !important tend to be avoided, but this class will always override any other stylying, no matter the specifity. Don't use other classes to hide elements and don't use another display paramater with !important*/
+.hidden {
+	display: none !important;
+}
+
 ::-webkit-scrollbar {
 	width: 1.2vw;
 }
@@ -26,19 +32,18 @@
 }
 
 ::-webkit-scrollbar-button:vertical:decrement {
-	background-image: url("Images/arrowDownLight.svg");
+	background-image: url("../Media/Icons/arrowDownLight.svg");
 	background-size: 17px 17px;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
 }
 
 ::-webkit-scrollbar-button:vertical:increment {
-	background-image: url("Images/arrowUpLight.svg");
+	background-image: url("../Media/Icons/arrowUpLight.svg");
 	background-size: 17px 17px;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 }
-
 
 ::-webkit-scrollbar-button:vertical:decrement:end, ::-webkit-scrollbar-button:vertical:increment:start {
 	display: none;
@@ -49,7 +54,7 @@
 }
 
 body {                      /**/
-	background-image: url(Images/backgroundTreenscension.jpg);
+	background-image: url(../Media/Backgrounds/backgroundTreenscension.jpg);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
@@ -97,12 +102,21 @@ body {                      /**/
 
 #technicalElements li {
 	float: inherit;
-	transition-duration: 0.2s, 0.2s;
+	bottom: 0;
+	transition-duration: 0.6s;
 }
 
 #technicalElements li:hover {
 	color: white;
 	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
+	transition-duration: 0.2s;
+}
+
+#technicalElements .headerSelected {
+	font-size: 35px;
+	color: white;
+	text-shadow: 0 0 30px rgba(255, 255, 255, .3);
+	transition-duration: 0.6s;
 }
 
 #technicalElements span {
@@ -121,7 +135,7 @@ body {                      /**/
 	margin-right: 30px;
 }
 
-#jsTabs {                     /**/
+#tabs {                     /**/
 	background-image: linear-gradient(to left, rgba(128, 91, 135, 1), rgba(196, 173, 200, 1));
 	position: fixed;
 	height: calc(100vh - 340px);
@@ -155,7 +169,7 @@ body {                      /**/
 	background-color: rgba(78, 59, 79, 1);
 }
 
-#jsTabsSelected {
+#tabs .tabsSelected {
 	color: rgba(218, 196, 220, 1);
 	background-color: rgba(78, 59, 79, 1);
 	box-shadow: 0 0 3px 6px rgb(236, 211, 237);
@@ -202,7 +216,7 @@ body {                      /**/
 	overflow-y: auto; 
 }
 
-#statsTitle {
+#jsStatsTitle {
 	text-align: center;
 	font-size: 30px;
 	font-family: fantasy;
