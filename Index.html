@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Treenscension</title>
-	<link rel="stylesheet" href="Stylesheets/BaseStyle.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
 	<header id="header">
 		
 		<div class="main" id="technicalElements">
@@ -271,6 +271,36 @@
 		function findGroup(element, tabObject) {
 			return tabObject.groups.find(group => element.classList.contains(group.className));	
 		}
+
+
+		//Log logic 
+		/*
+			event constructor - to be made
+
+			const logTable = {
+				repetition,
+				eventObject: {},
+				logCurrent: 0,
+				logMax: 200
+			}
+
+			function eventObject(eventType, eventParametersArray, eventString) {
+				eventType = eventType;
+				eventParameters = eventParametersArray;
+				eventString = eventString; //save it with the paramters to use and use eval to make it a template string
+			}
+
+			function onEvent(repetition, eventObject) {
+
+				if (eventType === logTable.eventType) {
+						logTable.repetition += repetition;
+
+				}
+
+				if 
+			}
+
+		*/
 
 	</script>
 </body>
