@@ -8,10 +8,7 @@
 
 /*Warning: !important tend to be avoided, but this class will always override any other stylying, no matter the specifity. Don't use other classes to hide elements and don't use another display paramater with !important*/
 .hidden {
-	opacity: 0 !important;
-	max-height: 0 !important;
-	overflow: hidden;
-	transition: opacity 0.3s, max-height 1s;
+	display: none;
 }
 
 
