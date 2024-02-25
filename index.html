@@ -5,20 +5,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Treenscension</title>
 	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/MainTabStyle.css">
 	<header id="header">
 		
 		<div class="main" id="technicalElements">
 			
 			<ul class="leftElements">
-				<li class="pointerCursor headerButton tabMark" id="jsOptions">Options</li> 
+				<li class="pointerCursor headerButton tabMark" id="jsOptions" data-target="#options">Options</li> 
 				
 				<span>|</span>   
 				
-				<li class="pointerCursor headerButton tabMark" id="jsSave">Save</li> 
+				<li class="pointerCursor headerButton tabMark" id="jsSave" data-target="#save">Save</li> 
 				
 				<span>|</span>  
 				
-				<li class="pointerCursor headerButton tabMark" id="jsChangelog">Changelog</li>
+				<li class="pointerCursor headerButton tabMark" id="jsChangelog" data-target="#changelog">Changelog</li>
 			</ul>
 
 
@@ -34,16 +35,16 @@
 	
 	<!--SIDE TAB SELECTOR-->
 	<div class="main" id="side">
-		<button class="sideButton tabMark jsMainSelected sideSelected">Statistics</button>
-		<button class="sideButton tabMark">Skills</button>
-		<button class="sideButton tabMark">Growth</button>
-		<button class="sideButton tabMark hidden">Actions</button>
-		<button class="sideButton tabMark hidden">Fight</button>
-		<button class="sideButton tabMark hidden">Astral Realm</button>
-		<button class="sideButton tabMark hidden">Treenscension</button>
-		<button class="sideButton tabMark hidden">Universe</button>
-		<button class="sideButton tabMark hidden">Genesis</button>
-		<button class="sideButton tabMark hidden">Void</button>
+		<button class="sideButton tabMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
+		<button class="sideButton tabMark" data-target="#skills">Skills</button>
+		<button class="sideButton tabMark" data-target="#growth">Growth</button>
+		<button class="sideButton tabMark hidden"data-target="#fight">Fight</button>
+		<button class="sideButton tabMark hidden"data-target="#actions">Actions</button>
+		<button class="sideButton tabMark hidden"data-target="#astralRealm">Astral Realm</button>
+		<button class="sideButton tabMark hidden"data-target="#treenscension">Treenscension</button>
+		<button class="sideButton tabMark hidden"data-target="#universe">Universe</button>
+		<button class="sideButton tabMark hidden"data-target="#genesis">Genesis</button>
+		<button class="sideButton tabMark hidden"data-target="#void">Void</button>
 	</div>
 
 	<!--STATS (need to organize it better)-->
@@ -139,6 +140,57 @@
 		</div>
 	</div>
 
+	<!--MAIN TABS-->
+	<div class="mainTab">
+
+		<div class="mainContainer hidden" id="options">
+
+		</div>
+
+		<div class="mainContainer hidden" id="save">
+
+		</div>
+
+		<div class="mainContainer hidden" id="changelog">
+
+		</div>
+
+
+
+		<div class="mainContainer statisticsContainer" id="statistics">
+			
+			<h1>Statistics</h1>
+			<div class="innerContainer">
+			
+				<div class="statistics" id="statisticsTab">
+					<button class="statisticsTabButton tabMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
+					<button class="statisticsTabButton tabMark" data-target="#skillsStatistics">Skills</button>
+					<button class="statisticsTabButton tabMark" data-target="#growthStatistics">Growth</button>
+				</div>
+
+
+				<div class="statisticsContent">
+					<ul id="generalStatistics" class>
+						<li>Playtime (total): </li>
+						<li>Playtime (effective): </li>
+					</ul>
+					<div id="skillsStatistics" class="hidden"></div>
+					<div id="growthStatistics" class="hidden"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="mainContainer hidden" id="skills">
+
+		</div>
+
+		<div class="mainContainer hidden" id="growth">
+
+		</div>
+
+	</div>
+
 	<script>
 		//UI
 
@@ -149,10 +201,12 @@
 		const tabElements = {
 			tabs: {
 				main: 'main',
+				statistics: 'statisticsTab',
 			},
 
 			delegatorElements: {	//for event delegation
 				side: 'side',
+				statistics: 'statisticsTab',
 			},
 
 			splitElements: {	//for elements that are tabs but can't use event delegation
@@ -164,9 +218,14 @@
 		const groupNamesMain = [tabElements.delegatorElements.side, tabElements.splitElements.header];
 		const mainTab = new tabSelectionObject(tabElements.tabs.main, groupNamesMain);
 
+		const groupNamesStatistics = [tabElements.delegatorElements.statistics]
+		const statisticsTab = new tabSelectionObject(tabElements.tabs.statistics, groupNamesStatistics);
+
+		
 		//event parameters object
 		const eventParameters = {	//this is tricky, always put event parameter as a string and use a bidimensional array with the second array being the array without 'event'
-			mainTabClick: [['event', mainTab], [mainTab]],	
+			mainTabClick: [['event', mainTab], [mainTab]],
+			statisticsTabClick: [['event', statisticsTab], [statisticsTab]],	
 		}
 
 		//markers
@@ -181,7 +240,10 @@
 		const headerButton = `${tabElements.splitElements.header}Button`;
 		splitElements('click', headerButton, selectTab, eventParameters.mainTabClick);
 		delegatorElement('click', tabElements.delegatorElements.side, selectTab, eventParameters.mainTabClick);
+		delegatorElement('click', tabElements.delegatorElements.statistics, selectTab, eventParameters.statisticsTabClick);
 
+		//statics tab click event
+	
 
 		//FUNCTIONS
 
@@ -206,11 +268,11 @@
 
 		//adds event listener for delegator element
 		function delegatorElement(event, delegatorID, callback, parametersArray) {
-			const delegator = document.getElementById(tabElements.delegatorElements.side);
-			
+			const delegator = document.getElementById(delegatorID);
+
+
 			delegator.addEventListener(event, function(event) {
 				const hasEvent = parametersArray[0].includes('event');
-
 				if (hasEvent) {
 					callback(event, ...parametersArray[1]); 
 				} else {
@@ -219,6 +281,12 @@
 
 			});
 		}
+
+		//hidden-active transition
+		const body = document.getElementById('body');
+		body.addEventListener('transitionend', function() {
+
+		});
 
 
 		//tab objects constructor
@@ -247,29 +315,38 @@
 			//ensure it's clickable
 			if (clickedElement.classList.contains(tabMark)) {
 				const previousTab = document.querySelector(`.${tabObject.jsSelected}`);
-
+				
 				//ensure it's not the same element
 				if (!clickedElement.classList.contains(tabObject.jsSelected)) {
 					clickedElement.classList.add(tabObject.jsSelected);
-
+					
 					//find group to add CSS
 					const clickedElementGroup = findGroup(clickedElement, tabObject);
 					clickedElement.classList.add(clickedElementGroup.cssSelected);
 
+					//activate target
+					const clickedElementTarget = document.querySelector(clickedElement.dataset.target);
+					clickedElementTarget.classList.remove('hidden');
+					
 				}
 
 				//remove previous tab selected css
 				if (previousTab) {
+					
 					const previousTabGroup = findGroup(previousTab, tabObject);
 					previousTab.classList.remove(tabObject.jsSelected);
 					previousTab.classList.remove(previousTabGroup.cssSelected);
+					
+
+					const previousTabTarget = document.querySelector(previousTab.dataset.target);
+					previousTabTarget.classList.add('hidden');
 				}
 			}
 		}
 
 		//Utility functions
 		function findGroup(element, tabObject) {
-			return tabObject.groups.find(group => element.classList.contains(group.className));	
+			return tabObject.groups.find(group => element.classList.contains(group.className));
 		}
 
 

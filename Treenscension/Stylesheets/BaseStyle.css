@@ -8,7 +8,10 @@
 
 /*Warning: !important tend to be avoided, but this class will always override any other stylying, no matter the specifity. Don't use other classes to hide elements and don't use another display paramater with !important*/
 .hidden {
-	display: none !important;
+	opacity: 0 !important;
+	max-height: 0 !important;
+	overflow: hidden;
+	transition: opacity 0.3s, max-height 1s;
 }
 
 
@@ -66,7 +69,6 @@ body {
 	background-size: cover;
 	background-position: center;
 	margin: 0;
-	overflow: hidden;
 }
 
 
@@ -94,7 +96,7 @@ body {
 #technicalElements {        
 	font-size: 25px;
 	font-family: fantasy;
-	color: rgb(218, 196, 220);
+	color: rgba(218, 196, 220, 1);
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px 10px 3px rgba(0, 0, 0, .4);
 	width: 100%;
@@ -350,4 +352,56 @@ body {
 }
 
 
+
+.mainTab {
+	position: fixed;
+	box-sizing: border-box;
+	right: 0;
+	top: 60px;
+	width: 73%;
+	height: calc(100vh - 200px);
+	padding: 10px;
+	padding-right: 40px;
+	overflow-x: auto;
+}
+
+.mainContainer {
+	position: absolute;
+	margin: 40px;
+	min-height: 200px;
+	transition: opacity 0.3s, max-height 1s;
+}
+
+.mainContainer h1 {
+	font-family: fantasy;
+	font-weight: 10;
+	font-size: 40px;
+	color: rgba(239, 216, 241, 1);
+	text-shadow: 0 2px 2px black;
+	cursor: default;
+}
+
+.mainContainer .innerContainer {
+	height: fit-content;
+	padding: 30px 50px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+}
+
+.mainContainer .tabMark {
+	font-family: fantasy;
+	font-size: 30px;
+	background: none;
+	border: none;
+	color: rgba(239, 216, 241, 1);
+	margin-right: 30px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+
+.mainContainer .tabMark:hover {
+	color: white;
+	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
+	transition-duration: 0.4s;
+}
 /*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/

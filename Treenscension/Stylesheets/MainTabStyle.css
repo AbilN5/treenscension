@@ -1,0 +1,26 @@
+/*Statistics tabs*/
+
+.statisticsContainer {
+  width: 900px;
+}
+
+.mainContainer .tabMark.statisticsTabSelected {
+  color: white;
+  font-size: 40px;
+	text-shadow: 0 0 30px rgba(255, 255, 255, .3);
+  transition-duration: 0.4s;
+}
+
+.statisticsContainer ul {
+  list-style: none;
+  margin-top: 30px;
+  columns: 2;
+}
+
+.statisticsContainer li {
+  font-size: 20px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  color: white;
+  
+}
