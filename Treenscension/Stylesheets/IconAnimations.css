@@ -1,0 +1,22 @@
+/*condense soul animation*/
+
+@keyframes condenseSoulAnimation {
+
+  0% {
+    transform: scale(1);
+    transition-timing-function: ease-out;
+  }
+
+  90% {
+    transform: scale(0.7);
+    transition-timing-function: ease-out;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#condenseSoul {
+  animation: condenseSoulAnimation 3s infinite;
+}

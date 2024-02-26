@@ -4,8 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Treenscension</title>
+	<link rel="icon" href="Treenscension/Media/Icons/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/MainTabStyle.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/IconAnimations.css">
 	<header id="header">
 		
 		<div class="main" id="technicalElements">
@@ -20,19 +22,72 @@
 				<span>|</span>  
 				
 				<li class="pointerCursor headerButton tabMark" id="jsChangelog" data-target="#changelog">Changelog</li>
-			</ul>
 
+				<div class="headerIcons gameSpeedButtons">
+					<svg title="Pause" class="pointerCursor pauseButton jsGameSpeedSelected gameSpeedSelected" data-event="setGameSpeed(gameSpeed.pause)">
+						<use href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
+					</svg>
+					
+					<svg class="pointerCursor playButton" data-event="setGameSpeed(gameSpeed.play)">
+						<use href="Treenscension/Media/Icons/play.svg#playIcon"/>
+					</svg>
+					
+					<svg class="pointerCursor playFasterButton" data-event="setGameSpeed(gameSpeed.playFaster)">
+						<use href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
+					</svg>
+					
+					<svg class="pointerCursor playEvenFasterButton" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
+						<use href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
+					</svg>
+					
+					<svg class="pointerCursor playFastestButton" data-event="setGameSpeed(gameSpeed.playFastest)">
+						<use href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
+					</svg>
+					
+					<svg class="pointerCursor slowButton" data-event="setGameSpeed(gameSpeed.slow)">
+						<use href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
+					</svg>
+				</div>
+
+			</ul>
+			
 
 			<ul class="rightElements">
+
 				<li class="pointerCursor" id="discord">Discord</li>
+
 			</ul>
-		
+			
 		</div>
 
 	</header>
 </head>
 <body>
-	
+	<!--RESET BUTTONS-->
+	<div class="resetButtons">
+
+		<div class="pointerCursor condenseSoulButton" data-event="reset(condenseSoul)">
+			<svg id="condenseSoul">
+				<use href="Treenscension/Media/Icons/condenseSoul.svg#condenseSoulIcon"/>
+			</svg>
+		</div>
+
+		<div class="pointerCursor condenseSoulButton locked" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
+			<svg>
+				<use href=""/>
+
+			</svg>
+		</div>
+
+		<div class="pointerCursor condenseSoulButton locked" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
+			<svg>
+				<use href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
+			</svg>
+		</div>
+
+	</div>
+
+
 	<!--SIDE TAB SELECTOR-->
 	<div class="main" id="side">
 		<button class="sideButton tabMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
