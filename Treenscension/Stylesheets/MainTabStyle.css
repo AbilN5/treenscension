@@ -1,7 +1,7 @@
 /*Statistics tabs*/
 
 .statisticsContainer {
-  width: 900px;
+  width: 950px;
 }
 
 .mainContainer .tabMark.statisticsTabSelected {
@@ -13,7 +13,6 @@
 
 .statisticsContainer ul {
   list-style: none;
-  margin-top: 30px;
   columns: 2;
 }
 
@@ -22,5 +21,205 @@
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   color: white;
+}
+
+/*Skills tabs*/
+
+.skillsContainer {
+  width: 1000px;
+}
+
+.mainContainer .tabMark.skillsTabSelected {
+  color: white;
+  font-size: 40px;
+	text-shadow: 0 0 30px rgba(255, 255, 255, .3);
+  transition-duration: 0.4s;
+}
+
+
+.mainContainer .skillsContent .skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mainContainer .skillsContent .skillsGrid h1 {
+  font-size: 20px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.mainContainer .skillsContent .barGrid {
+  margin: 10px 0;
+}
+
+.mainContainer .skillsContent .skillsGrid p {
+  font-size: 16px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+
+/*Skill bars*/
+
+.skillsTabSkillBarContainer {
+  border: 2px solid rgba(218, 196, 220, 1);
+  padding: 0;
+  border-radius: 5px;
+}
+
+.skillsTabSkillBarContainer:hover div.innerBar { /*ATTENTION: border: 2px solid transparent is a hover mark*/
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding-bottom: 1px;
+  border: 2px solid transparent;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.skillsTabSkillBarContainer:not(:hover) div.innerBar {
+  color: transparent;
+}
+
+.skillsTabSkillBarContainer.levelBar,
+.skillsTabSkillBarContainer.prestigeLevelBar
+{
+  height: 20px;
+}
+
+.skillsTabSkillBarContainer.levelBar div {
+  width: 50%;
+  background-color: rgb(75, 171, 255, 1);
+}
+
+.skillsTabSkillBarContainer.levelBar:hover div{
+  background-color: rgb(27, 61, 91);
+}
+
+.skillsTabSkillBarContainer.prestigeLevelBar div {
+  width: 20%;
+  background-color: rgba(205, 255, 79, 1);
+}
+
+.skillsTabSkillBarContainer.prestigeLevelBar:hover div.innerBar{ 
+  background-color: rgb(59, 74, 23);;
+}
+
+
+/*Magic button*/
+
+@keyframes glitchMagic {
+  0% {
+    color: rgba(147, 255, 244, 1);
+    text-shadow: -2px -2px 1px rgba(250, 255, 147, 1);
+  }
+
+  25% {
+    color:  rgba(209, 255, 250, 1);
+    text-shadow: 0 0 6px  rgba(147, 255, 244, 0.4);
+  }
+
+  50% {
+    color: rgba(147, 255, 244, 1);
+    text-shadow: 2px 2px 2px rgba(250, 255, 147, 1);
+  }
   
+  75% {
+    color: rgba(209, 255, 250, 1);
+    text-shadow: 0 0 6px rgba(147, 255, 244, 0.4);
+  }
+  
+  100% {
+    color: rgba(147, 255, 244, 1);
+    text-shadow: -2px -2px 1px rgba(250, 255, 147, 1);
+  }
+}
+
+.mainContainer #magicalSkillsTab {
+  color: rgba(209, 255, 250, 1);
+}
+
+.mainContainer #magicalSkillsTab:hover {
+  color: rgba(209, 255, 250, 1);
+  text-shadow: 0 0 6px rgba(250, 255, 147, 1);
+}
+
+.mainContainer #magicalSkillsTab:not(:hover) {
+  animation: glitchMagic 3s infinite;
+  animation-name: glitchMagic;
+}
+
+
+/*Genesis button*/
+
+@keyframes pulsateGenesis {
+  0% {
+    color: rgba(210, 253, 214, 1);
+    text-shadow: 0 0 1px rgba(250, 255, 147, 1);
+    transform: scale(1);
+  }
+
+  50% {
+    color: rgba(146, 255, 157, 1);
+    text-shadow: 0 0px 12px  rgba(204, 255, 200, 0.7);
+    transform: scale(1.05);
+  }
+
+  100% {
+    color: rgba(210, 253, 214, 1);
+    text-shadow: 0 0 2px rgba(250, 255, 147, 1);
+    transform: scale(1);
+  }
+  
+}
+
+.mainContainer #genesisSkillsTab:hover {
+  color: rgba(210, 253, 214, 1);
+  text-shadow: 0 0 6px rgb(255, 255, 255, 1);
+}
+
+.mainContainer #genesisSkillsTab:not(:hover) {
+  animation: pulsateGenesis 3s infinite;
+  animation-name: pulsateGenesis;
+}
+
+
+/*Void button*/
+
+@keyframes pulsateVoid {
+  0% {
+    color: rgba(22, 19, 26, 1);
+    text-shadow: 0 0 3px rgb(204, 0, 255);
+    transform: scale(1.1);
+  }
+
+  50% {
+    color: rgb(0, 0, 0);
+    text-shadow: 0 0 15px  rgb(30, 0, 37);
+    transform: scale(0.9);
+  }
+
+  100% {
+    color: rgba(22, 19, 26, 1);
+    text-shadow: 0 0 3px rgb(204, 0, 255);
+    transform: scale(1.1);
+  }
+  
+}
+
+.mainContainer #voidSkillsTab {
+  color: rgba(22, 19, 26, 1);
+}
+.mainContainer #voidSkillsTab:hover {
+  color: rgb(0, 0, 0);
+  text-shadow: 0 0 15px rgb(90, 22, 112);
+}
+
+.mainContainer #voidSkillsTab:not(:hover) {
+  animation: pulsateVoid 3s infinite;
+  animation-name: pulsateVoid;
 }

@@ -8,7 +8,7 @@
 
 /*Warning: !important tend to be avoided, but this class will always override any other stylying, no matter the specifity. Don't use other classes to hide elements and don't use another display paramater with !important*/
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 
@@ -87,6 +87,28 @@ body {
 	clear: both;
 }
 
+.barGrid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	align-items: center;
+}
+
+.barGrid :nth-child(1) {
+  grid-column: span 2;
+}
+
+.barGrid :nth-child(2) {
+  grid-column: span 3;
+}
+
+.bar {
+	padding: 0;
+}
+
+.bar div {
+	height: inherit;
+	border: none;
+}
 
 
 /*header*/
@@ -268,15 +290,15 @@ body {
 }
 
 #statsText #jsManaStats {
-	color: rgb(147, 255, 244);
+	color: rgba(147, 255, 244, 1);
 }
 
 #statsText #jsGenesisStats {
-	color: rgb(171, 255, 178);
+	color: rgba(171, 255, 178, 1);
 }
 
 #statsText #jsVoidStats {
-	color: rgb(219, 189, 255);
+	color: rgba(219, 189, 255, 1);
 }
 
 
@@ -381,6 +403,7 @@ body {
 .mainContainer .innerContainer {
 	height: fit-content;
 	padding: 30px 50px;
+	margin-right: 50px;
 	background-color: rgba(0, 0, 0, 0.6);
 	border-radius: 10px;
 }
@@ -400,5 +423,9 @@ body {
 	color: white;
 	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
 	transition-duration: 0.4s;
+}
+
+.mainContainer .buttonsContainerMain {
+	margin-bottom: 30px;
 }
 /*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/

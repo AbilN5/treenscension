@@ -162,7 +162,7 @@
 			<h1>Statistics</h1>
 			<div class="innerContainer">
 			
-				<div class="statistics" id="statisticsTab">
+				<div class="statistics buttonsContainerMain" id="statisticsTab">
 					<button class="statisticsTabButton tabMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
 					<button class="statisticsTabButton tabMark" data-target="#skillsStatistics">Skills</button>
 					<button class="statisticsTabButton tabMark" data-target="#growthStatistics">Growth</button>
@@ -181,8 +181,78 @@
 			</div>
 		</div>
 
-		<div class="mainContainer hidden" id="skills">
+		<div class="mainContainer skillsContainer hidden" id="skills">
 
+			<h1>Skills</h1>
+			<div class="innerContainer">
+
+				<div class="skills buttonsContainerMain" id="skillsTab">
+					<button class="skillsTabButton tabMark jsSkillsTabSelected skillsTabSelected" data-target="#physicalSkills">Physical</button>
+					<button class="skillsTabButton tabMark" data-target="#mentalSkills">Mental</button>
+					<button class="skillsTabButton tabMark" id="magicalSkillsTab" data-target="#magicalSkills">Magical</button>
+					<button class="skillsTabButton tabMark" id="genesisSkillsTab" data-target="#genesisSkills">Genesis</button>
+					<button class="skillsTabButton tabMark" id="voidSkillsTab" data-target="#voidSkills">Void</button>
+				</div>
+
+				<div class="skillsContent">
+
+					<div id="physicalSkills" class="skillsGrid">
+						<div class="skillIndividual" id="templateSkill">
+							<h1>Protein Synthesis</h1>
+							
+							<div class="barGrid">
+								<p class="level">
+									Level: <span class="variable">30</span>
+								</p>
+								<div class="bar skillsTabSkillBarContainer levelBar">
+									<div class="innerBar templateSkillFill1">2.5K/4K</div>
+								</div>
+							</div>
+
+							<div class="barGrid">
+								<p class="prestigeLevel">
+									Prestige: <span class="variable">2</span>
+								</p>
+								<div class="bar skillsTabSkillBarContainer prestigeLevelBar">
+									<div class="innerBar templateSkillFill2">1/5</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="skillIndividual" id="template2Skill">
+							<h1>Template Skill</h1>
+							
+						</div>
+
+						<div class="skillIndividual" id="template3Skill">
+							<h1>Template Skill</h1>
+						</div>
+					</div>
+					
+					<div id="mentalSkills" class="skillsGrid hidden">
+
+
+					</div>
+					
+					<div id="magicalSkills" class="skillsGrid hidden">
+
+
+					</div>
+					
+					<div id="genesisSkills"class="skillsGrid hidden">
+
+
+					</div>
+					
+					<div id="voidSkills" class="skillsGrid hidden">
+
+
+					</div>
+
+				</div>
+
+			</div>
 		</div>
 
 		<div class="mainContainer hidden" id="growth">
@@ -202,30 +272,35 @@
 			tabs: {
 				main: 'main',
 				statistics: 'statisticsTab',
+				skills: 'skillsTab'
 			},
 
 			delegatorElements: {	//for event delegation
 				side: 'side',
 				statistics: 'statisticsTab',
+				skills: 'skillsTab'
 			},
 
 			splitElements: {	//for elements that are tabs but can't use event delegation
-				header: 'header',
-			},
+				header: 'header'
+			}
 		}
 
 		//constructed tab objects
 		const groupNamesMain = [tabElements.delegatorElements.side, tabElements.splitElements.header];
 		const mainTab = new tabSelectionObject(tabElements.tabs.main, groupNamesMain);
 
-		const groupNamesStatistics = [tabElements.delegatorElements.statistics]
+		const groupNamesStatistics = [tabElements.delegatorElements.statistics];
 		const statisticsTab = new tabSelectionObject(tabElements.tabs.statistics, groupNamesStatistics);
 
-		
+		const groupNamesSkills = [tabElements.delegatorElements.skills];
+		const skillsTab = new tabSelectionObject(tabElements.tabs.skills, groupNamesSkills);
+
 		//event parameters object
 		const eventParameters = {	//this is tricky, always put event parameter as a string and use a bidimensional array with the second array being the array without 'event'
 			mainTabClick: [['event', mainTab], [mainTab]],
-			statisticsTabClick: [['event', statisticsTab], [statisticsTab]],	
+			statisticsTabClick: [['event', statisticsTab], [statisticsTab]],
+			skillsTabClick: [['event', skillsTab], [skillsTab]]	
 		}
 
 		//markers
@@ -236,14 +311,17 @@
 
 		//events
 		//main tab click event 
-		//main -> header tab, click
 		const headerButton = `${tabElements.splitElements.header}Button`;
 		splitElements('click', headerButton, selectTab, eventParameters.mainTabClick);
 		delegatorElement('click', tabElements.delegatorElements.side, selectTab, eventParameters.mainTabClick);
-		delegatorElement('click', tabElements.delegatorElements.statistics, selectTab, eventParameters.statisticsTabClick);
 
 		//statics tab click event
-	
+		delegatorElement('click', tabElements.delegatorElements.statistics, selectTab, eventParameters.statisticsTabClick);
+
+		//skills tab click event
+		delegatorElement('click', tabElements.delegatorElements.skills, selectTab, eventParameters.skillsTabClick);
+
+
 
 		//FUNCTIONS
 
