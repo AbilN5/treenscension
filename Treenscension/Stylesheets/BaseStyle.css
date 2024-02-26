@@ -103,6 +103,7 @@ body {
 
 .bar {
 	padding: 0;
+	cursor: default;
 }
 
 .bar div {
