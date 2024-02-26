@@ -196,12 +196,14 @@
     color: rgba(22, 19, 26, 1);
     text-shadow: 0 0 3px rgb(204, 0, 255);
     transform: scale(1.1);
+    transition-timing-function: ease-out;
   }
 
-  50% {
+  70% {
     color: rgb(0, 0, 0);
     text-shadow: 0 0 15px  rgb(30, 0, 37);
     transform: scale(0.9);
+    transition-timing-function: ease-out;
   }
 
   100% {
@@ -221,6 +223,6 @@
 }
 
 .mainContainer #voidSkillsTab:not(:hover) {
-  animation: pulsateVoid 3s infinite;
+  animation: pulsateVoid 4s infinite;
   animation-name: pulsateVoid;
 }
