@@ -1,0 +1,22 @@
+HTML:
+
+1. Create container for event delegation and give it a very simple ID (groupName), like main, optionsTab, skillsTab, etc., and a parent class (parentName).
+2. Create HTML elements with these  classes: '(groupName)Button', buttonMark, (groupName)Selected, and js(parentName)Selected
+ps.: (groupName)Selected, and js(parentName)Selected serve as templates, you can remove them if wanted.
+3. If it is a tab button, insert data-target on all them, and create a target with corresponding ID.
+4. If it triggers an event, insert data-event-key and data-parameters-key.
+
+CSS: 
+
+(groupName)Selected is intended for css, so don't use it for js. You can use the other classes to style as you want.
+Feel free to do as you please.
+
+JS:
+
+1. Go to buttonObjects, and add a section with a proper identifier, then set its name to (parentName). All other properties are mandatory. If it has a target, set hideTarget to true, if it doesn't or for some reason it doesn't hide its target set it to false. If it is toggleable on click (e.g., you can click to activate, then click again to deactivate without the need to activate another button), set select to false, else set it to true.
+2. Still on buttonObjects, add a delegatorElements or splitElements depending of delegation. If the event listener is delegated from the buttons' parent, add a delegatorElements with 'groupName'. If all elements with a certain class trigger the event, add a splitElements with 'groupName'.
+3. Assuming it's a button selection between some buttons, create a groupNames(groupName) variable and assign it an array with all groupNames (which were stored in buttonObjects). After that, create a new buttonObject, and pass as parameters the parentName, and the just created array.
+4. Add eventListenersParameters. The syntax of it is: an array with two arrays inside it. The first array is all the parameters, including 'event', that determines if the function triggered will include event object as a parameter (the built-in trigger object). The second array is the same of first array excluding 'event'. If it doesn't has event as a parameter, simply insert two equal arrays with all parameters. For button selection, declare a property and insert [['event', buttonObject], [buttonObject]].
+5. If adding event listener to delegator element, call delegatorElement() function, passing as parameters: (event to listen), (buttonObjects.delegatorElements.propertyDeclared), (function to trigger), (eventListenersParameters.propertyDeclared). If adding event listener to split elements, store a string with the syntax `${buttonObjects.splitElements.propertyDeclared}Button`. Then call splitElements(), and pass the same parameters as previous, except for second, which you pass the string just declared.
+
+Ps.: for button selection, pass selectButton as third parameter.

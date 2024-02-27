@@ -118,6 +118,11 @@
 					hideTarget: true,
 					select: false,
 				},
+				options: {
+					name: 'optionsTab',
+					hideTarget: true,
+					select: false,
+				}
 			},
 
 			delegatorElements: {	//for event delegation
@@ -125,6 +130,7 @@
         side: 'side',
 				statistics: 'statisticsTab',
 				skills: 'skillsTab',
+				options: 'optionsTab',
 			},
 
 			splitElements: {	//for elements that are section but can't use event delegation
@@ -145,7 +151,8 @@
 		const groupNamesSkills = [buttonObjects.delegatorElements.skills];
 		const skillsTab = new buttonSelectionObject(buttonObjects.section.skills, groupNamesSkills);
 
-
+		const groupNamesOptions = [buttonObjects.delegatorElements.options];
+		const optionsTab = new buttonSelectionObject(buttonObjects.section.options, groupNamesOptions);
 
     //event parameters object
     const eventParameters = {
@@ -176,6 +183,7 @@
       mainTabClick: [['event', mainTab], [mainTab]],
 			statisticsTabClick: [['event', statisticsTab], [statisticsTab]],
 			skillsTabClick: [['event', skillsTab], [skillsTab]],	
+			optionsTabClick: [['event', optionsTab], [optionsTab]],
 		}
 
 
@@ -211,8 +219,9 @@
 
 		//skills tab click event
 		delegatorElement('click', buttonObjects.delegatorElements.skills, selectButton, eventListenersParameters.skillsTabClick);
-
-    
+		
+		//Options tab click event
+		delegatorElement('click', buttonObjects.delegatorElements.options, selectButton, eventListenersParameters.optionsTabClick);
 
 		//UI LOOP
 		const loopUI = function() {
