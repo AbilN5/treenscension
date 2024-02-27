@@ -104,7 +104,6 @@ body {
 
 .bar {
 	padding: 0;
-	cursor: default;
 }
 
 .bar div {
@@ -487,7 +486,7 @@ body {
 	font-size: 40px;
 	color: rgba(239, 216, 241, 1);
 	text-shadow: 0 2px 2px black;
-	cursor: default;
+	
 }
 
 .mainContainer .innerContainer {
