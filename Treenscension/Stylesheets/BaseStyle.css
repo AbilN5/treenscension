@@ -514,4 +514,11 @@ body {
 .mainContainer .buttonsContainerMain {
 	margin-bottom: 30px;
 }
+
+.mainContainer .buttonsContainerMain {
+	margin-bottom: 30px;
+	height: 50px;
+	display: flex;
+	gap: 10px;
+}
 /*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/
