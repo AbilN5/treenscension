@@ -75,7 +75,7 @@
         main: {
 					name: 'main',
 					hideTarget: true,
-					select: true,
+					select: false,
           mandatorySelection: false,
 				},
 				statistics: {
@@ -88,6 +88,7 @@
 					name: 'skillsTab',
 					hideTarget: true,
 					select: false,
+					mandatorySelection: false,
 				},
 			},
 
@@ -226,9 +227,7 @@
 			this.hideTarget = parentClassObject.hideTarget;
 			this.stickySelection = parentClassObject.select;
 
-			if (this.stickySelection) {
-				this.jsSelected = `js${parentClassObject.name.charAt(0).toUpperCase() + parentClassObject.name.slice(1)}Selected`
-			}
+			this.jsSelected = `js${parentClassObject.name.charAt(0).toUpperCase() + parentClassObject.name.slice(1)}Selected`;
 		}
 		
 		
@@ -257,16 +256,16 @@
 			const clickedElement = event.target;
 
 			//ensure it's clickable and has sticky selection
-			if (clickedElement.classList.contains(buttonMark) && buttonObject.stickySelection) {
+			if (clickedElement.classList.contains(buttonMark)) {
 				const previousTab = document.querySelector(`.${buttonObject.jsSelected}`);
-				if (previousTab !== clickedElement && !buttonObject.mandatorySelection) {
+				if (previousTab !== clickedElement || !buttonObject.stickySelection) {
           //toggle selectedJS
           clickedElement.classList.toggle(buttonObject.jsSelected);
             
           //find group to add CSS
           const clickedElementGroup = findGroup(clickedElement, buttonObject);
           clickedElement.classList.toggle(clickedElementGroup.cssSelected);
-          
+
           //activate target
           if (buttonObject.hideTarget) {
             const clickedElementTarget = document.querySelector(clickedElement.dataset.target);

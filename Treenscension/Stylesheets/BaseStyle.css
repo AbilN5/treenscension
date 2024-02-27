@@ -183,7 +183,7 @@ body {
 	transition-duration: 0.2s;
 }
 
-#technicalElements .headerIcons svg:hover {
+#technicalElements .headerIcons svg:hover:not(.gameSpeedSelected) {
 	background-color: rgba(187, 168, 188, 1);
 	border: 2px solid rgb(155, 140, 156, 1);
 	transition-duration: 0.2s;
@@ -194,6 +194,7 @@ body {
 	box-shadow: inset 0 2px 2px rgba(0, 0, 0, .7);
 	background-color: rgba(187, 168, 188, 1);
 	transition-duration: 0;
+	cursor: default;
 }
 
 
@@ -214,7 +215,7 @@ body {
 	position: fixed;
 	display: flex;
 	margin: 15px 30px;
-	bottom: calc(100vh - 130px);
+	bottom: calc(100vh - 140px);
 	right: 0;
 	column-gap: 10px;
 	z-index: 3;

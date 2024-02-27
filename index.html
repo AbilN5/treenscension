@@ -198,16 +198,69 @@
 	<!--MAIN TABS-->
 	<div class="mainTab">
 
-		<div class="mainContainer hidden" id="options">
+		<div class="mainContainer optionsContainer hidden" id="options">
 
+			<h1>Options</h1>
+			<div class="innerContainer">
+				
+				<div class="options buttonsContainerMain" id="optionsTab">
+					<button class="optionsTabButton buttonMark jsOptionsTabSelected optionsTabSelected" data-target="#gameplayOptions">Gameplay</button>
+					<button class="optionsTabButton buttonMark" data-target="#videoOptions">Video</button>
+					<button class="optionsTabButton buttonMark" data-target="#audioOptions">Audio</button>
+				</div>
+
+			</div>
 		</div>
 
-		<div class="mainContainer hidden" id="save">
+		<div class="mainContainer saveContainer hidden" id="save">
 
+			<h1>Save</h1>
+			<div class="innerContainer">
+
+
+			</div>
 		</div>
 
-		<div class="mainContainer hidden" id="changelog">
+		<div class="mainContainer changelogContainer hidden" id="changelog">
+			
+			<h1>Changelog</h1>
+			<div class="innerContainer">
 
+				<div class="versionSection majorChange">
+					<h2>
+						<div class="version">Version 2.0.0</div>
+						<div class="date">Release Date</div>						
+					</h2>
+					<ul>
+						<li>New feature: XYZ</li>
+						<li>Bug fix: ABC</li>
+						<li>Enhancement: DEF</li>
+					</ul>
+				</div>
+				
+				<div class="versionSection regularChange">
+					<h2>
+						<div class="version">Version 1.1.0</div>
+						<div class="date">Release Date</div>						
+					</h2>
+					<ul>
+						<li>Bug fix: PQR</li>
+						<li>New feature: LMN</li>
+					</ul>
+				</div>
+				
+				<div class="versionSection minorChange">
+					<h2>
+						<div class="version">Version 1.0.1</div>
+						<div class="date">Release Date</div>
+					</h2>
+					<ul>
+						<li>Minor improvement: UVW</li>
+						<li>Update: XYZ</li>
+					</ul>
+				</div>
+			
+			</div>
 		</div>
 
 
@@ -318,6 +371,6 @@
 
 	<script src="Treenscension/Scripts/Main.js" type="text/javascript"></script>
 
-	<!--Deploy trigger - first attempt-->
+	<!--Deploy trigger-->
 </body>
 </html>
