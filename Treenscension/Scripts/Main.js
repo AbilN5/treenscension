@@ -3,35 +3,26 @@
 
 		//VARIABLES DECLARATION
 
-		function gameSpeedObject(ticksPerSecond) {
+		//gameSpeed object
+		function gameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
 			this.paused = false;
 			
 			this.tick = {
+				perSecondUI: ticksPerSecondUI,
+				get msUI() {
+					return 1000/ticksPerSecondUI;
+				},
 				perSecond: ticksPerSecond,
-				get ms()  {
+				get ms() {
 					return 1000/ticksPerSecond;
-				}
+				},
 			};
 
 			this.actions = {
 				base: 1/ticksPerSecond,
-				timeMultiplier: 1,
-				get perSecond() { 
-					return (1/ticksPerSecond)*this.timeMultiplier;
-				},
-				
-				applyGameSpeed: function() {
-					this.perSecond = this.base*this.timeMultiplier;
-				},
-
-				newMultiplier: function(newMultiplier) {
-					this.timeMultiplier = newMultiplier;
-					this.applyGameSpeed();
-				},
-
-				setGameSpeedDirect: function(newSpeed) {
-					this.perSecond = newSpeed;
-				}
+				timeMultiplier: 0,
+				perTick: 0,
+				perSecond: 0,
 			};
 
 			this.pause = 0;
@@ -44,11 +35,44 @@
 
 			this.updateTick = function(newTick) {
 				this.tick.perSecond = newTick;
-				this.tick.ms = 1000/perSecond;
+				this.tick.ms = 1000/this.tick.perSecond;
 
 				this.actions.base = 1/this.tick.perSecond;
-				this.actions.perSecond = this.actions.base*this.actions.multiplier; 
+				this.actions.perTick = this.actions.base*this.actions.multiplier;
+				this.actions.perSecond = this.actions.perTick*this.tick.perSecond; 
 			};
+
+			this.applyGameSpeed = function() {
+				this.actions.perTick = this.actions.base*this.actions.timeMultiplier;
+				this.actions.perSecond = this.actions.perTick*this.tick.perSecond;
+			};
+
+			this.newMultiplier = function(newMultiplier) {
+				this.actions.timeMultiplier = newMultiplier;
+				this.applyGameSpeed();
+			};
+
+			this.setGameSpeedDirect = function(newSpeed) {
+				this.actions.perTick = newSpeed*this.actions.base;
+				this.actions.perSecond = newSpeed*this.actions.perTick*this.tick.perSecond;
+			};
+
+			this.updatePaused = function(logicalValue) {
+				this.paused = logicalValue;
+			}
+
+			this.updateTickUI = function(newTick) {
+				this.tick.perSecondUI = newTick;
+				this.tick.msUI = 1000/newTick;
+			}
+
+			this.getActionsSecond = function() {
+				return this.actions.perSecond;
+			}
+
+			this.getTicksSecondUI = function() {
+				return this.tick.perSecondUI;
+			}
 
 			this.keys = {
 				pause: 'pause',
@@ -59,9 +83,17 @@
 				playEvenFaster: 'playEvenFaster',
 				playFastest: 'playFastest',
 			};
+			this.map = new Map();
 		}
-		const gameSpeed = new gameSpeedObject(50);
+		const gameSpeed = new gameSpeedObject(50, 50);
 		
+		gameSpeed.map.set(gameSpeed.keys.pause, gameSpeed.pause);
+		gameSpeed.map.set(gameSpeed.keys.slow, gameSpeed.slow);
+		gameSpeed.map.set(gameSpeed.keys.play, gameSpeed.play);
+		gameSpeed.map.set(gameSpeed.keys.playFast, gameSpeed.playFast);
+		gameSpeed.map.set(gameSpeed.keys.playFaster, gameSpeed.playFaster);
+		gameSpeed.map.set(gameSpeed.keys.playEvenFaster, gameSpeed.playEvenFaster);
+		gameSpeed.map.set(gameSpeed.keys.playFastest, gameSpeed.playFastest);
 
 		//Only change this for name changes
 		const buttonObjects = {
@@ -70,25 +102,21 @@
 					name: 'gameSpeed',
 					hideTarget: false,
 					select: true,
-          mandatorySelection: true,
 				},
         main: {
 					name: 'main',
 					hideTarget: true,
 					select: false,
-          mandatorySelection: false,
 				},
 				statistics: {
 					name: 'statisticsTab',
 					hideTarget: true,
 					select: false,
-          mandatorySelection: false,
 				},
 				skills: {
 					name: 'skillsTab',
 					hideTarget: true,
 					select: false,
-					mandatorySelection: false,
 				},
 			},
 
@@ -122,13 +150,13 @@
     //event parameters object
     const eventParameters = {
       gameSpeed: {
-        pause: [gameSpeed.pause],
-        play: [gameSpeed.play],
-        playFast: [gameSpeed.playFast],
-        playFaster: [gameSpeed.playFaster],
-        playEvenFaster: [gameSpeed.playEvenFaster],
-        playFastest: [gameSpeed.playFastest],
-        slow: [gameSpeed.slow],
+        pause: [gameSpeed.keys.pause],
+        play: [gameSpeed.keys.play],
+        playFast: [gameSpeed.keys.playFast],
+        playFaster: [gameSpeed.keys.playFaster],
+        playEvenFaster: [gameSpeed.keys.playEvenFaster],
+        playFastest: [gameSpeed.keys.playFastest],
+        slow: [gameSpeed.keys.slow],
       },
 
       map: new Map(),
@@ -154,6 +182,18 @@
 		//markers
 		const buttonMark = 'buttonMark';
 
+		//updateable html elements
+		const updateableHTMLElements = document.querySelectorAll('.jsVariable');
+
+		//updater variables map
+		const updaterKeys = {
+			actionsSecond: 'daysSecond',
+		}
+		const updatersMap = new Map();
+
+		updatersMap.set(updaterKeys.actionsSecond, gameSpeed.getActionsSecond.bind(gameSpeed));
+
+
 
 		//LOAD RUN
 
@@ -173,6 +213,21 @@
 		delegatorElement('click', buttonObjects.delegatorElements.skills, selectButton, eventListenersParameters.skillsTabClick);
 
     
+
+		//UI LOOP
+		const loopUI = function() {
+			//ensure game isn't paused
+			if (!gameSpeed.paused) {
+				updateVariablesUI();
+			}
+
+			//restart loop
+			setTimeout(() => {
+				requestAnimationFrame(loopUI);
+			}, gameSpeed.tick.msUI);
+		}
+		
+
 
 		//FUNCTIONS
 
@@ -229,25 +284,24 @@
 
 			this.jsSelected = `js${parentClassObject.name.charAt(0).toUpperCase() + parentClassObject.name.slice(1)}Selected`;
 		}
-		
-		
+
 
 		//event functions
 		//change game speed
 		function setGameSpeed(key) {
 			const newSpeed = gameSpeed.map.get(key);
 
-			if (newSpeed) {
-					gameSpeed.paused = false;
+			if (key) {
+				gameSpeed.updatePaused(false);
 			} else {
-				gameSpeed.paused = true;
+				gameSpeed.updatePaused(true);
 			}
 
 			if (key !== gameSpeed.keys.slow) {
-				gameSpeed.actions.newMultiplier(newSpeed);
+				gameSpeed.newMultiplier(newSpeed);
 				return true;
 			}
-			gameSpeed.actions.setGameSpeedDirect(gameSpeed.slow);
+			gameSpeed.setGameSpeedDirect(gameSpeed.slow);
 			return true;
 		}
 
@@ -296,13 +350,21 @@
 
         if (clickedElement.dataset.parametersKey) {
           const parameters = eventParameters.map.get(clickedElement.dataset.parametersKey);
-          functionCalled(...parameters);
+					functionCalled(...parameters);
           return true;
         }
 
         functionCalled();
         return true;
 			}
+		}
+
+		//Update UI
+		function updateVariablesUI() {
+			updateableHTMLElements.forEach(element => {
+				const variable = updatersMap.get(element.dataset.variableKey);
+				element.innerText = variable();
+			});
 		}
 
 		//Utility functions
@@ -316,6 +378,7 @@
 		}
 
 
+
     //EVENTS MAP
     const functionsKey = {
       key: {
@@ -326,9 +389,18 @@
       map: new Map(),
       }
 
-    functionsKey.map.set(setGameSpeed, functionsKey.setGameSpeed);
-    functionsKey.map.set(selectButton, functionsKey.selectButton);
+		const setGameSpeedFunction = setGameSpeed;
+		const selectButtonFunction = selectButton;
 
+    functionsKey.map.set(functionsKey.key.setGameSpeed, setGameSpeedFunction);
+    functionsKey.map.set(functionsKey.key.selectButton, selectButtonFunction);
+
+
+
+
+
+		//INITIALIZE ALL LOOPS
+		loopUI();
 		//Log logic 
 		/*
 			event constructor - to be made
