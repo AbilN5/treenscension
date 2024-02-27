@@ -4,7 +4,7 @@
   width: 950px;
 }
 
-.mainContainer .tabMark.statisticsTabSelected {
+.mainContainer .buttonMark.statisticsTabSelected {
   color: white;
   font-size: 40px;
 	text-shadow: 0 0 30px rgba(255, 255, 255, .3);
@@ -29,7 +29,7 @@
   width: 1000px;
 }
 
-.mainContainer .tabMark.skillsTabSelected {
+.mainContainer .buttonMark.skillsTabSelected {
   color: white;
   font-size: 40px;
 	text-shadow: 0 0 30px rgba(255, 255, 255, .3);

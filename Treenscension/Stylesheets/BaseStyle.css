@@ -111,9 +111,10 @@ body {
 	border: none;
 }
 
-#targetPlaceholder {
-	display: none;
+.invisible {
+	pointer-events: none;
 }
+
 
 
 /*header*/
@@ -213,7 +214,7 @@ body {
 	position: fixed;
 	display: flex;
 	margin: 15px 30px;
-	top: 50px;
+	bottom: calc(100vh - 130px);
 	right: 0;
 	column-gap: 10px;
 	z-index: 3;
@@ -237,6 +238,7 @@ body {
 
 .resetButtons div.locked {
 	filter: blur(2px) brightness(0.3) saturate(0);
+	cursor: default;
 }
 
 .resetButtons div.locked svg{
@@ -491,7 +493,7 @@ body {
 	border-radius: 10px;
 }
 
-.mainContainer .tabMark {
+.mainContainer .buttonMark {
 	font-family: fantasy;
 	font-size: 30px;
 	background: none;
@@ -502,7 +504,7 @@ body {
 	cursor: pointer;
 }
 
-.mainContainer .tabMark:hover {
+.mainContainer .buttonMark:hover {
 	color: white;
 	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
 	transition-duration: 0.4s;

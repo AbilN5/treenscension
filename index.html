@@ -13,39 +13,39 @@
 		<div class="main" id="technicalElements">
 			
 			<ul class="leftElements">
-				<li class="pointerCursor headerButton tabMark" id="jsOptions" data-target="#options">Options</li> 
+				<li class="pointerCursor headerButton buttonMark" id="jsOptions" data-target="#options">Options</li> 
 				
 				<span>|</span>   
 				
-				<li class="pointerCursor headerButton tabMark" id="jsSave" data-target="#save">Save</li> 
+				<li class="pointerCursor headerButton buttonMark" id="jsSave" data-target="#save">Save</li> 
 				
 				<span>|</span>  
 				
-				<li class="pointerCursor headerButton tabMark" id="jsChangelog" data-target="#changelog">Changelog</li>
+				<li class="pointerCursor headerButton buttonMark" id="jsChangelog" data-target="#changelog">Changelog</li>
 
-				<div class="headerIcons gameSpeedButtons">
-					<svg title="Pause" class="pointerCursor pauseButton jsGameSpeedSelected gameSpeedSelected" data-event="setGameSpeed(gameSpeed.pause)">
-						<use href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
+				<div class="headerIcons" id="gameSpeed">
+					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsGameSpeedSelected gameSpeedSelected" data-eventKey="setGameSpeed" data-parametersKey="pause">
+						<use class="invisible" href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor playButton" data-event="setGameSpeed(gameSpeed.play)">
-						<use href="Treenscension/Media/Icons/play.svg#playIcon"/>
+					<svg class="pointerCursor gameSpeedButton buttonMark" data-eventKey="setGameSpeed" data-parametersKey="play">
+						<use class="invisible" href="Treenscension/Media/Icons/play.svg#playIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor playFasterButton" data-event="setGameSpeed(gameSpeed.playFaster)">
-						<use href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
+					<svg class="pointerCursor gameSpeedButton buttonMark" data-eventKey="setGameSpeed" data-parametersKey="playFaster">
+						<use class="invisible" href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor playEvenFasterButton" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
-						<use href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
+					<svg class="pointerCursor gameSpeedButton buttonMark" data-eventKey="setGameSpeed" data-parametersKey="playEvenFaster">
+						<use class="invisible" href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor playFastestButton" data-event="setGameSpeed(gameSpeed.playFastest)">
-						<use href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
+					<svg class="pointerCursor gameSpeedButton buttonMark" data-eventKey="setGameSpeed" data-parametersKey="playFastest">
+						<use class="invisible" href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor slowButton" data-event="setGameSpeed(gameSpeed.slow)">
-						<use href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
+					<svg class="pointerCursor gameSpeedButton buttonMark" data-eventKey="setGameSpeed" data-parametersKey="slow">
+						<use class="invisible" href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
 					</svg>
 				</div>
 
@@ -66,20 +66,20 @@
 	<!--RESET BUTTONS-->
 	<div class="resetButtons">
 
-		<div class="pointerCursor condenseSoulButton" data-event="reset(condenseSoul)">
+		<div class="pointerCursor condenseSoulButton" data-eventKey="reset">
 			<svg id="condenseSoul">
 				<use href="Treenscension/Media/Icons/condenseSoul.svg#condenseSoulIcon"/>
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton locked" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
+		<div class="pointerCursor condenseSoulButton locked" data-eventKey="reset">
 			<svg>
 				<use href=""/>
 
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton locked" data-event="setGameSpeed(gameSpeed.playEvenFaster)">
+		<div class="pointerCursor condenseSoulButton locked" data-eventKey="reset">
 			<svg>
 				<use href=""/>
 			</svg>
@@ -90,16 +90,16 @@
 
 	<!--SIDE TAB SELECTOR-->
 	<div class="main" id="side">
-		<button class="sideButton tabMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
-		<button class="sideButton tabMark" data-target="#skills">Skills</button>
-		<button class="sideButton tabMark" data-target="#growth">Growth</button>
-		<button class="sideButton tabMark hidden"data-target="#fight">Fight</button>
-		<button class="sideButton tabMark hidden"data-target="#actions">Actions</button>
-		<button class="sideButton tabMark hidden"data-target="#astralRealm">Astral Realm</button>
-		<button class="sideButton tabMark hidden"data-target="#treenscension">Treenscension</button>
-		<button class="sideButton tabMark hidden"data-target="#universe">Universe</button>
-		<button class="sideButton tabMark hidden"data-target="#genesis">Genesis</button>
-		<button class="sideButton tabMark hidden"data-target="#void">Void</button>
+		<button class="sideButton buttonMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
+		<button class="sideButton buttonMark" data-target="#skills">Skills</button>
+		<button class="sideButton buttonMark" data-target="#growth">Growth</button>
+		<button class="sideButton buttonMark hidden"data-target="#fight">Fight</button>
+		<button class="sideButton buttonMark hidden"data-target="#actions">Actions</button>
+		<button class="sideButton buttonMark hidden"data-target="#astralRealm">Astral Realm</button>
+		<button class="sideButton buttonMark hidden"data-target="#treenscension">Treenscension</button>
+		<button class="sideButton buttonMark hidden"data-target="#universe">Universe</button>
+		<button class="sideButton buttonMark hidden"data-target="#genesis">Genesis</button>
+		<button class="sideButton buttonMark hidden"data-target="#void">Void</button>
 	</div>
 
 	<!--STATS (need to organize it better)-->
@@ -218,9 +218,9 @@
 			<div class="innerContainer">
 			
 				<div class="statistics buttonsContainerMain" id="statisticsTab">
-					<button class="statisticsTabButton tabMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
-					<button class="statisticsTabButton tabMark" data-target="#skillsStatistics">Skills</button>
-					<button class="statisticsTabButton tabMark" data-target="#growthStatistics">Growth</button>
+					<button class="statisticsTabButton buttonMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
+					<button class="statisticsTabButton buttonMark" data-target="#skillsStatistics">Skills</button>
+					<button class="statisticsTabButton buttonMark" data-target="#growthStatistics">Growth</button>
 				</div>
 
 
@@ -242,11 +242,11 @@
 			<div class="innerContainer">
 
 				<div class="skills buttonsContainerMain" id="skillsTab">
-					<button class="skillsTabButton tabMark jsSkillsTabSelected skillsTabSelected" data-target="#physicalSkills">Physical</button>
-					<button class="skillsTabButton tabMark" data-target="#mentalSkills">Mental</button>
-					<button class="skillsTabButton tabMark" id="magicalSkillsTab" data-target="#magicalSkills">Magical</button>
-					<button class="skillsTabButton tabMark" id="genesisSkillsTab" data-target="#genesisSkills">Genesis</button>
-					<button class="skillsTabButton tabMark" id="voidSkillsTab" data-target="#voidSkills">Void</button>
+					<button class="skillsTabButton buttonMark jsSkillsTabSelected skillsTabSelected" data-target="#physicalSkills">Physical</button>
+					<button class="skillsTabButton buttonMark" data-target="#mentalSkills">Mental</button>
+					<button class="skillsTabButton buttonMark" id="magicalSkillsTab" data-target="#magicalSkills">Magical</button>
+					<button class="skillsTabButton buttonMark" id="genesisSkillsTab" data-target="#genesisSkills">Genesis</button>
+					<button class="skillsTabButton buttonMark" id="voidSkillsTab" data-target="#voidSkills">Void</button>
 				</div>
 
 				<div class="skillsContent">
@@ -316,194 +316,6 @@
 
 	</div>
 
-	<script>
-		//UI
-
-
-		//VARIABLES DECLARATION
-
-		//Only change this for name changes
-		const tabElements = {
-			tabs: {
-				main: 'main',
-				statistics: 'statisticsTab',
-				skills: 'skillsTab'
-			},
-
-			delegatorElements: {	//for event delegation
-				side: 'side',
-				statistics: 'statisticsTab',
-				skills: 'skillsTab'
-			},
-
-			splitElements: {	//for elements that are tabs but can't use event delegation
-				header: 'header'
-			}
-		}
-
-		//constructed tab objects
-		const groupNamesMain = [tabElements.delegatorElements.side, tabElements.splitElements.header];
-		const mainTab = new tabSelectionObject(tabElements.tabs.main, groupNamesMain);
-
-		const groupNamesStatistics = [tabElements.delegatorElements.statistics];
-		const statisticsTab = new tabSelectionObject(tabElements.tabs.statistics, groupNamesStatistics);
-
-		const groupNamesSkills = [tabElements.delegatorElements.skills];
-		const skillsTab = new tabSelectionObject(tabElements.tabs.skills, groupNamesSkills);
-
-		//event parameters object
-		const eventParameters = {	//this is tricky, always put event parameter as a string and use a bidimensional array with the second array being the array without 'event'
-			mainTabClick: [['event', mainTab], [mainTab]],
-			statisticsTabClick: [['event', statisticsTab], [statisticsTab]],
-			skillsTabClick: [['event', skillsTab], [skillsTab]]	
-		}
-
-		//markers
-		const tabMark = 'tabMark';
-
-
-		//LOAD RUN
-
-		//events
-		//main tab click event 
-		const headerButton = `${tabElements.splitElements.header}Button`;
-		splitElements('click', headerButton, selectTab, eventParameters.mainTabClick);
-		delegatorElement('click', tabElements.delegatorElements.side, selectTab, eventParameters.mainTabClick);
-
-		//statics tab click event
-		delegatorElement('click', tabElements.delegatorElements.statistics, selectTab, eventParameters.statisticsTabClick);
-
-		//skills tab click event
-		delegatorElement('click', tabElements.delegatorElements.skills, selectTab, eventParameters.skillsTabClick);
-
-
-
-		//FUNCTIONS
-
-		//event listener functions
-		//adds event listener for each element with a certain class
-		function splitElements(event, splitClass, callback, parametersArray) {
-			const nodeList = document.querySelectorAll(`.${splitClass}`);
-			
-			nodeList.forEach(node => {
-				node.addEventListener(event, function(event) {
-					const hasEvent = parametersArray[0].includes('event');
-
-					if (hasEvent) {
-						callback(event, ...parametersArray[1]); 
-					} else {
-						callback(...parametersArray[1]);
-					}
-					
-				});
-			});
-		}
-
-		//adds event listener for delegator element
-		function delegatorElement(event, delegatorID, callback, parametersArray) {
-			const delegator = document.getElementById(delegatorID);
-
-
-			delegator.addEventListener(event, function(event) {
-				const hasEvent = parametersArray[0].includes('event');
-				if (hasEvent) {
-					callback(event, ...parametersArray[1]); 
-				} else {
-					callback(...parametersArray[1]);
-				}
-
-			});
-		}
-
-		//tab objects constructor
-		function groupObject(className) {
-			this.className = `${className}Button`;
-			this.cssSelected = `${className}Selected`;
-		}
-
-		function tabSelectionObject(parentClassName, groupNamesArray) { 
-			this.class = parentClassName;
-			this.groups = [];
-			groupNamesArray.forEach(className => {
-				const group = new groupObject(className);
-				this.groups.push(group);
-			});
-				
-			this.jsSelected = `js${parentClassName.charAt(0).toUpperCase() + parentClassName.slice(1)}Selected`
-		}
-		
-		
-
-		//event functions
-		function selectTab(event, tabObject) {
-			const clickedElement = event.target;
-
-			//ensure it's clickable
-			if (clickedElement.classList.contains(tabMark)) {
-				const previousTab = document.querySelector(`.${tabObject.jsSelected}`);
-				
-				//ensure it's not the same element
-				if (!clickedElement.classList.contains(tabObject.jsSelected)) {
-					clickedElement.classList.add(tabObject.jsSelected);
-					
-					//find group to add CSS
-					const clickedElementGroup = findGroup(clickedElement, tabObject);
-					clickedElement.classList.add(clickedElementGroup.cssSelected);
-
-					//activate target
-					const clickedElementTarget = document.querySelector(clickedElement.dataset.target);
-					clickedElementTarget.classList.remove('hidden');
-					
-				}
-
-				//remove previous tab selected css
-				if (previousTab) {
-					
-					const previousTabGroup = findGroup(previousTab, tabObject);
-					previousTab.classList.remove(tabObject.jsSelected);
-					previousTab.classList.remove(previousTabGroup.cssSelected);
-					
-
-					const previousTabTarget = document.querySelector(previousTab.dataset.target);
-					previousTabTarget.classList.add('hidden');
-				}
-			}
-		}
-
-		//Utility functions
-		function findGroup(element, tabObject) {
-			return tabObject.groups.find(group => element.classList.contains(group.className));
-		}
-
-
-		//Log logic 
-		/*
-			event constructor - to be made
-
-			const logTable = {
-				repetition,
-				eventObject: {},
-				logCurrent: 0,
-				logMax: 200
-			}
-
-			function eventObject(eventType, eventParametersArray, eventString) {
-				eventType = eventType;
-				eventParameters = eventParametersArray;
-				eventString = eventString; //save it with the paramters to use and use eval to make it a template string
-			}
-
-			function onEvent(repetition, eventObject) {
-
-				if (eventType === logTable.eventType) {
-						
-					logTable.repetition += repetition; 
-				}
- 
-			}
-
-		*/
-
-	</script>
+	<script src="Treenscension/Scripts/Main.js" type="text/javascript"></script>
 </body>
 </html>
