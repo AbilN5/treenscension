@@ -6,6 +6,7 @@
 //constant elements - for easy and frequent access
 const elementNames = {
 	popupShadow: 'jsPopupShadow',
+	popupContentSelected: 'jsPopupContentSelected',
 }
 
 const elementsObject = {
@@ -391,8 +392,12 @@ function openPopup(event) {
 	if (!clickedElement.classList.contains('locked') && clickedElement.classList.contains(buttonMark)) {
 		const popup = document.getElementById(clickedElement.dataset.target);
 		
+		//show popup
 		elementsObject.popupShadow.classList.remove('hidden');
 		popup.classList.remove('hidden');
+
+		//add identifier for current popup
+		popup.classList.add(elementNames.popupContentSelected);
 	}
 }
 
@@ -402,10 +407,15 @@ function closePopup(event) {
 
 	//ensure it's a button
 	if (clickedElement.classList.contains(buttonMark)) {
-		//close popup
-		const popup = clickedElement.parentNode.parentNode;
+		//find popup to add hidden class
+		const popup = document.querySelector(`.${elementNames.popupContentSelected}`);
+
+		//hide popup
 		elementsObject.popupShadow.classList.add('hidden');
 		popup.classList.add('hidden');
+
+		//remove identifier
+		popup.classList.remove(elementNames.popupContentSelected);
 
 		//call function if any
 		callElementFunction(clickedElement);
