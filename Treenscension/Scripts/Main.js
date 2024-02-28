@@ -153,7 +153,11 @@ const buttonObjects = {
 	splitElements: {	//for elements that are section but can't use event delegation
 		header: 'header',
 		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
-	}
+	},
+
+	uniqueElements: {
+		popup: 'jsPopupShadowID',
+	},
 }
 
 //constructed selection objects
@@ -206,7 +210,7 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 
 
 //markers
-const buttonMark = 'buttonMark';
+const buttonMark = 'jsButtonMark';
 
 //updateable html elements
 const updateableHTMLElements = document.querySelectorAll('.jsVariable');
@@ -245,6 +249,7 @@ delegatorElement('click', buttonObjects.delegatorElements.options, selectButton,
 delegatorElement('click', buttonObjects.delegatorElements.reset, openPopup, eventListenersParameters.resetClick);
 
 //close popup click event
+delegatorElement('click', buttonObjects.uniqueElements.popup, closePopup, eventListenersParameters.closePopup);
 splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListenersParameters.closePopup);
 
 
@@ -404,22 +409,25 @@ function openPopup(event) {
 //close popup
 function closePopup(event) {
 	const clickedElement = event.target;
-
+	
 	//ensure it's a button
 	if (clickedElement.classList.contains(buttonMark)) {
 		//close popup
 		//find popup to add hidden class
 		const popup = document.querySelector(`.${elementNames.popupContentSelected}`);
 
-		//hide popup
-		elementsObject.popupShadow.classList.add('hidden');
-		popup.classList.add('hidden');
+		//ensure it wasn't closed yet
+		if (popup) {
+			//hide popup
+			elementsObject.popupShadow.classList.add('hidden');
+			popup.classList.add('hidden');
 
-		//remove identifier
-		popup.classList.remove(elementNames.popupContentSelected);
+			//remove identifier
+			popup.classList.remove(elementNames.popupContentSelected);
 
-		//call function if any
-		callElementFunction(clickedElement);
+			//call function if any
+			callElementFunction(clickedElement); 
+		}
 	}
 }
 
