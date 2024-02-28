@@ -1,0 +1,21 @@
+/*Condense soul popup*/
+
+#condenseSoulPopup {
+  background: url(../Media/Backgrounds/universeBackgroundAnimated.gif);
+  background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+  border-image: fill 0 linear-gradient(rgba(15, 0, 24, 0.7),rgba(17, 0, 27, 0.9));
+  text-shadow: 0 0 2px rgba(253, 229, 255, 1);
+  color: rgba(253, 229, 255, 1);
+}
+
+#condenseSoulPopup button {
+  color: rgba(253, 229, 255, 1);
+  box-shadow: 0 0 5px rgba(253, 229, 255, 1);
+  background-color: rgba(17, 0, 27, 1);
+}
+
+#condenseSoulPopup button:hover {
+  filter: invert(1);
+}

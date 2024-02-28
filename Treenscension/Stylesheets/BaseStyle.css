@@ -88,6 +88,10 @@ body {
 	clear: both;
 }
 
+.alignCenter {
+	text-align: center;
+}
+
 .barGrid {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
@@ -192,7 +196,7 @@ body {
 }
 
 #technicalElements .headerIcons svg.pointerCursor.gameSpeedSelected { /*pointerCursor class used to increase specifity*/
-	transform:scaleY(0.98) translateY(2px);
+	transform: scaleY(0.98) translateY(2px);
 	box-shadow: inset 0 2px 2px rgba(0, 0, 0, .7);
 	background-color: rgba(187, 168, 188, 1);
 	transition-duration: 0;
@@ -467,6 +471,7 @@ body {
 
 
 
+/*main tabs section*/
 .mainTab {
 	position: fixed;
 	box-sizing: border-box;
@@ -500,6 +505,7 @@ body {
 	padding: 30px 50px;
 	margin-right: 50px;
 	margin-bottom: 30px;
+	min-width: 50vw;
 	background-color: rgba(0, 0, 0, 0.6);
 	border-radius: 10px;
 }
@@ -531,4 +537,112 @@ body {
 	display: flex;
 	gap: 10px;
 }
+
+
+
+/*popups*/
+.popupShadow {
+	box-sizing: border-box;
+	position: fixed;
+	display: flex;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(15, 5, 14, 0.614);
+	align-items: center;
+	justify-content: center;
+	overflow: auto;
+	z-index: 1000;
+}
+
+@keyframes popupBorder {
+	0% {
+		animation-timing-function: linear;
+		background-position: 0 200%;
+	}
+    100% {
+			animation-timing-function: linear;
+			background-position: 0 -200%;
+	}
+}
+
+.popupWindowBorderOuter {
+	box-sizing: border-box;
+	max-height: 80vh;
+	max-width: 60vw;
+	background-color: rgba(29, 47, 41, 1);
+	border-radius: 10px;
+	overflow: hidden;
+
+}
+
+.popupWindowBorderInner{
+	max-height: inherit;
+	max-width: inherit;
+	background: linear-gradient(rgba(255, 131, 253, 0) 45%, rgba(255, 131, 253, 1) 55%, rgba(255, 131, 253, 0));
+	border-radius: 10px;
+	padding: 0 2px;
+	background-size: 100% 200%;
+	animation: popupBorder 6s infinite;
+}
+
+.popupContent {
+	box-sizing: border-box;
+	max-height: inherit;
+	max-width: inherit;
+	padding: 30px 50px;
+	color: white;
+	font-size: 20px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: rgba(29, 47, 41, 1);
+	border-radius: 10px;
+	overflow-y: auto;
+}
+
+.popupContent h1 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.popupContent p {
+	margin-bottom: 10px;
+}
+
+.popupContent .popupFlexbox {
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.popupContent .popupFlexbox > * {
+	margin: 8px 8px;
+}
+
+.popupContent button {
+	padding: 3px 0;
+	font-size: 20px;	
+	flex-basis: calc(33% - 16px);
+	background-color: rgba(245, 221, 247, 1);
+	border: 2px solid rgba(218, 196, 220, 1);
+	border-radius: 3px;
+	transition-duration: 0.2s;
+}
+
+.popupContent button:hover {
+	background-color: rgba(187, 168, 188, 1);
+	border: 2px solid rgb(155, 140, 156, 1);
+	transition-duration: 0.2s;
+}
+
+.popupContent button:active {
+	box-shadow: inset 0 2px rgba(58, 52, 58, 0.6);
+	transform: translateY(2px);
+	background-color: rgba(187, 168, 188, 1);
+	border: 2px solid rgba(155, 140, 156, 1);
+	transition-duration: 0.2s;
+}
+
 /*Don't add more elements to this stylesheet, unless refactoring UI skeleton*/

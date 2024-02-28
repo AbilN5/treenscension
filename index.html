@@ -8,6 +8,9 @@
 	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/MainTabStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/IconAnimations.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/PopupsStyle.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/Animations.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/AnimatedBackgrounds.css">
 	<header id="header">
 		
 		<div class="main" id="technicalElements">
@@ -68,24 +71,24 @@
 <body>
 
 	<!--RESET BUTTONS-->
-	<div class="resetButtons">
+	<div class="resetButtons" id="resetButtons">
 
-		<div class="pointerCursor condenseSoulButton" data-event-key="reset">
-			<svg id="condenseSoul">
+		<div class="pointerCursor condenseSoulButton buttonMark" data-event-key="reset" data-target="condenseSoulPopup">
+			<svg class="invisible" id="condenseSoul">
 				<use href="Treenscension/Media/Icons/condenseSoul.svg#condenseSoulIcon"/>
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton locked" data-event-key="reset">
+		<div class="pointerCursor condenseSoulButton buttonMark locked" data-event-key="reset">
 			<svg>
-				<use href=""/>
+				<use class="invisible" href=""/>
 
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton locked" data-event-key="reset">
+		<div class="pointerCursor condenseSoulButton buttonMark locked" data-event-key="reset">
 			<svg>
-				<use href=""/>
+				<use class="invisible" href=""/>
 			</svg>
 		</div>
 
@@ -329,18 +332,18 @@
 							<h1>Protein Synthesis</h1>
 							
 							<div class="barGrid">
-								<p class="level">
-									Level: <span class="variable">30</span>
-								</p>
+								<div class="level">
+									Level: <div class="variable" data-variable-key="levelProteinSynthesis">30</div>
+								</div>
 								<div class="bar skillsTabSkillBarContainer levelBar">
 									<div class="innerBar templateSkillFill1">2K/4K</div>
 								</div>
 							</div>
 
 							<div class="barGrid">
-								<p class="prestigeLevel">
-									Prestige: <span class="variable">2</span>
-								</p>
+								<div class="prestigeLevel">
+									Prestige: <div class="variable" data-variable-key="prestigeLevelProteinSynthesis">5</div>
+								</div>
 								<div class="bar skillsTabSkillBarContainer prestigeLevelBar">
 									<div class="innerBar templateSkillFill2">1/5</div>
 								</div>
@@ -387,6 +390,53 @@
 
 		</div>
 
+	</div>
+
+	<div class="popupShadow jsPopupShadow hidden">
+		<div class="popupWindowBorderOuter">
+			<div class="popupWindowBorderInner">
+
+				<div class="popupContent jsCondenseSoulPopup hidden" id="condenseSoulPopup">
+
+					<h1>Condense Soul</h1>
+
+					<p>Are you sure you want to do this?</p>
+					<p>This will reset all your skill levels, stats, and trigger a reincarnation in exchange for prestige points.</p>
+					<p class="alignCenter">You will receive: </p>
+					
+					<div class="popupFlexbox prestigeLevelsEarned">
+						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
+						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
+						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
+						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
+						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
+					</div>
+
+					<div class="popupFlexbox jsPopupButtonBox">
+						<button class="pointerCursor buttonMark jsPopupButton" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
+						<button class="pointerCursor buttonMark jsPopupButton">No</button>
+					</div>
+
+				</div>
+
+				<div class="popupContent hidden" id="testPopup">
+					
+					<h1>Title</h1>
+
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus et quas accusantium vitae qui. Ipsum placeat veritatis vero numquam, similique, dolore id doloremque autem odit nisi voluptate rerum neque ex.</p>
+
+					<div class="popupFlexbox jsPopupButtonBox">
+						<button class="pointerCursor buttonMark">Yes</button>
+						<button class="pointerCursor buttonMark">No</button>
+						<button class="pointerCursor buttonMark">Yes</button>
+						<button class="pointerCursor buttonMark">No</button>
+						<button class="pointerCursor buttonMark">No</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
 	</div>
 
 	<script src="Treenscension/Scripts/Main.js" type="text/javascript"></script>
