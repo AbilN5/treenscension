@@ -407,6 +407,7 @@ function closePopup(event) {
 
 	//ensure it's a button
 	if (clickedElement.classList.contains(buttonMark)) {
+		//close popup
 		//find popup to add hidden class
 		const popup = document.querySelector(`.${elementNames.popupContentSelected}`);
 

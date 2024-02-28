@@ -16,44 +16,44 @@
 		<div class="main" id="technicalElements">
 			
 			<ul class="leftElements">
-				<li class="pointerCursor headerButton buttonMark" id="jsOptions" data-target="#options">Options</li> 
+				<li class="pointerCursor headerButton buttonMark jsButtonMark" id="jsOptions" data-target="#options">Options</li> 
 				
 				<span>|</span>   
 				
-				<li class="pointerCursor headerButton buttonMark" id="jsSave" data-target="#save">Save</li> 
+				<li class="pointerCursor headerButton buttonMark jsButtonMark" id="jsSave" data-target="#save">Save</li> 
 				
 				<span>|</span>  
 				
-				<li class="pointerCursor headerButton buttonMark" id="jsChangelog" data-target="#changelog">Changelog</li>
+				<li class="pointerCursor headerButton buttonMark jsButtonMark" id="jsChangelog" data-target="#changelog">Changelog</li>
 
 				<div class="headerIcons" id="gameSpeed">
-					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameSpeed" data-parameters-key="pause">
+					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsButtonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameSpeed" data-parameters-key="pause">
 						<use class="invisible" href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark" data-event-key="setGameSpeed" data-parameters-key="play">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="play">
 						<use class="invisible" href="Treenscension/Media/Icons/play.svg#playIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark" data-event-key="setGameSpeed" data-parameters-key="playFaster">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playFaster">
 						<use class="invisible" href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark" data-event-key="setGameSpeed" data-parameters-key="playEvenFaster">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playEvenFaster">
 						<use class="invisible" href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark" data-event-key="setGameSpeed" data-parameters-key="playFastest">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playFastest">
 						<use class="invisible" href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark" data-event-key="setGameSpeed" data-parameters-key="slow">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="slow">
 						<use class="invisible" href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
 					</svg>
 				</div>
 
 				<div id="gameSpeedDisplay">
-					Days/s: <div class="jsVariable variable" data-variable-key="daysSecond"></div>
+					Days/s: <div class="variable jsVariable " data-variable-key="daysSecond"></div>
 				</div>
 			</ul>
 			
@@ -73,20 +73,20 @@
 	<!--RESET BUTTONS-->
 	<div class="resetButtons" id="resetButtons">
 
-		<div class="pointerCursor condenseSoulButton buttonMark" data-event-key="reset" data-target="condenseSoulPopup">
+		<div class="pointerCursor condenseSoulButton buttonMark jsButtonMark" data-event-key="reset" data-target="condenseSoulPopup">
 			<svg class="invisible" id="condenseSoul">
 				<use href="Treenscension/Media/Icons/condenseSoul.svg#condenseSoulIcon"/>
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton buttonMark locked" data-event-key="reset">
+		<div class="pointerCursor condenseSoulButton buttonMark jsButtonMark locked" data-event-key="reset">
 			<svg>
 				<use class="invisible" href=""/>
 
 			</svg>
 		</div>
 
-		<div class="pointerCursor condenseSoulButton buttonMark locked" data-event-key="reset">
+		<div class="pointerCursor condenseSoulButton buttonMark jsButtonMark locked" data-event-key="reset">
 			<svg>
 				<use class="invisible" href=""/>
 			</svg>
@@ -96,16 +96,16 @@
 
 	<!--SIDE TAB SELECTOR-->
 	<div class="main" id="side">
-		<button class="sideButton buttonMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
-		<button class="sideButton buttonMark" data-target="#skills">Skills</button>
-		<button class="sideButton buttonMark" data-target="#growth">Growth</button>
-		<button class="sideButton buttonMark hidden"data-target="#fight">Fight</button>
-		<button class="sideButton buttonMark hidden"data-target="#actions">Actions</button>
-		<button class="sideButton buttonMark hidden"data-target="#astralRealm">Astral Realm</button>
-		<button class="sideButton buttonMark hidden"data-target="#treenscension">Treenscension</button>
-		<button class="sideButton buttonMark hidden"data-target="#universe">Universe</button>
-		<button class="sideButton buttonMark hidden"data-target="#genesis">Genesis</button>
-		<button class="sideButton buttonMark hidden"data-target="#void">Void</button>
+		<button class="sideButton buttonMark jsButtonMark jsMainSelected sideSelected" data-target="#statistics">Statistics</button>
+		<button class="sideButton buttonMark jsButtonMark" data-target="#skills">Skills</button>
+		<button class="sideButton buttonMark jsButtonMark" data-target="#growth">Growth</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#fight">Fight</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#actions">Actions</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#astralRealm">Astral Realm</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#treenscension">Treenscension</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#universe">Universe</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#genesis">Genesis</button>
+		<button class="sideButton buttonMark jsButtonMark hidden"data-target="#void">Void</button>
 	</div>
 
 	<!--STATS (need to organize it better)-->
@@ -210,9 +210,9 @@
 			<div class="innerContainer">
 				
 				<div class="options buttonsContainerMain" id="optionsTab">
-					<button class="optionsTabButton buttonMark jsOptionsTabSelected optionsTabSelected" data-target="#gameplayOptions">Gameplay</button>
-					<button class="optionsTabButton buttonMark" data-target="#videoOptions">Video</button>
-					<button class="optionsTabButton buttonMark" data-target="#audioOptions">Audio</button>
+					<button class="optionsTabButton buttonMark jsButtonMark jsOptionsTabSelected optionsTabSelected" data-target="#gameplayOptions">Gameplay</button>
+					<button class="optionsTabButton buttonMark jsButtonMark" data-target="#videoOptions">Video</button>
+					<button class="optionsTabButton buttonMark jsButtonMark" data-target="#audioOptions">Audio</button>
 				</div>
 
 
@@ -294,9 +294,9 @@
 			<div class="innerContainer">
 			
 				<div class="statistics buttonsContainerMain" id="statisticsTab">
-					<button class="statisticsTabButton buttonMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
-					<button class="statisticsTabButton buttonMark" data-target="#skillsStatistics">Skills</button>
-					<button class="statisticsTabButton buttonMark" data-target="#growthStatistics">Growth</button>
+					<button class="statisticsTabButton buttonMark jsButtonMark jsStatisticsTabSelected statisticsTabSelected" data-target="#generalStatistics">General</button>
+					<button class="statisticsTabButton buttonMark jsButtonMark" data-target="#skillsStatistics">Skills</button>
+					<button class="statisticsTabButton buttonMark jsButtonMark" data-target="#growthStatistics">Growth</button>
 				</div>
 
 
@@ -318,11 +318,11 @@
 			<div class="innerContainer">
 
 				<div class="skills buttonsContainerMain" id="skillsTab">
-					<button class="skillsTabButton buttonMark jsSkillsTabSelected skillsTabSelected" data-target="#physicalSkills">Physical</button>
-					<button class="skillsTabButton buttonMark" data-target="#mentalSkills">Mental</button>
-					<button class="skillsTabButton buttonMark" id="magicalSkillsTab" data-target="#magicalSkills">Magical</button>
-					<button class="skillsTabButton buttonMark" id="genesisSkillsTab" data-target="#genesisSkills">Genesis</button>
-					<button class="skillsTabButton buttonMark" id="voidSkillsTab" data-target="#voidSkills">Void</button>
+					<button class="skillsTabButton buttonMark jsButtonMark jsSkillsTabSelected skillsTabSelected" data-target="#physicalSkills">Physical</button>
+					<button class="skillsTabButton buttonMark jsButtonMark" data-target="#mentalSkills">Mental</button>
+					<button class="skillsTabButton buttonMark jsButtonMark" id="magicalSkillsTab" data-target="#magicalSkills">Magical</button>
+					<button class="skillsTabButton buttonMark jsButtonMark" id="genesisSkillsTab" data-target="#genesisSkills">Genesis</button>
+					<button class="skillsTabButton buttonMark jsButtonMark" id="voidSkillsTab" data-target="#voidSkills">Void</button>
 				</div>
 
 				<div class="skillsContent">
@@ -413,8 +413,8 @@
 					</div>
 
 					<div class="popupFlexbox jsPopupButtonBox">
-						<button class="pointerCursor buttonMark jsPopupButton" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
-						<button class="pointerCursor buttonMark jsPopupButton">No</button>
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton">No</button>
 					</div>
 
 				</div>
@@ -426,11 +426,11 @@
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus et quas accusantium vitae qui. Ipsum placeat veritatis vero numquam, similique, dolore id doloremque autem odit nisi voluptate rerum neque ex.</p>
 
 					<div class="popupFlexbox jsPopupButtonBox">
-						<button class="pointerCursor buttonMark">Yes</button>
-						<button class="pointerCursor buttonMark">No</button>
-						<button class="pointerCursor buttonMark">Yes</button>
-						<button class="pointerCursor buttonMark">No</button>
-						<button class="pointerCursor buttonMark">No</button>
+						<button class="pointerCursor buttonMark jsButtonMark">Yes</button>
+						<button class="pointerCursor buttonMark jsButtonMark">No</button>
+						<button class="pointerCursor buttonMark jsButtonMark">Yes</button>
+						<button class="pointerCursor buttonMark jsButtonMark">No</button>
+						<button class="pointerCursor buttonMark jsButtonMark">No</button>
 					</div>
 
 				</div>
