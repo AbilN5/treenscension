@@ -1,6 +1,7 @@
 /*Options tab*/
 .optionsContainer {
   width: 950px;
+  color: white;
 }
 
 .mainContainer .buttonMark.optionsTabSelected {
@@ -8,6 +9,71 @@
   font-size: 40px;
 	text-shadow: 0 0 30px rgba(255, 255, 255, .3);
   transition-duration: 0.4s;
+}
+
+.mainContainer .optionsContent {
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.mainContainer .optionsContent .optionsFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid {
+  flex: 0 0 48%;
+  display: grid;
+  grid-template-columns: 0.75fr 0.25fr;
+  border: 2px solid rgba(218, 196, 220, 1);
+  margin: 10px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.284);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid div {
+  margin: 10px;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button {
+  color: rgba(29, 47, 41, 1);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+  border: 2px solid rgba(218, 196, 220, 1);
+  border-radius: 0px 10px 10px 0px;
+  height: 120%;
+  margin-right: -2px;
+  transition-duration: 0.4s;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button:hover {
+  background-color: rgba(199, 180, 202, 1);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button:active {
+  box-shadow: inset 0 4px 2px rgba(58, 52, 58, 0.8);
+  transform: translateY(3px);
+  background-color: rgba(160, 148, 162, 1);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button.buttonOn {
+  box-shadow: inset 0 4px 2px rgba(58, 52, 58, 0.8);
+  transform: translateY(2px);
+  background-color: rgba(160, 148, 162, 1);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button.buttonOn:hover {
+  background-color: rgba(199, 180, 202, 1);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button.buttonOn:active {
+  box-shadow: inset 0 4px 2px rgba(58, 52, 58, 0.8);
+  transform: translateY(3px);
+  background-color: rgba(160, 148, 162, 1);
 }
 
 
@@ -47,57 +113,8 @@
 
 }
 
-@-webkit-keyframes majorVersion {
-  0% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-  18% {
-    text-shadow: -2px -2px 5px rgba(204, 0, 255, 1), 2px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-  37% {
-    text-shadow: 1px -1px 3px rgba(204, 0, 255, 1), -1px 1px 7px rgba(250, 255, 147, 0.7);
-  }
-  56% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-  75% {
-    text-shadow: -2px 2px 7px rgba(204, 0, 255, 1), 2px -2px 3px rgba(250, 255, 147, 0.7);
-  }
-  90% {
-    text-shadow: 1px -1px 2px rgba(204, 0, 255, 1), -1px 1px 5px rgba(250, 255, 147, 0.7);
-  }
-  100% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-}
-
-@keyframes majorVersion {
-  0% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-  18% {
-    text-shadow: -2px -2px 5px rgba(204, 0, 255, 1), 2px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-  37% {
-    text-shadow: 1px -1px 3px rgba(204, 0, 255, 1), -1px 1px 7px rgba(250, 255, 147, 0.7);
-  }
-  56% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-  75% {
-    text-shadow: -2px 2px 7px rgba(204, 0, 255, 1), 2px -2px 3px rgba(250, 255, 147, 0.7);
-  }
-  90% {
-    text-shadow: 1px -1px 2px rgba(204, 0, 255, 1), -1px 1px 5px rgba(250, 255, 147, 0.7);
-  }
-  100% {
-    text-shadow: 2px 2px 5px rgba(204, 0, 255, 1), -2px -2px 5px rgba(250, 255, 147, 0.7);
-  }
-}
-
 .changelogContainer .majorChange h2 .version {
   font-size: 35px;
-  animation: majorVersion 8s infinite;
 }
 
 .changelogContainer .majorChange li {
@@ -105,26 +122,8 @@
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes regularVersion {
- 0% {
-  color: rgba(210, 253, 214, 1);
-  transition-timing-function: ease-out;
- } 
-
- 50% {
-  
-  text-shadow: 0 0 6px white;
-  transition-timing-function: ease-in;
- }
-
- 100% {
-  color: rgba(210, 253, 214, 1);
- }
-}
-
 .changelogContainer .regularChange h2 .version {
   font-size: 30px;
-  animation: regularVersion 3s infinite;
 }
 
 .changelogContainer .regularChange li {
@@ -206,7 +205,6 @@
   color: white;
 }
 
-
 /*Skill bars*/
 
 .skillsTabSkillBarContainer {
@@ -255,42 +253,7 @@
   background-color: rgb(59, 74, 23);;
 }
 
-
 /*Magic button*/
-
-@-webkit-keyframes glitchMagic {
-  0% {
-    color: rgba(147, 255, 244, 1);
-    text-shadow: -3px -2px 2px rgba(250, 255, 147, 0.7), 3px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-
-  50% {
-    color:  rgba(209, 255, 250, 1);
-    text-shadow: 0 0 6px  rgba(147, 255, 244, 0.4);
-  }
-  
-  100% {
-    color: rgba(147, 255, 244, 1);
-    text-shadow: -3px -2px 2px rgba(250, 255, 147, 0.7), 3px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-}
-
-@keyframes glitchMagic {
-  0% {
-    color: rgba(147, 255, 244, 1);
-    text-shadow: -3px -2px 2px rgba(250, 255, 147, 0.7), 3px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-
-  50% {
-    color:  rgba(209, 255, 250, 1);
-    text-shadow: 0 0 6px  rgba(147, 255, 244, 0.4);
-  }
-  
-  100% {
-    color: rgba(147, 255, 244, 1);
-    text-shadow: -3px -2px 2px rgba(250, 255, 147, 0.7), 3px 2px 2px rgba(250, 255, 147, 0.7);
-  }
-}
 
 .mainContainer #magicalSkillsTab {
   color: rgba(209, 255, 250, 1);
@@ -301,54 +264,10 @@
   text-shadow: 0 0 6px rgba(250, 255, 147, 1);
 }
 
-.mainContainer #magicalSkillsTab:not(:hover) {
-  animation: glitchMagic 3s infinite;
-  animation-name: glitchMagic;
-}
-
-
 /*Genesis button*/
 
-@-webkit-keyframes pulsateGenesis {
-  0% {
-    color: rgba(210, 253, 214, 1);
-    text-shadow: 0 0 1px rgba(250, 255, 147, 1);
-    transform: scale(1);
-  }
-
-  50% {
-    color: rgba(146, 255, 157, 1);
-    text-shadow: 0 0px 12px  rgba(204, 255, 200, 0.7);
-    transform: scale(1.05);
-  }
-
-  100% {
-    color: rgba(210, 253, 214, 1);
-    text-shadow: 0 0 2px rgba(250, 255, 147, 1);
-    transform: scale(1);
-  }
-  
-}
-
-@keyframes pulsateGenesis {
-  0% {
-    color: rgba(210, 253, 214, 1);
-    text-shadow: 0 0 1px rgba(250, 255, 147, 1);
-    transform: scale(1);
-  }
-
-  50% {
-    color: rgba(146, 255, 157, 1);
-    text-shadow: 0 0px 12px  rgba(204, 255, 200, 0.7);
-    transform: scale(1.05);
-  }
-
-  100% {
-    color: rgba(210, 253, 214, 1);
-    text-shadow: 0 0 2px rgba(250, 255, 147, 1);
-    transform: scale(1);
-  }
-  
+.mainContainer #genesisSkillsTab {
+  color: rgba(146, 255, 157, 1);
 }
 
 .mainContainer #genesisSkillsTab:hover {
@@ -356,69 +275,18 @@
   text-shadow: 0 0 6px rgb(255, 255, 255, 1);
 }
 
-.mainContainer #genesisSkillsTab:not(:hover) {
-  animation: pulsateGenesis 3s infinite;
-  animation-name: pulsateGenesis;
-}
-
-
 /*Void button*/
 
-@-webkit-keyframes pulsateVoid {
-  0% {
-    color: rgba(22, 19, 26, 1);
-    text-shadow: 0 0 3px rgba(204, 0, 255, 1);
-    transform: scale(1.1);
-    transition-timing-function: ease-out;
-  }
-
-  70% {
-    color: rgb(0, 0, 0);
-    text-shadow: 0 0 15px  rgba(30, 0, 37, 1);
-    transform: scale(0.9);
-    transition-timing-function: ease-out;
-  }
-
-  100% {
-    color: rgba(22, 19, 26, 1);
-    text-shadow: 0 0 3px rgba(204, 0, 255, 1);
-    transform: scale(1.1);
-  }
-  
-}
-
-@keyframes pulsateVoid {
-  0% {
-    color: rgba(22, 19, 26, 1);
-    text-shadow: 0 0 3px rgba(204, 0, 255, 1);
-    transform: scale(1.1);
-    transition-timing-function: ease-out;
-  }
-
-  70% {
-    color: rgb(0, 0, 0);
-    text-shadow: 0 0 15px  rgba(30, 0, 37, 1);
-    transform: scale(0.9);
-    transition-timing-function: ease-out;
-  }
-
-  100% {
-    color: rgba(22, 19, 26, 1);
-    text-shadow: 0 0 3px rgba(204, 0, 255, 1);
-    transform: scale(1.1);
-  }
-  
-}
-
 .mainContainer #voidSkillsTab {
-  color: rgba(22, 19, 26, 1);
-}
-.mainContainer #voidSkillsTab:hover {
-  color: rgb(0, 0, 0);
-  text-shadow: 0 0 15px rgb(90, 22, 112);
+  color: rgba(119, 25, 140, 1);
 }
 
-.mainContainer #voidSkillsTab:not(:hover) {
-  animation: pulsateVoid 4s infinite;
-  animation-name: pulsateVoid;
+.mainContainer #voidSkillsTab:hover,
+.mainContainer #voidSkillsTab.skillsTabSelected:hover {
+  color: rgba(204, 0, 255, 1);
+  text-shadow: 0 0 10px rgba(255, 255, 255, .3);
+}
+
+.mainContainer #voidSkillsTab.skillsTabSelected {
+  color: rgba(22, 19, 26, 1);
 }

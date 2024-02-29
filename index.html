@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head id="jsHead">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Treenscension</title>
 	<link rel="icon" href="Treenscension/Media/Icons/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/MainTabStyle.css">
-	<link rel="stylesheet" href="Treenscension/Stylesheets/IconAnimations.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/PopupsStyle.css">
-	<link rel="stylesheet" href="Treenscension/Stylesheets/Animations.css">
-	<link rel="stylesheet" href="Treenscension/Stylesheets/AnimatedBackgrounds.css">
+	<link class="jsAnimation" rel="stylesheet" href="Treenscension/Stylesheets/Animations.css">
+	<link class="jsAnimation" rel="stylesheet" href="Treenscension/Stylesheets/AnimatedBackgrounds.css">
 	<header id="header">
 		
 		<div class="main" id="technicalElements">
@@ -218,15 +217,20 @@
 
 				<div class="optionsContent">
 
-					<div id="gameplayOptions" class>
+					<div id="gameplayOptions" class="optionsFlex">
 
 					</div>
 
-					<div id="videoOptions" class="hidden">
+					<div id="videoOptions" class="optionsFlex hidden">
 						
+						<div class="optionsButtonGrid">
+							<div class="optionToggle">Animations</div>
+							<button class="pointerCursor optionToggleButton buttonOn jsToggleButton jsButtonOn" data-event-key="toggleAnimations">ON</button>
+						</div>
+
 					</div>
 
-					<div id="audioOptions" class="hidden">
+					<div id="audioOptions" class="optionsFlex hidden">
 						
 					</div>
 
@@ -404,7 +408,7 @@
 					<p>This will reset all your skill levels, stats, and trigger a reincarnation in exchange for prestige points.</p>
 					<p class="alignCenter">You will receive: </p>
 					
-					<div class="popupFlexbox prestigeLevelsEarned">
+					<div class="popupFlex prestigeLevelsEarned">
 						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
 						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
 						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
@@ -412,7 +416,7 @@
 						<div>Protein Synthesis: <div class="variable">16</div> (+<div class="variable">3</div> levels)</div>
 					</div>
 
-					<div class="popupFlexbox jsPopupButtonBox">
+					<div class="popupFlex jsPopupButtonBox">
 						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
 						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton">No</button>
 					</div>
@@ -425,7 +429,7 @@
 
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus et quas accusantium vitae qui. Ipsum placeat veritatis vero numquam, similique, dolore id doloremque autem odit nisi voluptate rerum neque ex.</p>
 
-					<div class="popupFlexbox jsPopupButtonBox">
+					<div class="popupFlex jsPopupButtonBox">
 						<button class="pointerCursor buttonMark jsButtonMark">Yes</button>
 						<button class="pointerCursor buttonMark jsButtonMark">No</button>
 						<button class="pointerCursor buttonMark jsButtonMark">Yes</button>

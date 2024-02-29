@@ -5,12 +5,25 @@
 
 //constant elements - for easy and frequent access
 const elementNames = {
+	head: 'jsHead',
 	popupShadow: 'jsPopupShadow',
 	popupContentSelected: 'jsPopupContentSelected',
 }
 
 const elementsObject = {
+	head: document.getElementById(elementNames.head),
 	popupShadow: document.querySelector(`.${elementNames.popupShadow}`),
+}
+
+//UI object 
+const UI = {
+	animations: {
+		class: 'jsAnimation',
+		links: [
+			'Treenscension/Stylesheets/Animations.css',
+			'Treenscension/Stylesheets/AnimatedBackgrounds.css',
+		]
+	},
 }
 
 //gameSpeed object
@@ -153,12 +166,15 @@ const buttonObjects = {
 	splitElements: {	//for elements that are section but can't use event delegation
 		header: 'header',
 		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
+		toggle: 'jsToggleButton'
 	},
 
 	uniqueElements: {
 		popup: 'jsPopupShadowID',
 	},
 }
+
+//
 
 //constructed selection objects
 const groupNamesSpeed = [buttonObjects.delegatorElements.gameSpeed];
@@ -206,11 +222,19 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	optionsTabClick: [['event', optionsTab], [optionsTab]],
 	resetClick: [['event'], []],
 	closePopup: [['event'], []],
+	toggleButton: [['event'], []]
 }
 
 
 //markers
-const buttonMark = 'jsButtonMark';
+const markers = {
+	toggleButton: 'toggleButton',
+	toggleButtonOnCSS: 'buttonOn',
+	get toggleButtonOn() {
+		return `js${this.toggleButtonOnCSS.charAt(0).toUpperCase() + this.toggleButtonOnCSS.slice(1)}`;
+	},
+	button: 'jsButtonMark',
+}
 
 //updateable html elements
 const updateableHTMLElements = document.querySelectorAll('.jsVariable');
@@ -252,7 +276,8 @@ delegatorElement('click', buttonObjects.delegatorElements.reset, openPopup, even
 delegatorElement('click', buttonObjects.uniqueElements.popup, closePopup, eventListenersParameters.closePopup);
 splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListenersParameters.closePopup);
 
-
+//toggle buttons
+splitElements('click', buttonObjects.splitElements.toggle, toggleButton, eventListenersParameters.toggleButton);
 
 //UI LOOP
 const loopUI = function() {
@@ -308,7 +333,7 @@ function delegatorElement(event, delegatorID, callback, parametersArray) {
 //tab objects constructor
 function groupObject(className) {
 	this.className = `${className}Button`;
-	this.cssSelected = `${className}Selected`;
+	this.CSSSelected = `${className}Selected`;
 }
 
 function buttonSelectionObject(parentClassObject, groupNamesArray) { 
@@ -350,7 +375,7 @@ function selectButton(event, buttonObject) {
 	const clickedElement = event.target;
 
 	//ensure it's a button
-	if (clickedElement.classList.contains(buttonMark)) {
+	if (clickedElement.classList.contains(markers.button)) {
 		const previousTab = document.querySelector(`.${buttonObject.jsSelected}`);
 		
 		//check if clicked element was clicked again or doesn't have sticky selection
@@ -360,7 +385,7 @@ function selectButton(event, buttonObject) {
 				
 			//find group to add CSS
 			const clickedElementGroup = findGroup(clickedElement, buttonObject);
-			clickedElement.classList.toggle(clickedElementGroup.cssSelected);
+			clickedElement.classList.toggle(clickedElementGroup.CSSSelected);
 
 			//activate target
 			if (buttonObject.hideTarget) {
@@ -370,12 +395,12 @@ function selectButton(event, buttonObject) {
 				
 			
 
-			//remove previous tab selected css
+			//remove previous tab selected CSS
 			if (previousTab && previousTab !== clickedElement) {
 				
 				const previousTabGroup = findGroup(previousTab, buttonObject);
 				previousTab.classList.remove(buttonObject.jsSelected);
-				previousTab.classList.remove(previousTabGroup.cssSelected);
+				previousTab.classList.remove(previousTabGroup.CSSSelected);
 				
 
 				if (buttonObject.hideTarget) {
@@ -389,12 +414,33 @@ function selectButton(event, buttonObject) {
 	callElementFunction(clickedElement);
 }
 
+//toggle button
+function toggleButton(event) {
+	const clickedElement = event.target;
+	
+	//toggle on/off classes
+	clickedElement.classList.toggle(markers.toggleButtonOnCSS);
+	clickedElement.classList.toggle(markers.toggleButtonOn);
+
+	//change text
+	let elementText = clickedElement.innerText;
+	if (clickedElement.dataset.customToggle) {
+		elementText = (elementText === clickedElement.dataset.customOn) ? clickedElement.dataset.customOff : clickedElement.dataset.customOn;
+	} else {
+		elementText = (elementText === 'ON') ? 'OFF' : 'ON';
+	}
+	clickedElement.innerText = elementText;
+
+	callElementFunction(clickedElement);
+}
+
+
 //open popup
 function openPopup(event) {
 	const clickedElement = event.target;
 
 	//ensure the element was unlocked and is a button
-	if (!clickedElement.classList.contains('locked') && clickedElement.classList.contains(buttonMark)) {
+	if (!clickedElement.classList.contains('locked') && clickedElement.classList.contains(markers.button)) {
 		const popup = document.getElementById(clickedElement.dataset.target);
 		
 		//show popup
@@ -411,7 +457,7 @@ function closePopup(event) {
 	const clickedElement = event.target;
 	
 	//ensure it's a button
-	if (clickedElement.classList.contains(buttonMark)) {
+	if (clickedElement.classList.contains(markers.button)) {
 		//close popup
 		//find popup to add hidden class
 		const popup = document.querySelector(`.${elementNames.popupContentSelected}`);
@@ -438,11 +484,35 @@ function condenseSoul() {
 }
 
 //Update UI
+//variables
 function updateVariablesUI() {
 	updateableHTMLElements.forEach(element => {
 		const variable = updatersMap.get(element.dataset.variableKey);
 		element.innerText = variable();
 	});
+}
+
+//animations
+function toggleAnimations() {
+	const animationLinks = document.querySelectorAll(`.${UI.animations.class}`);
+
+	//remove links if existent
+	if (animationLinks[0]) {
+		animationLinks.forEach((link) => {
+			link.parentNode.removeChild(link);
+		});
+	} else  { //create if nonexistent
+		UI.animations.links.forEach((link) => {
+			//create link
+			const newLink = document.createElement('link');
+			newLink.setAttribute('class', UI.animations.class);
+			newLink.setAttribute('rel', 'stylesheet');
+			newLink.setAttribute('href', link);
+
+			//insert link
+			elementsObject.head.insertBefore(newLink, elementsObject.head.firstChild);
+		});
+	}
 }
 
 //Utility functions
@@ -458,7 +528,7 @@ function toggleHideTarget(element) {
 function callElementFunction(element) {
 	//perform functions if any
 	if (element.dataset.eventKey) {
-		const functionCalled = functionsKey.map.get(element.dataset.eventKey);
+		const functionCalled = functionsMap.map.get(element.dataset.eventKey);
 
 		//pass parameters if any
 		if (element.dataset.parametersKey) {
@@ -474,24 +544,28 @@ function callElementFunction(element) {
 
 
 //EVENTS MAP
-const functionsKey = {
+const functionsMap = {
+	functions: {
+		setGameSpeed: setGameSpeed,
+		selectButton: selectButton,
+		condenseSoul: condenseSoul,
+		toggleAnimations: toggleAnimations,
+	},
+
 	key: {
 		setGameSpeed: 'setGameSpeed',
 		selectButton: 'selectButton',
 		condenseSoul: 'condenseSoul',
+		toggleAnimations: 'toggleAnimations',
 	},
 
 	map: new Map(),
-	}
-
-const setGameSpeedFunction = setGameSpeed;
-const selectButtonFunction = selectButton;
-const condenseSoulFunction = condenseSoul;
-
+}
 //function keys
-functionsKey.map.set(functionsKey.key.setGameSpeed, setGameSpeedFunction);
-functionsKey.map.set(functionsKey.key.selectButton, selectButtonFunction);
-functionsKey.map.set(functionsKey.key.condenseSoul, condenseSoulFunction);
+functionsMap.map.set(functionsMap.key.setGameSpeed, functionsMap.functions.setGameSpeed);
+functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
+functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
+functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.keys.pause, eventParameters.gameSpeed.pause);

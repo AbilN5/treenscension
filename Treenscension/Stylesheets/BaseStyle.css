@@ -195,6 +195,14 @@ body {
 	transition-duration: 0.2s;
 }
 
+#technicalElements .headerIcons svg:hover:not(.gameSpeedSelected):active {
+	transform: scaleY(0.98) translateY(2px);
+	box-shadow: inset 0 2px 2px rgba(0, 0, 0, .7);
+	background-color: rgba(187, 168, 188, 1);
+	transition-duration: 0;
+	cursor: default;
+}
+
 #technicalElements .headerIcons svg.pointerCursor.gameSpeedSelected { /*pointerCursor class used to increase specifity*/
 	transform: scaleY(0.98) translateY(2px);
 	box-shadow: inset 0 2px 2px rgba(0, 0, 0, .7);
@@ -521,7 +529,7 @@ body {
 	cursor: pointer;
 }
 
-.mainContainer .buttonMark:hover {
+.mainContainer .buttonsContainerMain .buttonMark:hover {
 	color: white;
 	text-shadow: 0 0 10px rgba(255, 255, 255, .3);
 	transition-duration: 0.4s;
@@ -556,17 +564,6 @@ body {
 	z-index: 1000;
 }
 
-@keyframes popupBorder {
-	0% {
-		animation-timing-function: linear;
-		background-position: 0 200%;
-	}
-    100% {
-			animation-timing-function: linear;
-			background-position: 0 -200%;
-	}
-}
-
 .popupWindowBorderOuter {
 	box-sizing: border-box;
 	max-height: 80vh;
@@ -580,11 +577,9 @@ body {
 .popupWindowBorderInner{
 	max-height: inherit;
 	max-width: inherit;
-	background: linear-gradient(rgba(255, 131, 253, 0) 45%, rgba(255, 131, 253, 1) 55%, rgba(255, 131, 253, 0));
+	background: linear-gradient(rgba(255, 131, 253, 0) 25%, rgba(255, 131, 253, 1) 50%, rgba(255, 131, 253, 0) 75%);
 	border-radius: 10px;
 	padding: 0 2px;
-	background-size: 100% 200%;
-	animation: popupBorder 6s infinite;
 }
 
 .popupContent {
@@ -609,7 +604,7 @@ body {
 	margin-bottom: 10px;
 }
 
-.popupContent .popupFlexbox {
+.popupContent .popupFlex {
 	margin-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
@@ -617,7 +612,7 @@ body {
 	margin-top: 10px;
 }
 
-.popupContent .popupFlexbox > * {
+.popupContent .popupFlex > * {
 	margin: 8px 8px;
 }
 
