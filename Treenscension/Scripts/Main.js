@@ -24,21 +24,22 @@ const UI = {
 			'Treenscension/Stylesheets/AnimatedBackgrounds.css',
 		]
 	},
+	numbersFormat: {
+		highPrecision: 4,
+	},
 }
 
 //gameSpeed object
-function gameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
+const ROUNDING_FACTOR = 1000000;
+function GameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
 	this.paused = false;
-	
+	this.slowed = false;
+
 	this.tick = {
 		perSecondUI: ticksPerSecondUI,
-		get msUI() {
-			return 1000/ticksPerSecondUI;
-		},
+		msUI: 1000/ticksPerSecondUI, 
 		perSecond: ticksPerSecond,
-		get ms() {
-			return 1000/ticksPerSecond;
-		},
+		ms: 1000/ticksPerSecond,
 	};
 
 	this.actions = {
@@ -54,46 +55,52 @@ function gameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
 	this.playFast = 2;
 	this.playFaster = 4;
 	this.playEvenFaster = 10;
-	this.playFastest = 50;
+	this.playFastest = 500000000000000;
 
-	this.updateTick = function(newTick) {
+	this.updateTick = (newTick) => {
 		this.tick.perSecond = newTick;
-		this.tick.ms = 1000/this.tick.perSecond;
+		this.tick.ms = Math.round(1000/this.tick.perSecond);
 
-		this.actions.base = 1/this.tick.perSecond;
-		this.actions.perTick = this.actions.base*this.actions.multiplier;
+		this.actions.base = 1/this.tick.perSecond
+		
+		if (!this.slowed) {
+			this.actions.perTick = Math.round(this.actions.base*this.actions.timeMultiplier*ROUNDING_FACTOR)/ROUNDING_FACTOR;
+			this.actions.perSecond = this.actions.perTick*this.tick.perSecond; 	
+		} else {
+			this.actions.perTick = Math.round(this.actions.base*this.slow*ROUNDING_FACTOR)/ROUNDING_FACTOR;
+			this.actions.perSecond = this.actions.perTick*this.tick.perSecond*this.slow;
+		}
+	};
+
+	this.updateTickUI = (newTick) => {
+		this.tick.perSecondUI = newTick;
+		this.tick.msUI = Math.round(1000/newTick);
+	}
+
+	this.applyGameSpeed = () => {
+		this.actions.perTick = Math.round(this.actions.base*this.actions.timeMultiplier*ROUNDING_FACTOR)/ROUNDING_FACTOR;
 		this.actions.perSecond = this.actions.perTick*this.tick.perSecond; 
 	};
 
-	this.applyGameSpeed = function() {
-		this.actions.perTick = this.actions.base*this.actions.timeMultiplier;
-		this.actions.perSecond = this.actions.perTick*this.tick.perSecond;
-	};
-
-	this.newMultiplier = function(newMultiplier) {
+	this.newMultiplier = (newMultiplier) => {
 		this.actions.timeMultiplier = newMultiplier;
 		this.applyGameSpeed();
 	};
 
-	this.setGameSpeedDirect = function(newSpeed) {
-		this.actions.perTick = newSpeed*this.actions.base;
-		this.actions.perSecond = newSpeed*this.actions.perTick*this.tick.perSecond;
+	this.setGameSpeedDirect = (newSpeed) => {
+		this.actions.perTick = Math.round(this.actions.base*newSpeed*ROUNDING_FACTOR)/ROUNDING_FACTOR;
+		this.actions.perSecond = this.actions.perTick*this.tick.perSecond*newSpeed;
 	};
 
-	this.updatePaused = function(logicalValue) {
+	this.updatePaused = (logicalValue) => {
 		this.paused = logicalValue;
 	}
 
-	this.updateTickUI = function(newTick) {
-		this.tick.perSecondUI = newTick;
-		this.tick.msUI = 1000/newTick;
-	}
-
-	this.getActionsSecond = function() {
+	this.getActionsSecond = () => {
 		return this.actions.perSecond;
 	}
 
-	this.getTicksSecondUI = function() {
+	this.getTicksSecondUI = () => {
 		return this.tick.perSecondUI;
 	}
 
@@ -108,7 +115,7 @@ function gameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
 	};
 	this.map = new Map();
 }
-const gameSpeed = new gameSpeedObject(50, 50);
+const gameSpeed = new GameSpeedObject(50, 50);
 
 gameSpeed.map.set(gameSpeed.keys.pause, gameSpeed.pause);
 gameSpeed.map.set(gameSpeed.keys.slow, gameSpeed.slow);
@@ -166,7 +173,9 @@ const buttonObjects = {
 	splitElements: {	//for elements that are section but can't use event delegation
 		header: 'header',
 		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
-		toggle: 'jsToggleButton'
+		toggle: 'jsToggleButton',
+		input: 'jsInputButton',
+		enter: 'jsEnterBlur',
 	},
 
 	uniqueElements: {
@@ -178,19 +187,19 @@ const buttonObjects = {
 
 //constructed selection objects
 const groupNamesSpeed = [buttonObjects.delegatorElements.gameSpeed];
-const gameSpeedButtons = new buttonSelectionObject(buttonObjects.section.gameSpeed, groupNamesSpeed);
+const gameSpeedButtons = new ButtonSelectionObject(buttonObjects.section.gameSpeed, groupNamesSpeed);
 
 const groupNamesMain = [buttonObjects.delegatorElements.side, buttonObjects.splitElements.header];
-const mainTab = new buttonSelectionObject(buttonObjects.section.main, groupNamesMain);
+const mainTab = new ButtonSelectionObject(buttonObjects.section.main, groupNamesMain);
 
 const groupNamesStatistics = [buttonObjects.delegatorElements.statistics];
-const statisticsTab = new buttonSelectionObject(buttonObjects.section.statistics, groupNamesStatistics);
+const statisticsTab = new ButtonSelectionObject(buttonObjects.section.statistics, groupNamesStatistics);
 
 const groupNamesSkills = [buttonObjects.delegatorElements.skills];
-const skillsTab = new buttonSelectionObject(buttonObjects.section.skills, groupNamesSkills);
+const skillsTab = new ButtonSelectionObject(buttonObjects.section.skills, groupNamesSkills);
 
 const groupNamesOptions = [buttonObjects.delegatorElements.options];
-const optionsTab = new buttonSelectionObject(buttonObjects.section.options, groupNamesOptions);
+const optionsTab = new ButtonSelectionObject(buttonObjects.section.options, groupNamesOptions);
 
 //event parameters object
 const eventParameters = {
@@ -222,7 +231,9 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	optionsTabClick: [['event', optionsTab], [optionsTab]],
 	resetClick: [['event'], []],
 	closePopup: [['event'], []],
-	toggleButton: [['event'], []]
+	toggleButton: [['event'], []],
+	inputButton: [['event'], []],
+	enterBlur: [['event'], []],
 }
 
 
@@ -279,12 +290,15 @@ splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListe
 //toggle buttons
 splitElements('click', buttonObjects.splitElements.toggle, toggleButton, eventListenersParameters.toggleButton);
 
+//input buttons
+splitElements('blur', buttonObjects.splitElements.input, inputButton, eventListenersParameters.inputButton);
+
+//blur on enter
+splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventListenersParameters.enterBlur);
+
 //UI LOOP
 const loopUI = function() {
-	//ensure game isn't paused
-	if (!gameSpeed.paused) {
-		updateVariablesUI();
-	}
+	updateVariablesUI();
 
 	//restart loop
 	setTimeout(() => {
@@ -331,16 +345,16 @@ function delegatorElement(event, delegatorID, callback, parametersArray) {
 }
 
 //tab objects constructor
-function groupObject(className) {
+function GroupObject(className) {
 	this.className = `${className}Button`;
 	this.CSSSelected = `${className}Selected`;
 }
 
-function buttonSelectionObject(parentClassObject, groupNamesArray) { 
+function ButtonSelectionObject(parentClassObject, groupNamesArray) { 
 	this.class = parentClassObject.name;
 	this.groups = [];
 	groupNamesArray.forEach(className => {
-		const group = new groupObject(className);
+		const group = new GroupObject(className);
 		this.groups.push(group);
 	});
 	
@@ -355,17 +369,21 @@ function buttonSelectionObject(parentClassObject, groupNamesArray) {
 //change game speed
 function setGameSpeed(key) {
 	const newSpeed = gameSpeed.map.get(key);
+	gameSpeed.slowed = false;
 
-	if (key) {
+	if (key !== gameSpeed.keys.pause) {
 		gameSpeed.updatePaused(false);
 	} else {
 		gameSpeed.updatePaused(true);
 	}
 
 	if (key !== gameSpeed.keys.slow) {
+		
 		gameSpeed.newMultiplier(newSpeed);
 		return true;
 	}
+
+	gameSpeed.slowed = true;
 	gameSpeed.setGameSpeedDirect(gameSpeed.slow);
 	return true;
 }
@@ -434,6 +452,101 @@ function toggleButton(event) {
 	callElementFunction(clickedElement);
 }
 
+//input button
+function inputButton(event) {
+	const inputElement = event.target;
+	
+	const functionCalled = functionsMap.map.get(inputElement.dataset.eventKey);
+	const parametersKey = inputElement.dataset.parametersKey;
+	const expectedData = inputElement.dataset.type;
+
+	//log error if data missing
+	if (!functionCalled) {
+		console.log("button missing function (function wasn't found or data-event-key missing)");
+		return;
+	}
+
+	if (!expectedData) {
+		console.log('button missing expected data (data-type)');
+		return;
+	}
+
+	if (!inputElement.dataset.default) {
+		console.log('button missing default value (data-default)');
+		return;
+	}
+
+	
+
+	//retrieve function to call
+	function processInput(element, expectedData) {
+		
+		if (expectedData === 'integer' || expectedData === 'float') {
+			const inputValue = element.value;
+			let value;
+
+			if (expectedData === 'integer') {
+				value = parseInt(inputValue);
+			} else {
+				value = parseFloat(inputValue);
+			}	
+			
+
+			//ensure input is a number
+			if (!isNaN(value)) {
+				value = processRange(value, element.dataset.range)
+				
+				//update input area if value updated
+				if (value !== inputValue) {
+					element.value = value;
+				}
+				 
+				return value;
+			} 
+			
+			//return default if not valid
+			if (element.dataset.default) {
+
+				let defaultValue = element.dataset.default;
+				if (expectedData === 'integer') {
+					defaultValue = parseInt(defaultValue);
+				} else {
+					defaultValue = parseFloat(defaultValue);
+				}
+	
+				element.value = defaultValue;
+				return defaultValue;
+			}
+		} 
+	
+		//check if button expects string
+		if (expectedData === 'string') {
+			return inputElement.value;
+		}
+
+	}
+	const value = processInput(inputElement, expectedData);
+
+	//call function
+	if (parametersKey) {
+		const parametersArray = eventParameters.map.get(parametersKey);
+
+		functionCalled(value, ...parametersArray);
+		return true;
+	}
+
+	functionCalled(value)
+	return true;
+}
+
+//blur on enter
+function enterBlur(event) {
+	const pressedKey = event.key;
+
+	if (pressedKey === 'Enter') {
+		event.target.blur();
+	}
+}
 
 //open popup
 function openPopup(event) {
@@ -487,8 +600,14 @@ function condenseSoul() {
 //variables
 function updateVariablesUI() {
 	updateableHTMLElements.forEach(element => {
-		const variable = updatersMap.get(element.dataset.variableKey);
-		element.innerText = variable();
+		const variableFunction = updatersMap.get(element.dataset.variableKey);
+		let variableToUse = variableFunction()
+
+		if (typeof variableToUse === 'number') {
+			variableToUse = roundToSignificantFigures(variableToUse, UI.numbersFormat.highPrecision);
+		}
+		
+		element.innerText = variableToUse;
 	});
 }
 
@@ -516,15 +635,18 @@ function toggleAnimations() {
 }
 
 //Utility functions
+//find group of element
 function findGroup(element, buttonObject) {
 	return buttonObject.groups.find(group => element.classList.contains(group.className));
 }
 
+//toggle hide of target
 function toggleHideTarget(element) {
 	const elementTarget = document.querySelector(element.dataset.target);
 	elementTarget.classList.toggle('hidden');
 }
 
+//call function based on element data-event-key
 function callElementFunction(element) {
 	//perform functions if any
 	if (element.dataset.eventKey) {
@@ -542,6 +664,37 @@ function callElementFunction(element) {
 	}
 }
 
+//process numbers based on range (x-y)
+function processRange(value, range) {
+	const rangeParts = range.split('-');
+
+	//get min/max
+	const min = rangeParts[0] !== '' ? parseFloat(rangeParts[0]) : undefined;
+	const max = rangeParts[1] !== '' ? parseFloat(rangeParts[1]) : undefined;
+
+	//compare value with range
+	if (min !== undefined && value < min) {
+		value = min;
+	}
+	if (max !== undefined && value > max) {
+		value = max;
+	} 
+
+	return value;
+}
+
+//round number to significant digit
+const RANGE_SMALL_NUMBER = ROUNDING_FACTOR;
+const LOW_ROUNDING_FACTOR = 100;
+
+function roundToSignificantFigures(number, precision) {
+	//if inside rannge
+	if ((Math.abs(number) > RANGE_SMALL_NUMBER || Math.abs(number) < 1/RANGE_SMALL_NUMBER) && number !== 0) {
+		return number.toPrecision(precision);
+	}
+
+	return Math.round(number*LOW_ROUNDING_FACTOR)/LOW_ROUNDING_FACTOR;
+}
 
 //EVENTS MAP
 const functionsMap = {
@@ -550,6 +703,8 @@ const functionsMap = {
 		selectButton: selectButton,
 		condenseSoul: condenseSoul,
 		toggleAnimations: toggleAnimations,
+		updateTick: gameSpeed.updateTick,
+		updateTickUI: gameSpeed.updateTickUI,
 	},
 
 	key: {
@@ -557,6 +712,8 @@ const functionsMap = {
 		selectButton: 'selectButton',
 		condenseSoul: 'condenseSoul',
 		toggleAnimations: 'toggleAnimations',
+		updateTick: 'updateTick',
+		updateTickUI: 'updateTickUI'
 	},
 
 	map: new Map(),
@@ -566,6 +723,8 @@ functionsMap.map.set(functionsMap.key.setGameSpeed, functionsMap.functions.setGa
 functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
 functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
 functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
+functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateTick);
+functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.keys.pause, eventParameters.gameSpeed.pause);

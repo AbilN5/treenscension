@@ -218,20 +218,37 @@
 				<div class="optionsContent">
 
 					<div id="gameplayOptions" class="optionsFlex">
+						
+						<button class="pointerCursor simpleButton jsSimpleButton" data-event-key="resetOptions" data-parameters-key="gameplayOptionsReset">Reset</button>
+
+						<div class="optionsButtonGrid">
+							<div class="optionInput">Ticks/Second</div>
+							<input placeholder="1-120" value="50" id="inputUpdateTickUI" class="pointerCursor jsEnterBlur inputButton jsInputButton" data-event-key="updateTick" data-type="integer" data-range="1-120" data-default="50"></input>
+						</div>
 
 					</div>
 
 					<div id="videoOptions" class="optionsFlex hidden">
-						
+
+						<button class="pointerCursor simpleButton jsSimpleButton" data-event-key="resetOptions" data-parameters-key="videoOptionsReset">Reset</button>
+
+						<div class="optionsButtonGrid">
+							<div class="optionInput">Ticks/Second (UI)</div>
+							<input placeholder="1-120" value="50" id="inputUpdateTick" class="pointerCursor jsEnterBlur inputButton jsInputButton" data-event-key="updateTickUI" data-type="integer" data-range="1-120" data-default="50"></input>
+						</div>
+
 						<div class="optionsButtonGrid">
 							<div class="optionToggle">Animations</div>
-							<button class="pointerCursor optionToggleButton buttonOn jsToggleButton jsButtonOn" data-event-key="toggleAnimations">ON</button>
+							<button class="pointerCursor optionToggleButton buttonOn jsToggleButton jsButtonOn" data-event-key="toggleAnimations" data-default="on">ON</button>
 						</div>
+						
 
 					</div>
 
 					<div id="audioOptions" class="optionsFlex hidden">
 						
+						<button class="pointerCursor simpleButton jsSimpleButton" data-event-key="resetOptions" data-parameters-key="audioOptionsReset">Reset</button>
+
 					</div>
 
 				</div>
