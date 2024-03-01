@@ -176,6 +176,7 @@ const buttonObjects = {
 		toggle: 'jsToggleButton',
 		input: 'jsInputButton',
 		enter: 'jsEnterBlur',
+		toDefault: 'jsToDefaultButton'
 	},
 
 	uniqueElements: {
@@ -234,16 +235,19 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	toggleButton: [['event'], []],
 	inputButton: [['event'], []],
 	enterBlur: [['event'], []],
+	toDefault: [['event'], []],
 }
 
 
 //markers
 const markers = {
-	toggleButton: 'toggleButton',
+	toggleButton: 'jsToggleButton',
 	toggleButtonOnCSS: 'buttonOn',
 	get toggleButtonOn() {
 		return `js${this.toggleButtonOnCSS.charAt(0).toUpperCase() + this.toggleButtonOnCSS.slice(1)}`;
 	},
+	inputButton: 'jsInputButton',
+	simpleButton: 'jsSimpleButton',
 	button: 'jsButtonMark',
 }
 
@@ -295,6 +299,9 @@ splitElements('blur', buttonObjects.splitElements.input, inputButton, eventListe
 
 //blur on enter
 splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventListenersParameters.enterBlur);
+
+//to default
+splitElements('click', buttonObjects.splitElements.toDefault, toDefaultButtons, eventListenersParameters.toDefault);
 
 //UI LOOP
 const loopUI = function() {
@@ -546,6 +553,45 @@ function enterBlur(event) {
 	if (pressedKey === 'Enter') {
 		event.target.blur();
 	}
+}
+
+//reset tab to default
+function toDefaultButtons(event) {
+	const parentNode = document.getElementById(event.target.dataset.parentId);
+	const buttonsToReset = parentNode.querySelectorAll(`.${markers.button}`);
+	
+	//filter stateless buttons
+	const filteredButtons = Array.from(buttonsToReset).filter(element => {
+		return !element.classList.contains(markers.simpleButton);
+	});
+
+	//trigger events to default
+	filteredButtons.forEach((element) => {
+		if (!element.dataset.default) {
+			console.log('button missing default value (data-default)');
+			return;
+		}
+
+		//case: toggle button
+		if (element.classList.contains(markers.toggleButton)) {
+			//check if not default
+			if (element.innerHTML !== element.dataset.default) {
+				const clickEvent = new Event('click', {bubbles: false});
+				element.dispatchEvent(clickEvent);
+			}
+		}
+
+		//case: input
+		if (element.classList.contains(markers.inputButton)) {
+			//check if not default
+			if (element.value !== element.dataset.default) {
+				element.value = element.dataset.default;
+
+				const blurEvent = new Event('blur', {bubbles: false});
+				element.dispatchEvent(blurEvent);
+			}
+		}
+	});
 }
 
 //open popup
