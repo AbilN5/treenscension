@@ -259,6 +259,7 @@
   box-sizing: border-box;
   padding-bottom: 1px;
   border: 2px solid transparent;
+  border-radius: 5px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
 }

@@ -1,18 +1,28 @@
+
+
 //UI
 
 
 //VARIABLES DECLARATION
+
+//JSON save keys
+const keysJSON = {
+	saveUI: 'saveUI',
+	saveUIMap: 'saveUIMap',
+} 
 
 //constant elements - for easy and frequent access
 const elementNames = {
 	head: 'jsHead',
 	popupShadow: 'jsPopupShadow',
 	popupContentSelected: 'jsPopupContentSelected',
+	save: 'jsSave',
 }
 
 const elementsObject = {
 	head: document.getElementById(elementNames.head),
 	popupShadow: document.querySelector(`.${elementNames.popupShadow}`),
+	save: document.querySelectorAll(`.${elementNames.save}`),
 }
 
 //UI object 
@@ -28,6 +38,59 @@ const UI = {
 		highPrecision: 4,
 	},
 }
+
+//Saveable UI object
+const updateTickElement = document.getElementById('inputUpdateTick');
+const updateTickUIElement = document.getElementById('inputUpdateTickUI');
+const toggleAnimationsElement = document.getElementById('toggleAnimations');
+
+function SaveUIObject() {
+	this.keys = {
+		updateTick: updateTickElement.dataset.saveKey,
+		updateTickUI: updateTickUIElement.dataset.saveKey,
+		toggleAnimations: toggleAnimationsElement.dataset.saveKey,
+	}
+}
+
+function insertSaveUIMap() {
+	saveUI.map = new Map();
+	
+	saveUI.map.set(saveUI.keys.updateTick, updateTickElement.dataset.default);
+	saveUI.map.set(saveUI.keys.updateTickUI, updateTickUIElement.dataset.default);
+	saveUI.map.set(saveUI.keys.toggleAnimations, toggleAnimationsElement.dataset.default);
+}
+
+function insertSaveUIMethods() {
+	saveUI.updateValue = function(key, newValue) {
+		saveUI.map.set(key, newValue);
+	};
+
+	saveUI.getValue = function(key) {
+		return saveUI.map.get(key);
+	};
+}
+
+//load or create saveUI
+let saveUI;
+try {
+	const stringSaveUI = localStorage.getItem(keysJSON.saveUI);
+	const saveUIMap = localStorage.getItem(keysJSON.saveUIMap);
+
+	saveUI = JSON.parse(stringSaveUI) || new SaveUIObject();
+	
+	if (saveUIMap) {
+		saveUI.map = JSONToMap(saveUIMap);
+	} else {
+		insertSaveUIMap();
+	} 
+
+} catch (error) {
+	console.error('Error parsing saveUI object');
+	saveUI = new SaveUIObject();
+	insertSaveUIMap();
+}
+
+insertSaveUIMethods();
 
 //gameSpeed object
 const ROUNDING_FACTOR = 1000000;
@@ -303,6 +366,41 @@ splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventList
 //to default
 splitElements('click', buttonObjects.splitElements.toDefault, toDefaultButtons, eventListenersParameters.toDefault);
 
+//save UI - keep this at last
+saveUIListeners();
+
+
+
+//LOAD SAVE UI
+function loadSaveUI() {
+	const elements = elementsObject.save;
+
+	elements.forEach((element) => {
+		const savedValue = saveUI.getValue(element.dataset.saveKey);
+		
+		//for input buttons
+		if (element.classList.contains(markers.inputButton)) {
+			if (savedValue !== element.value) {
+
+				//input value
+				element.value = savedValue;
+
+				//trigger event
+				triggerEventNoBubble('blur', element);
+			}
+
+		} else if (element.classList.contains(markers.toggleButton)) {
+			if (savedValue !== element.innerHTML) {
+
+				//triggerEvent
+				triggerEventNoBubble('click', element);
+			}
+		}
+
+	});
+}
+
+
 //UI LOOP
 const loopUI = function() {
 	updateVariablesUI();
@@ -576,8 +674,7 @@ function toDefaultButtons(event) {
 		if (element.classList.contains(markers.toggleButton)) {
 			//check if not default
 			if (element.innerHTML !== element.dataset.default) {
-				const clickEvent = new Event('click', {bubbles: false});
-				element.dispatchEvent(clickEvent);
+				triggerEventNoBubble('click', element);
 			}
 		}
 
@@ -587,12 +684,44 @@ function toDefaultButtons(event) {
 			if (element.value !== element.dataset.default) {
 				element.value = element.dataset.default;
 
-				const blurEvent = new Event('blur', {bubbles: false});
-				element.dispatchEvent(blurEvent);
+				triggerEventNoBubble('blur', element);
 			}
 		}
 	});
 }
+
+//save UI inputs listeners
+function saveUIListeners() {
+	const elements = elementsObject.save; 
+
+	//iterate all saveable elements
+	elements.forEach((element) => {
+
+		//find element type and add event listener
+		if (element.classList.contains(markers.inputButton)) {
+			element.addEventListener('blur', function(event) {
+				const inputElement = event.target;
+
+				//save
+				saveUI.updateValue(inputElement.dataset.saveKey, inputElement.value);
+
+				saveToLocalStorage(keysJSON.saveUIMap, mapToJSON(saveUI.map));
+				saveToLocalStorage(keysJSON.saveUI, saveUI);
+			});
+		} else if (element.classList.contains(markers.toggleButton)) {
+			element.addEventListener('click', function(event) {
+				const toggleElement = event.target;
+
+				//save
+				saveUI.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
+				
+				saveToLocalStorage(keysJSON.saveUIMap, mapToJSON(saveUI.map));
+				saveToLocalStorage(keysJSON.saveUI, saveUI);
+			});
+		}
+	});
+}
+
 
 //open popup
 function openPopup(event) {
@@ -681,6 +810,30 @@ function toggleAnimations() {
 }
 
 //Utility functions
+//json conversions
+
+//map <-> JSON
+function mapToJSON(map) {
+	return Array.from(map.entries());
+}
+
+function JSONToMap(jsonArray) {
+	return new Map(JSON.parse(jsonArray));
+}
+
+//save to local storage
+function saveToLocalStorage(name, object) {
+	const saveString = JSON.stringify(object);
+	localStorage.setItem(name, saveString);
+}
+
+//trigger event (bubbles: false)
+function triggerEventNoBubble(event, element) {
+	const triggeredEvent = new Event(event, {bubbles: false});
+	element.dispatchEvent(triggeredEvent);
+}
+
+
 //find group of element
 function findGroup(element, buttonObject) {
 	return buttonObject.groups.find(group => element.classList.contains(group.className));
@@ -785,6 +938,9 @@ eventParameters.map.set(gameSpeed.keys.playFastest, eventParameters.gameSpeed.pl
 eventParameters.map.set(orphanParameterKeys.resets.condenseSoul, eventParameters.resets.condenseSoul);
 
 
+
+//LOAD USER INPUTS
+loadSaveUI();
 
 //INITIALIZE ALL LOOPS
 loopUI();
