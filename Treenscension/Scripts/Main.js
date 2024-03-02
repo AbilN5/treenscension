@@ -7,8 +7,8 @@
 
 //JSON save keys
 const keysJSON = {
-	saveUI: 'saveUI',
-	saveUIMap: 'saveUIMap',
+	saveOptions: 'saveOptions',
+	saveOptionsMap: 'saveOptionsMap',
 } 
 
 //constant elements - for easy and frequent access
@@ -44,7 +44,7 @@ const updateTickElement = document.getElementById('inputUpdateTick');
 const updateTickUIElement = document.getElementById('inputUpdateTickUI');
 const toggleAnimationsElement = document.getElementById('toggleAnimations');
 
-function SaveUIObject() {
+function saveOptionsObject() {
 	this.keys = {
 		updateTick: updateTickElement.dataset.saveKey,
 		updateTickUI: updateTickUIElement.dataset.saveKey,
@@ -52,45 +52,45 @@ function SaveUIObject() {
 	}
 }
 
-function insertSaveUIMap() {
-	saveUI.map = new Map();
+function insertsaveOptionsMap() {
+	saveOptions.map = new Map();
 	
-	saveUI.map.set(saveUI.keys.updateTick, updateTickElement.dataset.default);
-	saveUI.map.set(saveUI.keys.updateTickUI, updateTickUIElement.dataset.default);
-	saveUI.map.set(saveUI.keys.toggleAnimations, toggleAnimationsElement.dataset.default);
+	saveOptions.map.set(saveOptions.keys.updateTick, updateTickElement.dataset.default);
+	saveOptions.map.set(saveOptions.keys.updateTickUI, updateTickUIElement.dataset.default);
+	saveOptions.map.set(saveOptions.keys.toggleAnimations, toggleAnimationsElement.dataset.default);
 }
 
-function insertSaveUIMethods() {
-	saveUI.updateValue = function(key, newValue) {
-		saveUI.map.set(key, newValue);
+function insertsaveOptionsMethods() {
+	saveOptions.updateValue = function(key, newValue) {
+		saveOptions.map.set(key, newValue);
 	};
 
-	saveUI.getValue = function(key) {
-		return saveUI.map.get(key);
+	saveOptions.getValue = function(key) {
+		return saveOptions.map.get(key);
 	};
 }
 
-//load or create saveUI
-let saveUI;
+//load or create saveOptions
+let saveOptions;
 try {
-	const stringSaveUI = localStorage.getItem(keysJSON.saveUI);
-	const saveUIMap = localStorage.getItem(keysJSON.saveUIMap);
+	const stringsaveOptions = localStorage.getItem(keysJSON.saveOptions);
+	const saveOptionsMap = localStorage.getItem(keysJSON.saveOptionsMap);
 
-	saveUI = JSON.parse(stringSaveUI) || new SaveUIObject();
+	saveOptions = JSON.parse(stringsaveOptions) || new saveOptionsObject();
 	
-	if (saveUIMap) {
-		saveUI.map = JSONToMap(saveUIMap);
+	if (saveOptionsMap) {
+		saveOptions.map = JSONToMap(saveOptionsMap);
 	} else {
-		insertSaveUIMap();
+		insertsaveOptionsMap();
 	} 
 
 } catch (error) {
-	console.error('Error parsing saveUI object');
-	saveUI = new SaveUIObject();
-	insertSaveUIMap();
+	console.error('Error parsing saveOptions object');
+	saveOptions = new saveOptionsObject();
+	insertsaveOptionsMap();
 }
 
-insertSaveUIMethods();
+insertsaveOptionsMethods();
 
 //gameSpeed object
 const ROUNDING_FACTOR = 1000000;
@@ -367,16 +367,16 @@ splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventList
 splitElements('click', buttonObjects.splitElements.toDefault, toDefaultButtons, eventListenersParameters.toDefault);
 
 //save UI - keep this at last
-saveUIListeners();
+saveOptionsListeners();
 
 
 
 //LOAD SAVE UI
-function loadSaveUI() {
+function loadsaveOptions() {
 	const elements = elementsObject.save;
 
 	elements.forEach((element) => {
-		const savedValue = saveUI.getValue(element.dataset.saveKey);
+		const savedValue = saveOptions.getValue(element.dataset.saveKey);
 		
 		//for input buttons
 		if (element.classList.contains(markers.inputButton)) {
@@ -691,7 +691,7 @@ function toDefaultButtons(event) {
 }
 
 //save UI inputs listeners
-function saveUIListeners() {
+function saveOptionsListeners() {
 	const elements = elementsObject.save; 
 
 	//iterate all saveable elements
@@ -703,20 +703,20 @@ function saveUIListeners() {
 				const inputElement = event.target;
 
 				//save
-				saveUI.updateValue(inputElement.dataset.saveKey, inputElement.value);
+				saveOptions.updateValue(inputElement.dataset.saveKey, inputElement.value);
 
-				saveToLocalStorage(keysJSON.saveUIMap, mapToJSON(saveUI.map));
-				saveToLocalStorage(keysJSON.saveUI, saveUI);
+				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
+				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
 		} else if (element.classList.contains(markers.toggleButton)) {
 			element.addEventListener('click', function(event) {
 				const toggleElement = event.target;
 
 				//save
-				saveUI.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
+				saveOptions.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
 				
-				saveToLocalStorage(keysJSON.saveUIMap, mapToJSON(saveUI.map));
-				saveToLocalStorage(keysJSON.saveUI, saveUI);
+				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
+				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
 		}
 	});
@@ -940,7 +940,7 @@ eventParameters.map.set(orphanParameterKeys.resets.condenseSoul, eventParameters
 
 
 //LOAD USER INPUTS
-loadSaveUI();
+loadsaveOptions();
 
 //INITIALIZE ALL LOOPS
 loopUI();
