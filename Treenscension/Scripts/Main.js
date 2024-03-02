@@ -965,6 +965,7 @@ loopUI();
 
 		if (eventType === logTable.eventType) {
 				
+			
 			logTable.repetition += repetition; 
 		}
 
