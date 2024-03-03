@@ -43,12 +43,14 @@ const UI = {
 const updateTickElement = document.getElementById('inputUpdateTick');
 const updateTickUIElement = document.getElementById('inputUpdateTickUI');
 const toggleAnimationsElement = document.getElementById('toggleAnimations');
+const changeLanguageElement = document.getElementById('changeLanguage');
 
 function saveOptionsObject() {
 	this.keys = {
 		updateTick: updateTickElement.dataset.saveKey,
 		updateTickUI: updateTickUIElement.dataset.saveKey,
 		toggleAnimations: toggleAnimationsElement.dataset.saveKey,
+		changeLanguage: changeLanguageElement.dataset.saveKey,
 	}
 }
 
@@ -58,6 +60,7 @@ function insertsaveOptionsMap() {
 	saveOptions.map.set(saveOptions.keys.updateTick, updateTickElement.dataset.default);
 	saveOptions.map.set(saveOptions.keys.updateTickUI, updateTickUIElement.dataset.default);
 	saveOptions.map.set(saveOptions.keys.toggleAnimations, toggleAnimationsElement.dataset.default);
+	saveOptions.map.set(saveOptions.keys.changeLanguage, changeLanguageElement.dataset.default);
 }
 
 function insertsaveOptionsMethods() {
@@ -237,6 +240,7 @@ const buttonObjects = {
 		header: 'header',
 		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
 		toggle: 'jsToggleButton',
+		list: 'jsListButton',
 		input: 'jsInputButton',
 		enter: 'jsEnterBlur',
 		toDefault: 'jsToDefaultButton'
@@ -296,6 +300,7 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	resetClick: [['event'], []],
 	closePopup: [['event'], []],
 	toggleButton: [['event'], []],
+	listButton: [['event'], []],
 	inputButton: [['event'], []],
 	enterBlur: [['event'], []],
 	toDefault: [['event'], []],
@@ -310,6 +315,7 @@ const markers = {
 		return `js${this.toggleButtonOnCSS.charAt(0).toUpperCase() + this.toggleButtonOnCSS.slice(1)}`;
 	},
 	inputButton: 'jsInputButton',
+	listButton: 'jsListButton',
 	simpleButton: 'jsSimpleButton',
 	button: 'jsButtonMark',
 }
@@ -357,6 +363,9 @@ splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListe
 //toggle buttons
 splitElements('click', buttonObjects.splitElements.toggle, toggleButton, eventListenersParameters.toggleButton);
 
+//list buttons
+splitElements('change', buttonObjects.splitElements.list, listButton, eventListenersParameters.listButton);
+
 //input buttons
 splitElements('blur', buttonObjects.splitElements.input, inputButton, eventListenersParameters.inputButton);
 
@@ -378,7 +387,7 @@ function loadsaveOptions() {
 	elements.forEach((element) => {
 		const savedValue = saveOptions.getValue(element.dataset.saveKey);
 		
-		//for input buttons
+		//case: input button
 		if (element.classList.contains(markers.inputButton)) {
 			if (savedValue !== element.value) {
 
@@ -389,14 +398,22 @@ function loadsaveOptions() {
 				triggerEventNoBubble('blur', element);
 			}
 
-		} else if (element.classList.contains(markers.toggleButton)) {
+		} else if (element.classList.contains(markers.toggleButton)) { //case: toggle button
 			if (savedValue !== element.innerHTML) {
 
 				//triggerEvent
 				triggerEventNoBubble('click', element);
 			}
-		}
+		} else if (element.classList.contains(markers.listButton)) {
+			if (savedValue !== element.value) {
 
+				//input value
+				element.value = savedValue;
+
+				//trigger event
+				triggerEventNoBubble('change', element);
+			}
+		}
 	});
 }
 
@@ -493,6 +510,11 @@ function setGameSpeed(key) {
 	return true;
 }
 
+//change language
+function changeLanguage(newLanguage) {
+	console.log(newLanguage);
+}
+
 //select button
 function selectButton(event, buttonObject) {
 	const clickedElement = event.target;
@@ -557,20 +579,25 @@ function toggleButton(event) {
 	callElementFunction(clickedElement);
 }
 
+//list button
+function listButton(event) {
+	const listElement = event.target;
+
+	const value = listElement.value;
+	const functionCalled = functionsMap.map.get(listElement.dataset.eventKey);
+
+	//call function passing value as parameter
+	callElementFunctionValue(listElement, value);
+}
+
 //input button
 function inputButton(event) {
 	const inputElement = event.target;
 	
-	const functionCalled = functionsMap.map.get(inputElement.dataset.eventKey);
-	const parametersKey = inputElement.dataset.parametersKey;
+
 	const expectedData = inputElement.dataset.type;
 
 	//log error if data missing
-	if (!functionCalled) {
-		console.log("button missing function (function wasn't found or data-event-key missing)");
-		return;
-	}
-
 	if (!expectedData) {
 		console.log('button missing expected data (data-type)');
 		return;
@@ -633,15 +660,7 @@ function inputButton(event) {
 	const value = processInput(inputElement, expectedData);
 
 	//call function
-	if (parametersKey) {
-		const parametersArray = eventParameters.map.get(parametersKey);
-
-		functionCalled(value, ...parametersArray);
-		return true;
-	}
-
-	functionCalled(value)
-	return true;
+	callElementFunctionValue(inputElement, value);
 }
 
 //blur on enter
@@ -698,6 +717,7 @@ function saveOptionsListeners() {
 	elements.forEach((element) => {
 
 		//find element type and add event listener
+		//case: input button
 		if (element.classList.contains(markers.inputButton)) {
 			element.addEventListener('blur', function(event) {
 				const inputElement = event.target;
@@ -708,13 +728,23 @@ function saveOptionsListeners() {
 				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
 				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
-		} else if (element.classList.contains(markers.toggleButton)) {
+		} else if (element.classList.contains(markers.toggleButton)) { //case: toggle button
 			element.addEventListener('click', function(event) {
 				const toggleElement = event.target;
 
 				//save
 				saveOptions.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
 				
+				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
+				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
+			});
+		} else if (element.classList.contains(markers.listButton)) {
+			element.addEventListener('change', function(event) {
+				const listElement = event.target;
+
+				//save
+				saveOptions.updateValue(listElement.dataset.saveKey, listElement.value);
+
 				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
 				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
@@ -863,6 +893,26 @@ function callElementFunction(element) {
 	}
 }
 
+function callElementFunctionValue(element, value) {
+	const functionCalled = functionsMap.map.get(element.dataset.eventKey);
+	const parametersKey = element.dataset.parametersKey;
+
+	if (!functionCalled) {
+		console.log("button missing function (function wasn't found or data-event-key missing)");
+		return;
+	}
+
+	if (parametersKey) {
+		const parametersArray = eventParameters.map.get(parametersKey);
+
+		functionCalled(value, ...parametersArray);
+		return true;
+	}
+
+	functionCalled(value)
+	return true;
+}
+
 //process numbers based on range (x-y)
 function processRange(value, range) {
 	const rangeParts = range.split('-');
@@ -904,6 +954,7 @@ const functionsMap = {
 		toggleAnimations: toggleAnimations,
 		updateTick: gameSpeed.updateTick,
 		updateTickUI: gameSpeed.updateTickUI,
+		changeLanguage: changeLanguage,
 	},
 
 	key: {
@@ -912,7 +963,8 @@ const functionsMap = {
 		condenseSoul: 'condenseSoul',
 		toggleAnimations: 'toggleAnimations',
 		updateTick: 'updateTick',
-		updateTickUI: 'updateTickUI'
+		updateTickUI: 'updateTickUI',
+		changeLanguage: 'changeLanguage',
 	},
 
 	map: new Map(),
@@ -924,6 +976,7 @@ functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.conde
 functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
 functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateTick);
 functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
+functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.keys.pause, eventParameters.gameSpeed.pause);
@@ -965,7 +1018,7 @@ loopUI();
 
 		if (eventType === logTable.eventType) {
 				
-			
+
 			logTable.repetition += repetition; 
 		}
 

@@ -48,14 +48,15 @@
   background-color: rgba(0, 0, 0, 0.284);
 }
 
-.mainContainer .optionsContent .optionsFlex .optionsButtonGrid div {
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid div,
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid label
+ {
   margin: 10px;
 }
 
-.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button {
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button,
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid select {
   color: rgba(29, 47, 41, 1);
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
   border: 2px solid rgba(218, 196, 220, 1);
   border-radius: 0px 10px 10px 0px;
   height: 120%;
@@ -63,9 +64,30 @@
   transition-duration: 0.4s;
 }
 
-.mainContainer .optionsContent .optionsFlex .simpleButton:hover,
-.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button:hover {
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button {
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid select {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid select option {
   background-color: rgba(199, 180, 202, 1);
+}
+
+
+.mainContainer .optionsContent .optionsFlex .simpleButton:hover,
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid button:hover,
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid select:hover {
+  background-color: rgba(199, 180, 202, 1);
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsButtonGrid select option:hover {
+  background-color: inherit;
 }
 
 .mainContainer .optionsContent .optionsFlex .simpleButton:active,
