@@ -64,13 +64,10 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
-	background-position: 0 78%;
-	
+	background-position: 160px 78%;
 	margin: 0;
 	cursor: default;
 }
-
-
 
 /*generic classes*/
 .pointerCursor {
@@ -141,6 +138,17 @@ body {
 	overflow-y: auto;
 	overflow-x: auto;
 }
+
+#technicalElements a {
+	text-decoration: inherit;
+	color: inherit;
+}
+
+#technicalElements a:visited {
+	text-decoration: inherit;
+	color: inherit;
+}
+
 
 #technicalElements ul {
 	list-style-type: none;
@@ -323,6 +331,7 @@ body {
 	box-sizing: border-box;
 	background-color: rgba(29, 47, 41, 1);
 	box-shadow: 0px 0px 3px 8px rgba(0, 0, 0, .3);
+	border-radius: 0 30px 0 0;
 	position: fixed;
 	bottom: 0;
 	left: 0;
