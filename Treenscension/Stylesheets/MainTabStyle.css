@@ -27,12 +27,12 @@
   flex-basis: 100%;
   color: rgba(29, 47, 41, 1);
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 25px;
-  padding: 0px 10px;
-  margin-bottom: 20px;
+  font-size: 22px;
+  padding: 0 10px;
+  margin-bottom: 50px;
   width: 50px;
   border: 2px solid rgba(218, 196, 220, 1);
-  border-radius: 10px;
+  border-radius: 6px;
   transition-duration: 0.2s;
 }
 
