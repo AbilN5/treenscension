@@ -9,6 +9,7 @@
 const keysJSON = {
 	saveOptions: 'saveOptions',
 	saveOptionsMap: 'saveOptionsMap',
+	shortcutsMap: 'shortcutsMap',
 } 
 
 //constant elements - for easy and frequent access
@@ -17,12 +18,14 @@ const elementNames = {
 	popupShadow: 'jsPopupShadow',
 	popupContentSelected: 'jsPopupContentSelected',
 	save: 'jsSave',
+	gameplayOptions: 'gameplayOptions',
 }
 
 const elementsObject = {
 	head: document.getElementById(elementNames.head),
 	popupShadow: document.querySelector(`.${elementNames.popupShadow}`),
 	save: document.querySelectorAll(`.${elementNames.save}`),
+	gameplayOptions: document.getElementById(elementNames.gameplayOptions),
 }
 
 //UI object 
@@ -243,7 +246,8 @@ const buttonObjects = {
 		list: 'jsListButton',
 		input: 'jsInputButton',
 		enter: 'jsEnterBlur',
-		toDefault: 'jsToDefaultButton'
+		changeShortcut: 'jsShortcutButton',
+		toDefault: 'jsToDefaultButton',
 	},
 
 	uniqueElements: {
@@ -303,6 +307,7 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	listButton: [['event'], []],
 	inputButton: [['event'], []],
 	enterBlur: [['event'], []],
+	changeShortcut: [['event'], []],
 	toDefault: [['event'], []],
 }
 
@@ -318,6 +323,9 @@ const markers = {
 	listButton: 'jsListButton',
 	simpleButton: 'jsSimpleButton',
 	button: 'jsButtonMark',
+	shortcutButton: 'jsShortcutButton',
+	shortcutInvalid: 'invalid',
+	shortcutsLock: 'jsShortcutsLock',
 }
 
 //updateable html elements
@@ -372,49 +380,60 @@ splitElements('blur', buttonObjects.splitElements.input, inputButton, eventListe
 //blur on enter
 splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventListenersParameters.enterBlur);
 
+//change shortcut
+splitElements('keydown', buttonObjects.splitElements.changeShortcut, changeShortcut, eventListenersParameters.changeShortcut);
+
 //to default
 splitElements('click', buttonObjects.splitElements.toDefault, toDefaultButtons, eventListenersParameters.toDefault);
 
-//save UI - keep this at last
+//save Options - keep this at last
 saveOptionsListeners();
 
 
 
 //LOAD SAVE UI
-function loadsaveOptions() {
+function loadSaveOptions() {
 	const elements = elementsObject.save;
 
-	elements.forEach((element) => {
-		const savedValue = saveOptions.getValue(element.dataset.saveKey);
-		
-		//case: input button
-		if (element.classList.contains(markers.inputButton)) {
-			if (savedValue !== element.value) {
-
-				//input value
-				element.value = savedValue;
-
-				//trigger event
-				triggerEventNoBubble('blur', element);
+	if (saveOptions.getValue(elements[1].dataset.saveKey)) { //ensure not first load
+		elements.forEach((element) => {
+			const savedValue = saveOptions.getValue(element.dataset.saveKey);
+			
+			//case: input button
+			if (element.classList.contains(markers.inputButton)) {
+				if (savedValue !== element.value) {
+	
+					//input value
+					element.value = savedValue;
+	
+					//trigger event
+					element.blur();
+				}
+	
+			} else 
+			
+			//case: toggle button
+			if (element.classList.contains(markers.toggleButton)) { 
+				if (savedValue !== element.innerHTML) {
+	
+					//triggerEvent
+					triggerEventNoBubble('click', element);
+				}
+			} else 
+			
+			//case: list button
+			if (element.classList.contains(markers.listButton)) {
+				if (savedValue !== element.value) {
+	
+					//input value
+					element.value = savedValue;
+	
+					//trigger event
+					triggerEventNoBubble('change', element);
+				}
 			}
-
-		} else if (element.classList.contains(markers.toggleButton)) { //case: toggle button
-			if (savedValue !== element.innerHTML) {
-
-				//triggerEvent
-				triggerEventNoBubble('click', element);
-			}
-		} else if (element.classList.contains(markers.listButton)) {
-			if (savedValue !== element.value) {
-
-				//input value
-				element.value = savedValue;
-
-				//trigger event
-				triggerEventNoBubble('change', element);
-			}
-		}
-	});
+		});
+	}
 }
 
 
@@ -672,6 +691,72 @@ function enterBlur(event) {
 	}
 }
 
+//change shortcut
+function changeShortcut(event) {
+	const button = event.target;
+
+	//check if not reserved key
+	const key = event.key;
+
+	//check if not same key
+	if (key === button.innerHTML.toLowerCase()) {
+		//blur element
+		button.blur();
+		
+		//prevent event propagation
+		event.stopPropagation();
+
+		return;
+	}
+
+	const reservedKeys = ['Enter', 'Tab', 'Escape', 'ArrowUp',  'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Delete', 'Backspace']; 
+	
+	const invalid = reservedKeys.includes(key) || shortcutsMap.has(key);
+
+	//show value is not valid
+	if (invalid) {
+		//save current shortcut
+		const currentShortcut = button.innerHTML;
+	
+		//display not valid
+		button.innerHTML = markers.shortcutInvalid;
+
+		//make element not clickable for 2 seconds
+		const msTimer = 2000;
+		button.classList.add('invisible');
+		
+		//blur element
+		button.blur();
+
+		//set button back to normal
+		setTimeout(function() {
+			button.classList.remove('invisible');
+			button.innerHTML = currentShortcut;
+		}, msTimer);
+
+		//prevent event propagation
+		event.stopPropagation();
+
+		return;
+	}
+
+	//get used variables
+	const upperCaseKey = key.toUpperCase();
+	const previousKey = button.innerHTML.toLowerCase();
+	const functionArrayCalled = shortcutsMap.get(previousKey);
+
+	//update map
+	shortcutsMap.delete(previousKey);
+	shortcutsMap.set(key, functionArrayCalled);
+
+	//update button
+	button.innerHTML = upperCaseKey;
+
+	//blur button
+	event.stopPropagation();
+	button.blur();
+}
+
 //reset tab to default
 function toDefaultButtons(event) {
 	const parentNode = document.getElementById(event.target.dataset.parentId);
@@ -681,6 +766,14 @@ function toDefaultButtons(event) {
 	const filteredButtons = Array.from(buttonsToReset).filter(element => {
 		return !element.classList.contains(markers.simpleButton);
 	});
+
+	//reset shortcuts if gameplay tab
+	if (parentNode === elementsObject.gameplayOptions) {
+		localStorage.removeItem(keysJSON.shortcutsMap);
+		
+		shortcutsMap = new Map();
+		setShortcuts();
+	}
 
 	//trigger events to default
 	filteredButtons.forEach((element) => {
@@ -695,15 +788,32 @@ function toDefaultButtons(event) {
 			if (element.innerHTML !== element.dataset.default) {
 				triggerEventNoBubble('click', element);
 			}
-		}
+		} else
 
-		//case: input
+		//case: input button
 		if (element.classList.contains(markers.inputButton)) {
 			//check if not default
 			if (element.value !== element.dataset.default) {
 				element.value = element.dataset.default;
 
-				triggerEventNoBubble('blur', element);
+				element.blur();
+			}
+		} else
+
+		//case: shortcut button
+		if (element.classList.contains(markers.shortcutButton)) {
+			//check if not default
+			if (element.innerHTML !== element.dataset.default.toUpperCase()) {
+				element.innerHTML = element.dataset.default.toUpperCase();
+			}
+		} else
+
+		//case: list button
+		if (element.classList.contains(markers.listButton)) {
+			if (element.value !== element.dataset.default) {
+				element.value = element.dataset.default;
+
+				triggerEventNoBubble('change', element);
 			}
 		}
 	});
@@ -728,7 +838,10 @@ function saveOptionsListeners() {
 				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
 				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
-		} else if (element.classList.contains(markers.toggleButton)) { //case: toggle button
+		} else 
+		
+		//case: toggle button
+		if (element.classList.contains(markers.toggleButton)) { 
 			element.addEventListener('click', function(event) {
 				const toggleElement = event.target;
 
@@ -738,7 +851,25 @@ function saveOptionsListeners() {
 				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
 				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
 			});
-		} else if (element.classList.contains(markers.listButton)) {
+		} else 
+		
+		//case: shortcut button
+		if(element.classList.contains(markers.shortcutButton)) {
+			element.addEventListener('keydown', function(event) {
+				const shortcutButton = event.target;
+				
+
+				//ensure shortcut was changed
+				if (shortcutButton.innerHTML !== markers.shortcutInvalid) {
+					
+					//save
+					saveToLocalStorage(keysJSON.shortcutsMap, mapToJSON(shortcutsMap));
+				}
+			});
+		} else
+
+		//case: list button
+		if (element.classList.contains(markers.listButton)) {
 			element.addEventListener('change', function(event) {
 				const listElement = event.target;
 
@@ -799,6 +930,21 @@ function closePopup(event) {
 //condense soul
 function condenseSoul() {
 	console.log('soul condensed');
+}
+
+//treenscension
+function treenscension() {
+	console.log('treenscended');
+}
+
+//expand universe
+function expandUniverse() {
+	console.log('universe expanded');
+}
+
+//compress universe
+function compressUniverse() {
+	console.log('universe compressed')
 }
 
 //Update UI
@@ -945,58 +1091,7 @@ function roundToSignificantFigures(number, precision) {
 	return Math.round(number*LOW_ROUNDING_FACTOR)/LOW_ROUNDING_FACTOR;
 }
 
-//EVENTS MAP
-const functionsMap = {
-	functions: {
-		setGameSpeed: setGameSpeed,
-		selectButton: selectButton,
-		condenseSoul: condenseSoul,
-		toggleAnimations: toggleAnimations,
-		updateTick: gameSpeed.updateTick,
-		updateTickUI: gameSpeed.updateTickUI,
-		changeLanguage: changeLanguage,
-	},
 
-	key: {
-		setGameSpeed: 'setGameSpeed',
-		selectButton: 'selectButton',
-		condenseSoul: 'condenseSoul',
-		toggleAnimations: 'toggleAnimations',
-		updateTick: 'updateTick',
-		updateTickUI: 'updateTickUI',
-		changeLanguage: 'changeLanguage',
-	},
-
-	map: new Map(),
-}
-//function keys
-functionsMap.map.set(functionsMap.key.setGameSpeed, functionsMap.functions.setGameSpeed);
-functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
-functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
-functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
-functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateTick);
-functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
-functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
-
-//gamespeed parameter keys
-eventParameters.map.set(gameSpeed.keys.pause, eventParameters.gameSpeed.pause);
-eventParameters.map.set(gameSpeed.keys.slow, eventParameters.gameSpeed.slow);
-eventParameters.map.set(gameSpeed.keys.play, eventParameters.gameSpeed.play);
-eventParameters.map.set(gameSpeed.keys.playFast, eventParameters.gameSpeed.playFast);
-eventParameters.map.set(gameSpeed.keys.playFaster, eventParameters.gameSpeed.playFaster);
-eventParameters.map.set(gameSpeed.keys.playEvenFaster, eventParameters.gameSpeed.playEvenFaster);
-eventParameters.map.set(gameSpeed.keys.playFastest, eventParameters.gameSpeed.playFastest);
-
-//reset parameter keys
-eventParameters.map.set(orphanParameterKeys.resets.condenseSoul, eventParameters.resets.condenseSoul);
-
-
-
-//LOAD USER INPUTS
-loadsaveOptions();
-
-//INITIALIZE ALL LOOPS
-loopUI();
 //Log logic 
 /*
 	event constructor - to be made

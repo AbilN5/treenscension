@@ -35,10 +35,21 @@
   }
 }
 
-#condenseSoul {
-  animation: condenseSoulAnimation 3s infinite;
+/*shortcut button*/
+@keyframes shortcutButtonSelected {
+  0% {
+    background-color: rgba(78, 59, 79, 1);
+  }
+  50% {
+    background-color: rgb(131, 101, 132, 1);
+  }
+  100% {
+    background-color: rgba(78, 59, 79, 1);
+  }
 }
 
+
+/*changelog version types*/
 
 @-webkit-keyframes majorVersion {
   0% {
@@ -247,6 +258,13 @@
 	}
 }
 
+#condenseSoul {
+  animation: condenseSoulAnimation 3s infinite;
+}
+
+.mainContainer .optionsContent .optionsFlex .optionsShortcutsFlex .shortcutsButtonGrid .shortcutButton:focus {
+  animation: shortcutButtonSelected 3s infinite;
+}
 
 .changelogContainer .majorChange h2 .version {
   animation: majorVersion 8s infinite;

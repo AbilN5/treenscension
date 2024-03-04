@@ -1,0 +1,5 @@
+//LOAD USER INPUTS
+loadSaveOptions();
+
+//INITIALIZE ALL LOOPS
+loopUI();
