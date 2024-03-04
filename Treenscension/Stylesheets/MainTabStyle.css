@@ -12,7 +12,7 @@
 }
 
 .mainContainer .optionsContent {
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
 }
@@ -76,7 +76,7 @@
 
 .mainContainer .optionsContent .optionsFlex .optionsButtonGrid button {
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .mainContainer .optionsContent .optionsFlex .optionsButtonGrid select {
@@ -131,7 +131,7 @@
   box-sizing: border-box;
   color: rgba(29, 47, 41, 1);
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
   border: 2px solid rgba(218, 196, 220, 1);
   border-radius: 0px 10px 10px 0px;
@@ -161,7 +161,7 @@
 
 .mainContainer .optionsContent .optionsFlex .optionsShortcutsFlex .shortcutsButtonGrid {
   flex-basis: 45%;
-  margin: 10px 15px;
+  margin: 8px 18px;
   display: grid;
   align-items: baseline;
   grid-template-columns: 0.6fr 0.3fr;
@@ -169,7 +169,7 @@
 
 .mainContainer .optionsContent .optionsFlex .optionsShortcutsFlex .shortcutsButtonGrid .shortcutLabel {
   height: 100%;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .mainContainer .optionsContent .optionsFlex .optionsShortcutsFlex .shortcutsButtonGrid .shortcutButton {
@@ -178,7 +178,7 @@
   border: 5px solid rgba(29, 47, 41, 1);
   border-radius: 5px;
   color: rgba(147, 199, 144, 1);
-  font-size: 30px;
+  font-size: 25px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   transition-duration: 0.2s;
 }
