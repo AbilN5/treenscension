@@ -26,27 +26,27 @@
 				<li class="pointerCursor headerButton buttonMark jsButtonMark" id="jsChangelog" data-target="#changelog">Changelog</li>
 
 				<div class="headerIcons" id="gameSpeed">
-					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsButtonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameSpeed" data-parameters-key="pause">
+					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsButtonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameState" data-parameters-key="pause">
 						<use class="invisible" href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="play">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="play">
 						<use class="invisible" href="Treenscension/Media/Icons/play.svg#playIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playFaster">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFaster">
 						<use class="invisible" href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playEvenFaster">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playEvenFaster">
 						<use class="invisible" href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="playFastest">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFastest">
 						<use class="invisible" href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
 					</svg>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameSpeed" data-parameters-key="slow">
+					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="slow">
 						<use class="invisible" href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
 					</svg>
 				</div>
@@ -223,7 +223,7 @@
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second</div>
-							<input placeholder="1-120" value="50" id="inputUpdateTickUI" class="pointerCursor jsSave jsButtonMark jsEnterBlur inputButton jsInputButton" 
+							<input placeholder="1-120" value="50" id="inputUpdateTickUI" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
 							data-save-key="updateTick" 
 							data-event-key="updateTick" 
 							data-type="integer" 
@@ -359,7 +359,7 @@
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second (UI)</div>
-							<input placeholder="1-120" value="50" id="inputUpdateTick" class="pointerCursor jsSave jsButtonMark jsEnterBlur inputButton jsInputButton" 
+							<input placeholder="1-120" value="50" id="inputUpdateTick" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
 							data-save-key="updateTickUI" 
 							data-event-key="updateTickUI" 
 							data-type="integer" 
@@ -369,7 +369,7 @@
 
 						<div class="optionsButtonGrid">
 							<div class="optionToggle">Animations</div>
-							<button id="toggleAnimations" class="pointerCursor jsSave jsButtonMark optionToggleButton buttonOn jsToggleButton jsButtonOn" 
+							<button id="toggleAnimations" class="pointerCursor jsSave jsSaveOptions jsButtonMark optionToggleButton buttonOn jsToggleButton jsButtonOn" 
 							data-save-key="toggleAnimations" 
 							data-event-key="toggleAnimations" 
 							data-default="ON">ON</button>
@@ -377,7 +377,7 @@
 						
 						<div class="optionsButtonGrid">
 							<label for="changeLanguage">Language</label>
-							<select id="changeLanguage" name="languages" class="pointerCursor jsSave jsButtonMark optionListButton jsListButton" 
+							<select id="changeLanguage" name="languages" class="pointerCursor jsSave jsSaveOptions jsButtonMark optionListButton jsListButton" 
 							data-save-key="changeLanguage" 
 							data-event-key="changeLanguage" 
 							data-default="english">
@@ -604,6 +604,13 @@
 		</div>
 	</div>
 
+	<!--DATA-->
+	<script src="Treenscension/Scripts/Data/KeysJSON.js" type="text/javascript"></script>
+	<script src="Treenscension/Scripts/Data/GameSave.js" type="text/javascript"></script>
+	<script src="Treenscension/Scripts/Data/GameSpeed.js" type="text/javascript"></script>
+	<script src="Treenscension/Scripts/Data/LoadData.js" type="text/javascript"></script>
+
+	<!--EXECUTION-->
 	<script src="Treenscension/Scripts/Main.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Challenges.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/EventsMap.js" type="text/javascript"></script>

@@ -1,7 +1,9 @@
 //EVENTS MAP
 const functionsMap = {
 	functions: {
-		setGameSpeed: setGameSpeed,
+		setGameState: gameSpeed.gameStates.setGameState,
+		updateTick: gameSpeed.gameplay.updateTick,
+		updateTickUI: gameSpeed.UI.updateTick,
 		selectButton: selectButton,
 		condenseSoul: condenseSoul,
     treenscension: treenscension,
@@ -18,13 +20,13 @@ const functionsMap = {
 		challenge9: challenge9,
 		challenge10: challenge10,
 		toggleAnimations: toggleAnimations,
-		updateTick: gameSpeed.updateTick,
-		updateTickUI: gameSpeed.updateTickUI,
 		changeLanguage: changeLanguage,
 	},
 
 	key: {
-		setGameSpeed: 'setGameSpeed',
+		setGameState: 'setGameState',
+		updateTick: 'updateTick',
+		updateTickUI: 'updateTickUI',
 		selectButton: 'selectButton',
 		condenseSoul: 'condenseSoul',
     treenscension: 'treenscension',
@@ -41,15 +43,13 @@ const functionsMap = {
 		challenge9: 'challenge9',
 		challenge10: 'challenge10',
 		toggleAnimations: 'toggleAnimations',
-		updateTick: 'updateTick',
-		updateTickUI: 'updateTickUI',
 		changeLanguage: 'changeLanguage',
 	},
 
 	map: new Map(),
 }
 //function keys
-functionsMap.map.set(functionsMap.key.setGameSpeed, functionsMap.functions.setGameSpeed);
+functionsMap.map.set(functionsMap.key.setGameState, functionsMap.functions.setGameState);
 functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
 functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
 functionsMap.map.set(functionsMap.key.treenscension, functionsMap.functions.treenscension);
@@ -72,13 +72,13 @@ functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updat
 functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
 
 //gamespeed parameter keys
-eventParameters.map.set(gameSpeed.keys.pause, eventParameters.gameSpeed.pause);
-eventParameters.map.set(gameSpeed.keys.slow, eventParameters.gameSpeed.slow);
-eventParameters.map.set(gameSpeed.keys.play, eventParameters.gameSpeed.play);
-eventParameters.map.set(gameSpeed.keys.playFast, eventParameters.gameSpeed.playFast);
-eventParameters.map.set(gameSpeed.keys.playFaster, eventParameters.gameSpeed.playFaster);
-eventParameters.map.set(gameSpeed.keys.playEvenFaster, eventParameters.gameSpeed.playEvenFaster);
-eventParameters.map.set(gameSpeed.keys.playFastest, eventParameters.gameSpeed.playFastest);
+eventParameters.map.set(gameSpeed.gameStates.keys.pause, eventParameters.gameSpeedStates.pause);
+eventParameters.map.set(gameSpeed.gameStates.keys.slow, eventParameters.gameSpeedStates.slow);
+eventParameters.map.set(gameSpeed.gameStates.keys.play, eventParameters.gameSpeedStates.play);
+eventParameters.map.set(gameSpeed.gameStates.keys.playFast, eventParameters.gameSpeedStates.playFast);
+eventParameters.map.set(gameSpeed.gameStates.keys.playFaster, eventParameters.gameSpeedStates.playFaster);
+eventParameters.map.set(gameSpeed.gameStates.keys.playEvenFaster, eventParameters.gameSpeedStates.playEvenFaster);
+eventParameters.map.set(gameSpeed.gameStates.keys.playFastest, eventParameters.gameSpeedStates.playFastest);
 
 //reset parameter keys
 eventParameters.map.set(orphanParameterKeys.resets.condenseSoul, eventParameters.resets.condenseSoul);

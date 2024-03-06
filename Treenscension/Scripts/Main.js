@@ -5,19 +5,13 @@
 
 //VARIABLES DECLARATION
 
-//JSON save keys
-const keysJSON = {
-	saveOptions: 'saveOptions',
-	saveOptionsMap: 'saveOptionsMap',
-	shortcutsMap: 'shortcutsMap',
-} 
-
 //constant elements - for easy and frequent access
 const elementNames = {
 	head: 'jsHead',
 	popupShadow: 'jsPopupShadow',
 	popupContentSelected: 'jsPopupContentSelected',
 	save: 'jsSave',
+	saveOptions: 'jsSaveOptions',
 	gameplayOptions: 'gameplayOptions',
 }
 
@@ -25,6 +19,7 @@ const elementsObject = {
 	head: document.getElementById(elementNames.head),
 	popupShadow: document.querySelector(`.${elementNames.popupShadow}`),
 	save: document.querySelectorAll(`.${elementNames.save}`),
+	saveOptions: document.querySelectorAll(`.${elementNames.saveOptions}`),
 	gameplayOptions: document.getElementById(elementNames.gameplayOptions),
 }
 
@@ -66,7 +61,7 @@ function insertsaveOptionsMap() {
 	saveOptions.map.set(saveOptions.keys.changeLanguage, changeLanguageElement.dataset.default);
 }
 
-function insertsaveOptionsMethods() {
+function insertSaveOptionsMethods() {
 	saveOptions.updateValue = function(key, newValue) {
 		saveOptions.map.set(key, newValue);
 	};
@@ -96,103 +91,7 @@ try {
 	insertsaveOptionsMap();
 }
 
-insertsaveOptionsMethods();
-
-//gameSpeed object
-const ROUNDING_FACTOR = 1000000;
-function GameSpeedObject(ticksPerSecond, ticksPerSecondUI) {
-	this.paused = false;
-	this.slowed = false;
-
-	this.tick = {
-		perSecondUI: ticksPerSecondUI,
-		msUI: 1000/ticksPerSecondUI, 
-		perSecond: ticksPerSecond,
-		ms: 1000/ticksPerSecond,
-	};
-
-	this.actions = {
-		base: 1/ticksPerSecond,
-		timeMultiplier: 0,
-		perTick: 0,
-		perSecond: 0,
-	};
-
-	this.pause = 0;
-	this.slow = 1;
-	this.play = 1;
-	this.playFast = 2;
-	this.playFaster = 4;
-	this.playEvenFaster = 10;
-	this.playFastest = 500000000000000;
-
-	this.updateTick = (newTick) => {
-		this.tick.perSecond = newTick;
-		this.tick.ms = Math.round(1000/this.tick.perSecond);
-
-		this.actions.base = 1/this.tick.perSecond
-		
-		if (!this.slowed) {
-			this.actions.perTick = Math.round(this.actions.base*this.actions.timeMultiplier*ROUNDING_FACTOR)/ROUNDING_FACTOR;
-			this.actions.perSecond = this.actions.perTick*this.tick.perSecond; 	
-		} else {
-			this.actions.perTick = Math.round(this.actions.base*this.slow*ROUNDING_FACTOR)/ROUNDING_FACTOR;
-			this.actions.perSecond = this.actions.perTick*this.tick.perSecond*this.slow;
-		}
-	};
-
-	this.updateTickUI = (newTick) => {
-		this.tick.perSecondUI = newTick;
-		this.tick.msUI = Math.round(1000/newTick);
-	}
-
-	this.applyGameSpeed = () => {
-		this.actions.perTick = Math.round(this.actions.base*this.actions.timeMultiplier*ROUNDING_FACTOR)/ROUNDING_FACTOR;
-		this.actions.perSecond = this.actions.perTick*this.tick.perSecond; 
-	};
-
-	this.newMultiplier = (newMultiplier) => {
-		this.actions.timeMultiplier = newMultiplier;
-		this.applyGameSpeed();
-	};
-
-	this.setGameSpeedDirect = (newSpeed) => {
-		this.actions.perTick = Math.round(this.actions.base*newSpeed*ROUNDING_FACTOR)/ROUNDING_FACTOR;
-		this.actions.perSecond = this.actions.perTick*this.tick.perSecond*newSpeed;
-	};
-
-	this.updatePaused = (logicalValue) => {
-		this.paused = logicalValue;
-	}
-
-	this.getActionsSecond = () => {
-		return this.actions.perSecond;
-	}
-
-	this.getTicksSecondUI = () => {
-		return this.tick.perSecondUI;
-	}
-
-	this.keys = {
-		pause: 'pause',
-		slow: 'slow',
-		play: 'play',
-		playFast: 'playFast',
-		playFaster: 'playFaster',
-		playEvenFaster: 'playEvenFaster',
-		playFastest: 'playFastest',
-	};
-	this.map = new Map();
-}
-const gameSpeed = new GameSpeedObject(50, 50);
-
-gameSpeed.map.set(gameSpeed.keys.pause, gameSpeed.pause);
-gameSpeed.map.set(gameSpeed.keys.slow, gameSpeed.slow);
-gameSpeed.map.set(gameSpeed.keys.play, gameSpeed.play);
-gameSpeed.map.set(gameSpeed.keys.playFast, gameSpeed.playFast);
-gameSpeed.map.set(gameSpeed.keys.playFaster, gameSpeed.playFaster);
-gameSpeed.map.set(gameSpeed.keys.playEvenFaster, gameSpeed.playEvenFaster);
-gameSpeed.map.set(gameSpeed.keys.playFastest, gameSpeed.playFastest);
+insertSaveOptionsMethods();
 
 const orphanParameterKeys = {
 	resets: {
@@ -275,14 +174,14 @@ const optionsTab = new ButtonSelectionObject(buttonObjects.section.options, grou
 
 //event parameters object
 const eventParameters = {
-	gameSpeed: {
-		pause: [gameSpeed.keys.pause],
-		play: [gameSpeed.keys.play],
-		playFast: [gameSpeed.keys.playFast],
-		playFaster: [gameSpeed.keys.playFaster],
-		playEvenFaster: [gameSpeed.keys.playEvenFaster],
-		playFastest: [gameSpeed.keys.playFastest],
-		slow: [gameSpeed.keys.slow],
+	gameSpeedStates: {
+		pause: [gameSpeed.gameStates.keys.pause],
+		play: [gameSpeed.gameStates.keys.play],
+		playFast: [gameSpeed.gameStates.keys.playFast],
+		playFaster: [gameSpeed.gameStates.keys.playFaster],
+		playEvenFaster: [gameSpeed.gameStates.keys.playEvenFaster],
+		playFastest: [gameSpeed.gameStates.keys.playFastest],
+		slow: [gameSpeed.gameStates.keys.slow],
 	},
 
 	resets: {
@@ -332,12 +231,11 @@ const markers = {
 const updateableHTMLElements = document.querySelectorAll('.jsVariable');
 
 //updater variables map
-const updaterKeys = {
-	actionsSecond: 'daysSecond',
+const updaters = {
+	get daysSecond() {
+		return gameSpeed.gameplay.actionSecond;
+	}
 }
-const updatersMap = new Map();
-
-updatersMap.set(updaterKeys.actionsSecond, gameSpeed.getActionsSecond.bind(gameSpeed));
 
 
 
@@ -393,21 +291,21 @@ saveOptionsListeners();
 
 //LOAD SAVE UI
 function loadSaveOptions() {
-	const elements = elementsObject.save;
+	const elements = elementsObject.saveOptions;
 
 	if (saveOptions.getValue(elements[1].dataset.saveKey)) { //ensure not first load
+
 		elements.forEach((element) => {
 			const savedValue = saveOptions.getValue(element.dataset.saveKey);
 			
 			//case: input button
 			if (element.classList.contains(markers.inputButton)) {
 				if (savedValue !== element.value) {
-	
+
 					//input value
 					element.value = savedValue;
-	
-					//trigger event
-					element.blur();
+					
+					triggerEventNoBubble('blur', element)
 				}
 	
 			} else 
@@ -444,7 +342,7 @@ const loopUI = function() {
 	//restart loop
 	setTimeout(() => {
 		requestAnimationFrame(loopUI);
-	}, gameSpeed.tick.msUI);
+	}, gameSpeed.UI.ms);
 }
 
 
@@ -507,28 +405,6 @@ function ButtonSelectionObject(parentClassObject, groupNamesArray) {
 
 
 //event functions
-//change game speed
-function setGameSpeed(key) {
-	const newSpeed = gameSpeed.map.get(key);
-	gameSpeed.slowed = false;
-
-	if (key !== gameSpeed.keys.pause) {
-		gameSpeed.updatePaused(false);
-	} else {
-		gameSpeed.updatePaused(true);
-	}
-
-	if (key !== gameSpeed.keys.slow) {
-		
-		gameSpeed.newMultiplier(newSpeed);
-		return true;
-	}
-
-	gameSpeed.slowed = true;
-	gameSpeed.setGameSpeedDirect(gameSpeed.slow);
-	return true;
-}
-
 //change language
 function changeLanguage(newLanguage) {
 	console.log(newLanguage);
@@ -612,7 +488,6 @@ function listButton(event) {
 //input button
 function inputButton(event) {
 	const inputElement = event.target;
-	
 
 	const expectedData = inputElement.dataset.type;
 
@@ -796,7 +671,7 @@ function toDefaultButtons(event) {
 			if (element.value !== element.dataset.default) {
 				element.value = element.dataset.default;
 
-				element.blur();
+				triggerEventNoBubble('blur', element)
 			}
 		} else
 
@@ -951,8 +826,7 @@ function compressUniverse() {
 //variables
 function updateVariablesUI() {
 	updateableHTMLElements.forEach(element => {
-		const variableFunction = updatersMap.get(element.dataset.variableKey);
-		let variableToUse = variableFunction()
+		let variableToUse = updaters[element.dataset.variableKey];
 
 		if (typeof variableToUse === 'number') {
 			variableToUse = roundToSignificantFigures(variableToUse, UI.numbersFormat.highPrecision);
@@ -1079,6 +953,7 @@ function processRange(value, range) {
 }
 
 //round number to significant digit
+const ROUNDING_FACTOR = 10000000
 const RANGE_SMALL_NUMBER = ROUNDING_FACTOR;
 const LOW_ROUNDING_FACTOR = 100;
 
