@@ -223,8 +223,8 @@
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second</div>
-							<input placeholder="1-120" value="50" id="inputUpdateTickUI" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
-							data-save-key="updateTick" 
+							<input placeholder="1-120" value="50" id="inputUpdateTick" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
+							data-save-key="tickSecond" 
 							data-event-key="updateTick" 
 							data-type="integer" 
 							data-range="1-120" 
@@ -359,8 +359,8 @@
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second (UI)</div>
-							<input placeholder="1-120" value="50" id="inputUpdateTick" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
-							data-save-key="updateTickUI" 
+							<input placeholder="1-120" value="50" id="inputUpdateTickUI" class="pointerCursor jsSave jsSaveOptions jsButtonMark jsEnterBlur inputButton jsInputButton" 
+							data-save-key="tickSecondUI" 
 							data-event-key="updateTickUI" 
 							data-type="integer" 
 							data-range="1-120" 
@@ -370,7 +370,7 @@
 						<div class="optionsButtonGrid">
 							<div class="optionToggle">Animations</div>
 							<button id="toggleAnimations" class="pointerCursor jsSave jsSaveOptions jsButtonMark optionToggleButton buttonOn jsToggleButton jsButtonOn" 
-							data-save-key="toggleAnimations" 
+							data-save-key="animations" 
 							data-event-key="toggleAnimations" 
 							data-default="ON">ON</button>
 						</div>
@@ -378,7 +378,7 @@
 						<div class="optionsButtonGrid">
 							<label for="changeLanguage">Language</label>
 							<select id="changeLanguage" name="languages" class="pointerCursor jsSave jsSaveOptions jsButtonMark optionListButton jsListButton" 
-							data-save-key="changeLanguage" 
+							data-save-key="language" 
 							data-event-key="changeLanguage" 
 							data-default="english">
 								<option value="english" selected>English</option>
@@ -606,6 +606,7 @@
 
 	<!--DATA-->
 	<script src="Treenscension/Scripts/Data/KeysJSON.js" type="text/javascript"></script>
+	<script src="Treenscension/Scripts/Data/GameOptions.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Data/GameSave.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Data/GameSpeed.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Data/LoadData.js" type="text/javascript"></script>

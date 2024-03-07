@@ -75,7 +75,7 @@ function insertGettersGameSpeed(gameSpeed) {
 }
 
 //insert multiplier calculation method
-function insertMethods(gameSpeed) {
+function insertGameSpeedMethods(gameSpeed) {
 
   //multiplier method
   gameSpeed.gameplay.multiplier = function() {
@@ -109,7 +109,7 @@ function insertMethods(gameSpeed) {
 //prepare gameSpeed object
 function prepareGameSpeed(gameSpeed) {
   insertGettersGameSpeed(gameSpeed);
-  insertMethods(gameSpeed);
+  insertGameSpeedMethods(gameSpeed);
   gameSpeed.gameStates.setGameState(gameSpeed.gameStates.keys.pause);
 }
 

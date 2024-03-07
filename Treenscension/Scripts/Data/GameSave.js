@@ -1,18 +1,8 @@
 //gameSave object - this should be very simple, and get populated later
 const loadGameSave = () => {
   try {
-    const gameSaveObject = JSON.parse(getSaveString()); 
-
-    //save exists
-    if (gameSaveObject) {
-      this.gameSave = gameSaveObject;
-      return true;
-    }
-
-    //save doesn't exist
-    this.gameSave = {}
+    this.gameSave = JSON.parse(getSaveString()) || {};
     return true;
-
   } 
   //error loading game save
   catch (error) {

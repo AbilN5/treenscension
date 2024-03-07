@@ -37,62 +37,6 @@ const UI = {
 	},
 }
 
-//Saveable UI object
-const updateTickElement = document.getElementById('inputUpdateTick');
-const updateTickUIElement = document.getElementById('inputUpdateTickUI');
-const toggleAnimationsElement = document.getElementById('toggleAnimations');
-const changeLanguageElement = document.getElementById('changeLanguage');
-
-function saveOptionsObject() {
-	this.keys = {
-		updateTick: updateTickElement.dataset.saveKey,
-		updateTickUI: updateTickUIElement.dataset.saveKey,
-		toggleAnimations: toggleAnimationsElement.dataset.saveKey,
-		changeLanguage: changeLanguageElement.dataset.saveKey,
-	}
-}
-
-function insertsaveOptionsMap() {
-	saveOptions.map = new Map();
-	
-	saveOptions.map.set(saveOptions.keys.updateTick, updateTickElement.dataset.default);
-	saveOptions.map.set(saveOptions.keys.updateTickUI, updateTickUIElement.dataset.default);
-	saveOptions.map.set(saveOptions.keys.toggleAnimations, toggleAnimationsElement.dataset.default);
-	saveOptions.map.set(saveOptions.keys.changeLanguage, changeLanguageElement.dataset.default);
-}
-
-function insertSaveOptionsMethods() {
-	saveOptions.updateValue = function(key, newValue) {
-		saveOptions.map.set(key, newValue);
-	};
-
-	saveOptions.getValue = function(key) {
-		return saveOptions.map.get(key);
-	};
-}
-
-//load or create saveOptions
-let saveOptions;
-try {
-	const stringsaveOptions = localStorage.getItem(keysJSON.saveOptions);
-	const saveOptionsMap = localStorage.getItem(keysJSON.saveOptionsMap);
-
-	saveOptions = JSON.parse(stringsaveOptions) || new saveOptionsObject();
-	
-	if (saveOptionsMap) {
-		saveOptions.map = JSONToMap(saveOptionsMap);
-	} else {
-		insertsaveOptionsMap();
-	} 
-
-} catch (error) {
-	console.error('Error parsing saveOptions object');
-	saveOptions = new saveOptionsObject();
-	insertsaveOptionsMap();
-}
-
-insertSaveOptionsMethods();
-
 const orphanParameterKeys = {
 	resets: {
 		condenseSoul: 'condenseSoulReset',
@@ -293,10 +237,10 @@ saveOptionsListeners();
 function loadSaveOptions() {
 	const elements = elementsObject.saveOptions;
 
-	if (saveOptions.getValue(elements[1].dataset.saveKey)) { //ensure not first load
+	if (elements[1].dataset.saveKey) { //ensure not first load
 
 		elements.forEach((element) => {
-			const savedValue = saveOptions.getValue(element.dataset.saveKey);
+			const savedValue = gameOptions.getValue(element.dataset.saveKey);
 			
 			//case: input button
 			if (element.classList.contains(markers.inputButton)) {
@@ -342,7 +286,7 @@ const loopUI = function() {
 	//restart loop
 	setTimeout(() => {
 		requestAnimationFrame(loopUI);
-	}, gameSpeed.UI.ms);
+	}, gameOptions.msTickUI);
 }
 
 
@@ -708,10 +652,9 @@ function saveOptionsListeners() {
 				const inputElement = event.target;
 
 				//save
-				saveOptions.updateValue(inputElement.dataset.saveKey, inputElement.value);
+				gameOptions.updateValue(inputElement.dataset.saveKey, inputElement.value);
 
-				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
-				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
+				saveToLocalStorage(keysJSON.saveOptions, gameOptions);
 			});
 		} else 
 		
@@ -721,10 +664,9 @@ function saveOptionsListeners() {
 				const toggleElement = event.target;
 
 				//save
-				saveOptions.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
+				gameOptions.updateValue(toggleElement.dataset.saveKey, toggleElement.innerHTML);
 				
-				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
-				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
+				saveToLocalStorage(keysJSON.saveOptions, gameOptions)
 			});
 		} else 
 		
@@ -749,10 +691,9 @@ function saveOptionsListeners() {
 				const listElement = event.target;
 
 				//save
-				saveOptions.updateValue(listElement.dataset.saveKey, listElement.value);
+				gameOptions.updateValue(listElement.dataset.saveKey, listElement.value);
 
-				saveToLocalStorage(keysJSON.saveOptionsMap, mapToJSON(saveOptions.map));
-				saveToLocalStorage(keysJSON.saveOptions, saveOptions);
+				saveToLocalStorage(keysJSON.saveOptions, gameOptions)
 			});
 		}
 	});
