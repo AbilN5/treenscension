@@ -1,3 +1,4 @@
+//manual save
 function manualSaveClick(event) {
   //save button's html
   const button = event.target;
@@ -18,17 +19,7 @@ function manualSaveClick(event) {
   }, 1000);
 }
 
-function exportSaveText(event) {
-  //get input field
-  const button = event.target;
-  const inputField = document.getElementById(button.dataset.inputID);
-
-  //get save string
-  const saveString = getSaveString();
-
-  //input it on input field
-  inputField.value = saveString;
-}
+//save text
 
 function importSaveText(event) {
   //get input field
@@ -63,6 +54,61 @@ function importSaveText(event) {
   }, 2000);
 
   return false; //import didn't happen
+}
+
+function exportSaveText(event) {
+  //get input field
+  const button = event.target;
+  const inputField = document.getElementById(button.dataset.inputID);
+
+  //get save string
+  const saveString = getSaveString();
+
+  //input it on input field
+  inputField.value = saveString;
+}
+
+
+//save file
+
+function importSaveFile() {
+  //create element for input
+  const inputElement = document.createElement('input');
+  inputElement.type = 'file';
+  inputElement.accept = '.txt'; //accepts only text
+
+  //add event listener for change
+  inputElement.addEventListener('change', readFile);
+
+  //trigger input
+  const clickEvent = new Event('click');
+  inputElement.dispatchEvent(clickEvent);
+
+  //read file function
+  function readFile() {
+    const selectedFile = inputElement.files[0];
+
+    //ensure a file was selected
+    if (selectedFile) {
+      //read the file
+      const fileReader = new FileReader();
+
+      //define proccess after read
+      fileReader.onload = function(readEvent) {
+        //save game
+        const saveString = readEvent.target.result;
+        saveGameSaveString(saveString);
+
+        //load save
+        loadGame();
+      }
+
+      //trigger reading
+      fileReader.readAsText(selectedFile);
+    }
+
+    inputElement.remove();
+  }
 }
 
 function exportSaveFile() {
@@ -105,44 +151,4 @@ function exportSaveFile() {
   window.URL.revokeObjectURL(downloadLink.href);
 
   document.body.removeChild(downloadLink);
-}
-
-function importSaveFile() {
-  //create element for input
-  const inputElement = document.createElement('input');
-  inputElement.type = 'file';
-  inputElement.accept = '.txt'; //accepts only text
-
-  //add event listener for change
-  inputElement.addEventListener('change', readFile);
-
-  //trigger input
-  const clickEvent = new Event('click');
-  inputElement.dispatchEvent(clickEvent);
-
-  //read file function
-  function readFile() {
-    const selectedFile = inputElement.files[0];
-
-    //ensure a file was selected
-    if (selectedFile) {
-      //read the file
-      const fileReader = new FileReader();
-
-      //define proccess after read
-      fileReader.onload = function(readEvent) {
-        //save game
-        const saveString = readEvent.target.result;
-        saveGameSaveString(saveString);
-
-        //load save
-        loadGame();
-      }
-
-      //trigger reading
-      fileReader.readAsText(selectedFile);
-    }
-
-    inputElement.remove();
-  }
 }

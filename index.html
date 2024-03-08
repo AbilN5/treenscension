@@ -219,7 +219,12 @@
 
 					<div id="gameplayOptions" class="optionsFlex">
 						
-						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" data-parent-ID="gameplayOptions">Reset</button>
+						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" 
+						data-event-key="toDefaultButtons"
+						data-pass-event="true"
+						data-parent-ID="gameplayOptions">
+							Reset
+						</button>
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second</div>
@@ -355,7 +360,12 @@
 
 					<div id="videoOptions" class="optionsFlex hidden">
 
-						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" data-parent-ID="videoOptions">Reset</button>
+						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" 
+						data-event-key="toDefaultButtons"
+						data-pass-event="true"
+						data-parent-ID="videoOptions">
+							Reset
+						</button>
 
 						<div class="optionsButtonGrid">
 							<div class="optionInput">Ticks/Second (UI)</div>
@@ -391,7 +401,12 @@
 
 					<div id="audioOptions" class="optionsFlex hidden">
 						
-						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" data-parent-ID="audioOptions">Reset</button>
+						<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsToDefaultButton" 
+						data-event-key="toDefaultButtons"
+						data-pass-event="true"
+						data-parent-ID="audioOptions">
+							Reset
+						</button>
 
 					</div>
 
@@ -409,7 +424,11 @@
 
 						<div class="saveContentInnerContainer">
 							<div class="saveButtonsFlex">
-							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="manualSaveClick">Manual Save</button>
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" 
+							data-event-key="manualSaveClick" 
+							data-pass-event="true">
+								Manual Save
+							</button>
 						</div>
 					</div>
 
@@ -423,8 +442,16 @@
 							<b>Warning</b>: an incompatible save might break the game!
 						</p>
 						<div class="saveButtonsFlex">
-							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="exportSaveFile">Export File</button>
-							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="importSaveFile" data->Import File</button>
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" 
+							data-event-key="exportSaveFile" 
+							data-pass-event="false">
+								Export File
+							</button>
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" 
+							data-event-key="importSaveFile" 
+							data-pass-event="false">
+								Import File
+							</button>
 						</div>
 					</div>
 
@@ -436,8 +463,19 @@
 						</p>
 						<input id="saveField">
 							<div class="saveButtonsFlex">
-								<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsSaveButton">Import Text</button>
-								<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsSaveButton">Export Text</button>
+								<button id="importSaveTextButton" class="pointerCursor jsButtonMark simpleButton jsSimpleButton" 
+								data-event-key="importSaveText" 
+								data-pass-event="true" 
+								data-input-ID="saveField" 
+								data-twin-button-ID="exportSaveTextButton">
+									Import Text
+								</button>
+								<button id="exportSaveTextButton" class="pointerCursor jsButtonMark simpleButton jsSimpleButton" 
+								data-event-key="exportSaveText" 
+								data-pass-event="true" 
+								data-input-ID="saveField">
+									Export Text
+								</button>
 							</div>
 					</div>
 
