@@ -2,8 +2,10 @@
 const functionsMap = {
 	functions: {
 		setGameState: gameSpeed.gameStates.setGameState,
-		updateTick: gameSpeed.gameplay.updateTick,
-		updateTickUI: gameSpeed.UI.updateTick,
+		updateTick: gameOptions.updateTick,
+		updateTickUI: gameOptions.updateValue,
+		toggleAnimations: gameOptions.toggleAnimations,
+		changeLanguage: gameOptions.changeLanguage,
 		selectButton: selectButton,
 		condenseSoul: condenseSoul,
     treenscension: treenscension,
@@ -19,8 +21,6 @@ const functionsMap = {
 		challenge8: challenge8,
 		challenge9: challenge9,
 		challenge10: challenge10,
-		toggleAnimations: toggleAnimations,
-		changeLanguage: changeLanguage,
 	},
 
 	key: {
@@ -50,6 +50,10 @@ const functionsMap = {
 }
 //function keys
 functionsMap.map.set(functionsMap.key.setGameState, functionsMap.functions.setGameState);
+functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateTick);
+functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
+functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
+functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
 functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
 functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
 functionsMap.map.set(functionsMap.key.treenscension, functionsMap.functions.treenscension);
@@ -66,10 +70,6 @@ functionsMap.map.set(functionsMap.key.challenge8, functionsMap.functions.challen
 functionsMap.map.set(functionsMap.key.challenge9, functionsMap.functions.challenge9);
 functionsMap.map.set(functionsMap.key.challenge10, functionsMap.functions.challenge10);
 functionsMap.map.set(functionsMap.key.changeShortcut, functionsMap.functions.changeShortcut);
-functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
-functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateTick);
-functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
-functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.gameStates.keys.pause, eventParameters.gameSpeedStates.pause);

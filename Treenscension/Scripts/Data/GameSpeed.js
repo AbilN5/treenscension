@@ -1,11 +1,7 @@
 //Gamespeed object constructor 
 function GameSpeedObject(tickUI, tickGame) {
-  this.UI = {
-    tickSecond: tickUI,
-  }
 
   this.gameplay = {
-    tickSecond: tickGame,
     base: 1,
   }
 
@@ -42,25 +38,13 @@ function GameSpeedObject(tickUI, tickGame) {
 
 //insert getters for object, as they can't be saved on local storage
 function insertGettersGameSpeed(gameSpeed) {
-  
-  Object.defineProperty(gameSpeed.UI,'ms', {
-    get: () => {
-    return 1000/gameSpeed.UI.tickSecond;
-    }
-  });
-
-  Object.defineProperty(gameSpeed.gameplay, 'ms', {
-    get: () => {
-      return 1000/gameSpeed.gameplay.tickSecond;
-    }
-  });
 
   Object.defineProperty(gameSpeed.gameplay, 'actionTick', {
     get: () => {
       return !gameSpeed.gameStates.slowed ? 
-      gameSpeed.gameplay.base*gameSpeed.gameplay.multiplier()/gameSpeed.gameplay.tickSecond 
+      gameSpeed.gameplay.base*gameSpeed.gameplay.multiplier()/gameOptions.tickSecond 
       : 
-      gameSpeed.gameplay.base/gameSpeed.gameplay.tickSecond; 
+      gameSpeed.gameplay.base/gameOptions.tickSecond; 
     }
   });
 
@@ -94,15 +78,6 @@ function insertGameSpeedMethods(gameSpeed) {
   
     gameSpeed.gameStates.slowed = gameState === gameSpeed.gameStates.keys.slow;
     gameSpeed.gameStates.paused = gameState === gameSpeed.gameStates.keys.pause;
-  }
-
-  //update ticks
-  gameSpeed.gameplay.updateTick = function(newTick) {
-    gameSpeed.gameplay.tickSecond = newTick;
-  }
-
-  gameSpeed.UI.updateTick = function(newTick) {
-    gameSpeed.UI.tickSecond = newTick;
   }
 }
 

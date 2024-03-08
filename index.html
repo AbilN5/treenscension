@@ -404,8 +404,53 @@
 
 			<h1>Save</h1>
 			<div class="innerContainer">
+				<div class="saveContentContainer jsSimpleButtonClick">
 
 
+						<div class="saveContentInnerContainer">
+							<div class="saveButtonsFlex">
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="manualSaveClick">Manual Save</button>
+						</div>
+					</div>
+
+
+					<div class="saveContentInnerContainer">
+						<p>
+							Export your save regularly to avoid potential problems
+						</p>
+						<p>
+							This uses a text <b>file</b> for <b>Import/Export</b>.<br>
+							<b>Warning</b>: an incompatible save might break the game!
+						</p>
+						<div class="saveButtonsFlex">
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="exportSaveFile">Export File</button>
+							<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton" data-event-key="importSaveFile" data->Import File</button>
+						</div>
+					</div>
+
+
+					<div class="saveContentInnerContainer">
+						<p>
+							This field uses <b>plain</b> text for <b>Import/Export</b><br>
+							<b>Warning</b>: an incompatible save might break the game!
+						</p>
+						<input id="saveField">
+							<div class="saveButtonsFlex">
+								<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsSaveButton">Import Text</button>
+								<button class="pointerCursor jsButtonMark simpleButton jsSimpleButton jsSaveButton">Export Text</button>
+							</div>
+					</div>
+
+					<div class="saveContentInnerContainer">
+						<p>
+							<b>WARNING: THIS WILL PERMANENTLY ERASE YOUR SAVE!</b>
+						</p>
+						<div class="saveButtonsFlex">
+							<button id="hardReset" class="pointerCursor jsButtonMark simpleButton jsSimpleButton">HARD RESET</button>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
 

@@ -349,11 +349,6 @@ function ButtonSelectionObject(parentClassObject, groupNamesArray) {
 
 
 //event functions
-//change language
-function changeLanguage(newLanguage) {
-	console.log(newLanguage);
-}
-
 //select button
 function selectButton(event, buttonObject) {
 	const clickedElement = event.target;
@@ -775,29 +770,6 @@ function updateVariablesUI() {
 		
 		element.innerText = variableToUse;
 	});
-}
-
-//animations
-function toggleAnimations() {
-	const animationLinks = document.querySelectorAll(`.${UI.animations.class}`);
-
-	//remove links if existent
-	if (animationLinks[0]) {
-		animationLinks.forEach((link) => {
-			link.parentNode.removeChild(link);
-		});
-	} else  { //create if nonexistent
-		UI.animations.links.forEach((link) => {
-			//create link
-			const newLink = document.createElement('link');
-			newLink.setAttribute('class', UI.animations.class);
-			newLink.setAttribute('rel', 'stylesheet');
-			newLink.setAttribute('href', link);
-
-			//insert link
-			elementsObject.head.insertBefore(newLink, elementsObject.head.firstChild);
-		});
-	}
 }
 
 //Utility functions
