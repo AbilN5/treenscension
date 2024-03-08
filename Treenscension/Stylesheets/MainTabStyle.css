@@ -233,7 +233,15 @@
   border-radius: 5px;
   margin: 0 0 10px 0;
   color: rgba(29, 47, 41, 1);
+  background-color: white;
+  transition-duration: 0.4s;
 }
+
+.mainContainer .saveContentContainer .saveContentInnerContainer input:hover,
+.mainContainer .saveContentContainer .saveContentInnerContainer input:focus {
+  background-color: rgba(199, 180, 202, 1);
+}
+
 
 .mainContainer .saveContentContainer .saveContentInnerContainer .saveButtonsFlex {
   display: flex;

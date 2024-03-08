@@ -1,7 +1,11 @@
 //gameSave object - this should be very simple, and get populated later
+let gameSave;
+
+//load gameSave
 const loadGameSave = () => {
   try {
-    this.gameSave = JSON.parse(getSaveString()) || {};
+    gameSave = JSON.parse(getSaveString()) || {};
+
     return true;
   } 
   //error loading game save

@@ -1,4 +1,8 @@
 //simple data load
 loadGameOptionsObject();
-loadGameSave();
-loadGameSpeedObject();
+loadGame();
+
+function loadGame() {
+  loadGameSave();
+  loadGameSpeedObject();
+}

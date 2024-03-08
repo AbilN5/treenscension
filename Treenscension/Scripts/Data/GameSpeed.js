@@ -1,3 +1,6 @@
+//gameSpeed declaration
+let gameSpeed;
+
 //Gamespeed object constructor 
 function GameSpeedObject(tickUI, tickGame) {
 
@@ -37,7 +40,7 @@ function GameSpeedObject(tickUI, tickGame) {
 }
 
 //insert getters for object, as they can't be saved on local storage
-function insertGettersGameSpeed(gameSpeed) {
+function insertGettersGameSpeed() {
 
   Object.defineProperty(gameSpeed.gameplay, 'actionTick', {
     get: () => {
@@ -59,7 +62,7 @@ function insertGettersGameSpeed(gameSpeed) {
 }
 
 //insert multiplier calculation method
-function insertGameSpeedMethods(gameSpeed) {
+function insertGameSpeedMethods() {
 
   //multiplier method
   gameSpeed.gameplay.multiplier = function() {
@@ -82,9 +85,9 @@ function insertGameSpeedMethods(gameSpeed) {
 }
 
 //prepare gameSpeed object
-function prepareGameSpeed(gameSpeed) {
-  insertGettersGameSpeed(gameSpeed);
-  insertGameSpeedMethods(gameSpeed);
+function prepareGameSpeed() {
+  insertGettersGameSpeed();
+  insertGameSpeedMethods();
   gameSpeed.gameStates.setGameState(gameSpeed.gameStates.keys.pause);
 }
 
@@ -92,22 +95,22 @@ function prepareGameSpeed(gameSpeed) {
 const loadGameSpeedObject = () => {
   try {
     if (gameSave.gameSpeed) {
-      this.gameSpeed = gameSave.gameSpeed;
-      prepareGameSpeed(this.gameSpeed);
+      gameSpeed = gameSave.gameSpeed;
+      prepareGameSpeed();
       return true;
     } 
     
-    this.gameSpeed = new GameSpeedObject(50, 50);
-    gameSave.gameSpeed = this.gameSpeed;
-    prepareGameSpeed(this.gameSpeed);
+    gameSpeed = new GameSpeedObject(50, 50);
+    gameSave.gameSpeed = gameSpeed;
+    prepareGameSpeed();
     return false;
 
   } catch (error) {
     console.error('Error loading gameSpeed from game save', error);
     
-    this.gameSpeed = new GameSpeedObject(50, 50);
-    gameSave.gameSpeed = this.gameSpeed;
-    prepareGameSpeed(this.gameSpeed);
+    gameSpeed = new GameSpeedObject(50, 50);
+    gameSave.gameSpeed = gameSpeed;
+    prepareGameSpeed();
     return false;
 
   }
