@@ -85,6 +85,7 @@ const buttonObjects = {
 	splitElements: {	//for elements that are section but can't use event delegation
 		header: 'header',
 		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
+		simple: 'jsSimpleButton',
 		toggle: 'jsToggleButton',
 		list: 'jsListButton',
 		input: 'jsInputButton',
@@ -146,6 +147,7 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	optionsTabClick: [['event', optionsTab], [optionsTab]],
 	resetClick: [['event'], []],
 	closePopup: [['event'], []],
+	simpleButton: [['event'], []],
 	toggleButton: [['event'], []],
 	listButton: [['event'], []],
 	inputButton: [['event'], []],
@@ -210,6 +212,9 @@ delegatorElement('click', buttonObjects.delegatorElements.reset, openPopup, even
 delegatorElement('click', buttonObjects.uniqueElements.popup, closePopup, eventListenersParameters.closePopup);
 splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListenersParameters.closePopup);
 
+//direct effect buttons - simple buttons
+splitElements('click', buttonObjects.splitElements.simple, simpleButtonClick, eventListenersParameters.simpleButton);
+
 //toggle buttons
 splitElements('click', buttonObjects.splitElements.toggle, toggleButton, eventListenersParameters.toggleButton);
 
@@ -224,9 +229,6 @@ splitElements('keydown', buttonObjects.splitElements.enter, enterBlur, eventList
 
 //change shortcut
 splitElements('keydown', buttonObjects.splitElements.changeShortcut, changeShortcut, eventListenersParameters.changeShortcut);
-
-//to default
-splitElements('click', buttonObjects.splitElements.toDefault, toDefaultButtons, eventListenersParameters.toDefault);
 
 //save Options - keep this at last
 saveOptionsListeners();
@@ -391,6 +393,23 @@ function selectButton(event, buttonObject) {
 	}
 
 	callElementFunction(clickedElement);
+}
+
+//direct effect button - simple button
+function simpleButtonClick(event) {
+	//get function to execute
+	const clickedElement = event.target;
+	const functionCalled = functionsMap.map.get(clickedElement.dataset.eventKey);
+	const passEvent = clickedElement.dataset.passEvent;
+
+	//call function
+	if (passEvent === 'true') {
+		functionCalled(event)
+		return true;
+	}
+
+	functionCalled();
+	return true;
 }
 
 //toggle button

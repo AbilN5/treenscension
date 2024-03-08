@@ -81,7 +81,7 @@ function insertGameOptionsMethods(gameOptions) {
   }
 
   //change language
-  function changeLanguage(newLanguage) {
+  gameOptions.changeLanguage = function(newLanguage) {
     console.log(newLanguage);
   }
 

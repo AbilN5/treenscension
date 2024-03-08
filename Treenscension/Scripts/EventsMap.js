@@ -6,27 +6,36 @@ const functionsMap = {
 		updateTickUI: gameOptions.updateValue,
 		toggleAnimations: gameOptions.toggleAnimations,
 		changeLanguage: gameOptions.changeLanguage,
-		selectButton: selectButton,
-		condenseSoul: condenseSoul,
-    treenscension: treenscension,
-    expandUniverse: expandUniverse,
-    compressUniverse: compressUniverse,
-		challenge1: challenge1,
-		challenge2: challenge2,
-		challenge3: challenge3,
-		challenge4: challenge4,
-		challenge5: challenge5,
-		challenge6: challenge6,
-		challenge7: challenge7,
-		challenge8: challenge8,
-		challenge9: challenge9,
-		challenge10: challenge10,
+		toDefaultButtons,
+		selectButton,
+		condenseSoul,
+    treenscension,
+    expandUniverse,
+    compressUniverse,
+		challenge1,
+		challenge2,
+		challenge3,
+		challenge4,
+		challenge5,
+		challenge6,
+		challenge7,
+		challenge8,
+		challenge9,
+		challenge10,
+		manualSaveClick,
+		importSaveFile,
+		exportSaveFile,
+		importSaveText,
+		exportSaveText,
 	},
 
 	key: {
 		setGameState: 'setGameState',
 		updateTick: 'updateTick',
 		updateTickUI: 'updateTickUI',
+		toggleAnimations: 'toggleAnimations',
+		changeLanguage: 'changeLanguage',
+		toDefault: 'toDefaultButtons',
 		selectButton: 'selectButton',
 		condenseSoul: 'condenseSoul',
     treenscension: 'treenscension',
@@ -42,8 +51,11 @@ const functionsMap = {
 		challenge8: 'challenge8',
 		challenge9: 'challenge9',
 		challenge10: 'challenge10',
-		toggleAnimations: 'toggleAnimations',
-		changeLanguage: 'changeLanguage',
+		manualSaveClick: 'manualSaveClick',
+		importSaveFile: 'importSaveFile',
+		exportSaveFile: 'exportSaveFile',
+		importSaveText: 'importSaveText',
+		exportSaveText: 'exportSaveText',
 	},
 
 	map: new Map(),
@@ -54,6 +66,7 @@ functionsMap.map.set(functionsMap.key.updateTick, functionsMap.functions.updateT
 functionsMap.map.set(functionsMap.key.updateTickUI, functionsMap.functions.updateTickUI);
 functionsMap.map.set(functionsMap.key.toggleAnimations, functionsMap.functions.toggleAnimations);
 functionsMap.map.set(functionsMap.key.changeLanguage, functionsMap.functions.changeLanguage);
+functionsMap.map.set(functionsMap.key.toDefault, functionsMap.functions.toDefaultButtons);
 functionsMap.map.set(functionsMap.key.selectButton, functionsMap.functions.selectButton);
 functionsMap.map.set(functionsMap.key.condenseSoul, functionsMap.functions.condenseSoul);
 functionsMap.map.set(functionsMap.key.treenscension, functionsMap.functions.treenscension);
@@ -70,6 +83,11 @@ functionsMap.map.set(functionsMap.key.challenge8, functionsMap.functions.challen
 functionsMap.map.set(functionsMap.key.challenge9, functionsMap.functions.challenge9);
 functionsMap.map.set(functionsMap.key.challenge10, functionsMap.functions.challenge10);
 functionsMap.map.set(functionsMap.key.changeShortcut, functionsMap.functions.changeShortcut);
+functionsMap.map.set(functionsMap.key.manualSaveClick, functionsMap.functions.manualSaveClick);
+functionsMap.map.set(functionsMap.key.importSaveFile, functionsMap.functions.importSaveFile);
+functionsMap.map.set(functionsMap.key.exportSaveFile, functionsMap.functions.exportSaveFile);
+functionsMap.map.set(functionsMap.key.importSaveText, functionsMap.functions.importSaveText);
+functionsMap.map.set(functionsMap.key.exportSaveText, functionsMap.functions.exportSaveText);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.gameStates.keys.pause, eventParameters.gameSpeedStates.pause);

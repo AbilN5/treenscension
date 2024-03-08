@@ -19,56 +19,6 @@ function manualSaveClick(event) {
   }, 1000);
 }
 
-//save text
-
-function importSaveText(event) {
-  //get input field
-  const button = event.target;
-  const inputField = document.getElementById(button.dataset.inputID);
-
-  //get save string
-  const saveString = inputField.value;
-
-  //ensure field is not empty and import save
-  if (saveString) {
-    localStorage.setItem(keysJSON.gameSave, saveString);
-    return true; //succesful import
-  }
-
-  //display message saying field is empty and make buttons not clickable
-  const twinButton = document.getElementById(button.dataset.twinButtonID);
-
-  button.classList.add('invisible');
-  twinButton.classList.add('invisible');
-  inputField.classList.add('invisible');
-
-  inputField.value = "You can't import an empty text for a save!"
-
-  //make buttons and input field clickable again after some time
-  setTimeout(() => {
-    inputField.value = '';
-
-    button.classList.remove('invisible');
-    twinButton.classList.remove('invisible');
-    inputField.classList.remove('invisible');
-  }, 2000);
-
-  return false; //import didn't happen
-}
-
-function exportSaveText(event) {
-  //get input field
-  const button = event.target;
-  const inputField = document.getElementById(button.dataset.inputID);
-
-  //get save string
-  const saveString = getSaveString();
-
-  //input it on input field
-  inputField.value = saveString;
-}
-
-
 //save file
 
 function importSaveFile() {
@@ -81,8 +31,7 @@ function importSaveFile() {
   inputElement.addEventListener('change', readFile);
 
   //trigger input
-  const clickEvent = new Event('click');
-  inputElement.dispatchEvent(clickEvent);
+  inputElement.click();
 
   //read file function
   function readFile() {
@@ -96,7 +45,7 @@ function importSaveFile() {
       //define proccess after read
       fileReader.onload = function(readEvent) {
         //save game
-        const saveString = readEvent.target.result;
+        const saveString = atob(readEvent.target.result);
         saveGameSaveString(saveString);
 
         //load save
@@ -108,6 +57,7 @@ function importSaveFile() {
     }
 
     inputElement.remove();
+    location.reload();
   }
 }
 
@@ -116,7 +66,7 @@ function exportSaveFile() {
   saveGame();
 
   //get save string
-  const saveString = localStorage.getItem(keysJSON.gameSave); 
+  const saveString = btoa(localStorage.getItem(keysJSON.gameSave)); 
 
   //create a file to download
   const saveFile = new Blob([saveString], { type: 'text/plain'});
@@ -144,11 +94,60 @@ function exportSaveFile() {
   //append it, click it, and remove it
   document.body.appendChild(downloadLink);
 
-  const clickEvent = new Event('click');
-  downloadLink.dispatchEvent(clickEvent);
+  downloadLink.click();
 
   //revoke link URL
   window.URL.revokeObjectURL(downloadLink.href);
 
   document.body.removeChild(downloadLink);
+}
+
+//save text
+
+async function importSaveText(event) {
+  //get input field
+  const button = event.target;
+  const inputField = document.getElementById(button.dataset.inputId);
+
+  //get save string
+  const saveString = atob(inputField.value);
+
+  //ensure field is not empty and import save
+  if (saveString) {
+    localStorage.setItem(keysJSON.gameSave, saveString);
+    location.reload();
+    return true; //succesful import
+  }
+
+  //display message saying field is empty and make buttons not clickable
+  const twinButton = document.getElementById(button.dataset.twinButtonId);
+
+  button.classList.add('invisible');
+  twinButton.classList.add('invisible');
+  inputField.classList.add('invisible');
+
+  inputField.value = "You can't import an empty text for a save!"
+
+  //make buttons and input field clickable again after some time
+  setTimeout(() => {
+    inputField.value = '';
+
+    button.classList.remove('invisible');
+    twinButton.classList.remove('invisible');
+    inputField.classList.remove('invisible');
+  }, 2000);
+
+  return false; //import didn't happen
+}
+
+async function exportSaveText(event) {
+  //get input field
+  const button = event.target;
+  const inputField = document.getElementById(button.dataset.inputId);
+
+  //get save string
+  const saveString = btoa(getSaveString());
+
+  //input it on input field
+  inputField.value = saveString;
 }

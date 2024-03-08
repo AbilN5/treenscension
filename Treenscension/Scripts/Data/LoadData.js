@@ -3,6 +3,7 @@ loadGameOptionsObject();
 loadGame();
 
 function loadGame() {
+  console.log('running')
   loadGameSave();
   loadGameSpeedObject();
 }
