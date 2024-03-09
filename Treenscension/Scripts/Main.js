@@ -84,7 +84,9 @@ const buttonObjects = {
 
 	splitElements: {	//for elements that are section but can't use event delegation
 		header: 'header',
-		popup: 'jsPopupButtonBox', //these are actually split elements that are delegators
+		openPopup: 'jsOpenPopupButton',
+		closePopupBox: 'jsPopupButtonBox', //these are actually split elements that are delegators
+		closePopupDirect: 'jsClosePopup',
 		simple: 'jsSimpleButton',
 		toggle: 'jsToggleButton',
 		list: 'jsListButton',
@@ -95,7 +97,7 @@ const buttonObjects = {
 	},
 
 	uniqueElements: {
-		popup: 'jsPopupShadowID',
+		closePopup: 'jsPopupShadowID',
 	},
 }
 
@@ -146,6 +148,7 @@ const eventListenersParameters = {	//this is tricky, always put event parameter 
 	skillsTabClick: [['event', skillsTab], [skillsTab]],	
 	optionsTabClick: [['event', optionsTab], [optionsTab]],
 	resetClick: [['event'], []],
+	openPopup: [['event'], []],
 	closePopup: [['event'], []],
 	simpleButton: [['event'], []],
 	toggleButton: [['event'], []],
@@ -168,6 +171,7 @@ const markers = {
 	listButton: 'jsListButton',
 	simpleButton: 'jsSimpleButton',
 	button: 'jsButtonMark',
+	closePopup: 'jsClosePopup',
 	shortcutButton: 'jsShortcutButton',
 	shortcutInvalid: 'invalid',
 	shortcutsLock: 'jsShortcutsLock',
@@ -208,9 +212,13 @@ delegatorElement('click', buttonObjects.delegatorElements.options, selectButton,
 //reset click event
 delegatorElement('click', buttonObjects.delegatorElements.reset, openPopup, eventListenersParameters.resetClick);
 
+//open popup click event
+splitElements('click', buttonObjects.splitElements.openPopup, openPopup, eventListenersParameters.openPopup);
+
 //close popup click event
-delegatorElement('click', buttonObjects.uniqueElements.popup, closePopup, eventListenersParameters.closePopup);
-splitElements('click', buttonObjects.splitElements.popup, closePopup, eventListenersParameters.closePopup);
+delegatorElement('click', buttonObjects.uniqueElements.closePopup, closePopup, eventListenersParameters.closePopup);
+splitElements('click', buttonObjects.splitElements.closePopupBox, closePopup, eventListenersParameters.closePopup);
+splitElements('click', buttonObjects.splitElements.closePopupDirect, closePopup, eventListenersParameters.closePopup);
 
 //direct effect buttons - simple buttons
 splitElements('click', buttonObjects.splitElements.simple, simpleButtonClick, eventListenersParameters.simpleButton);
@@ -736,7 +744,7 @@ function closePopup(event) {
 	const clickedElement = event.target;
 	
 	//ensure it's a button
-	if (clickedElement.classList.contains(markers.button)) {
+	if (clickedElement.classList.contains(markers.closePopup)) {
 		//close popup
 		//find popup to add hidden class
 		const popup = document.querySelector(`.${elementNames.popupContentSelected}`);

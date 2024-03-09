@@ -27,6 +27,7 @@ const functionsMap = {
 		exportSaveFile,
 		importSaveText,
 		exportSaveText,
+		hardResetConfirmation,
 	},
 
 	key: {
@@ -56,6 +57,7 @@ const functionsMap = {
 		exportSaveFile: 'exportSaveFile',
 		importSaveText: 'importSaveText',
 		exportSaveText: 'exportSaveText',
+		hardResetConfirmation: 'hardResetConfirmation',
 	},
 
 	map: new Map(),
@@ -88,6 +90,7 @@ functionsMap.map.set(functionsMap.key.importSaveFile, functionsMap.functions.imp
 functionsMap.map.set(functionsMap.key.exportSaveFile, functionsMap.functions.exportSaveFile);
 functionsMap.map.set(functionsMap.key.importSaveText, functionsMap.functions.importSaveText);
 functionsMap.map.set(functionsMap.key.exportSaveText, functionsMap.functions.exportSaveText);
+functionsMap.map.set(functionsMap.key.hardResetConfirmation, functionsMap.functions.hardResetConfirmation);
 
 //gamespeed parameter keys
 eventParameters.map.set(gameSpeed.gameStates.keys.pause, eventParameters.gameSpeedStates.pause);

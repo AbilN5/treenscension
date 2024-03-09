@@ -370,6 +370,7 @@ body {
 	text-align: center;
 	font-size: 25px;
 	font-family: fantasy;
+	font-weight: lighter;
 	color: white;
 	text-shadow: 4px -3px black;
 	margin-left: 40px;
@@ -609,6 +610,8 @@ body {
 }
 
 .popupContent h1 {
+	font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-weight: lighter;
 	text-align: center;
 	margin-bottom: 30px;
 }

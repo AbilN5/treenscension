@@ -151,3 +151,47 @@ async function exportSaveText(event) {
   //input it on input field
   inputField.value = saveString;
 }
+
+//hard reset
+
+function hardResetConfirmation(event) {
+  //declare sentences
+  const confirmationSentences = [
+    'Really?',
+    'Really!?',
+    'REALLY!???',
+  ]
+
+  //evaluate data
+  const clickedElement = event.target;
+  const defaultHTML = clickedElement.dataset.default;
+  const counter = Number(clickedElement.dataset.confirmationCounter);
+
+  //if first click, add focus out event
+  if (counter === 0) {
+    
+    clickedElement.addEventListener('focusout', resetCounter);
+  }
+
+  //for clicks up to last
+  if (counter < confirmationSentences.length) {
+    clickedElement.innerHTML = confirmationSentences[counter];
+    clickedElement.dataset.confirmationCounter = `${counter + 1}`;
+    return true;
+  }
+  
+  //last click
+  deleteGameSave();
+  location.reload();
+}
+
+//reset confirmation counter
+function resetCounter(event) {
+  //retrieve element back
+  const element = event.target;
+
+  //reset counter
+  element.innerHTML = element.dataset.default;
+  element.dataset.confirmationCounter = '0';
+  element.removeEventListener('focusout', resetCounter);
+}

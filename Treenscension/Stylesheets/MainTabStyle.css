@@ -280,6 +280,8 @@
 }
 
 .mainContainer .saveContentContainer .saveContentInnerContainer #hardReset:active {
+  color: rgba(69, 0, 0, 1);
+  border-color: rgba(253, 55, 55, 1);
   background-color: rgba(190, 120, 120, 1);
 }
 

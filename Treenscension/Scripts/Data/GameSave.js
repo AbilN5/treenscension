@@ -32,3 +32,7 @@ function saveGame() {
   const saveString = JSON.stringify(gameSave);
   saveGameSaveString(saveString);
 }
+
+function deleteGameSave() {
+  localStorage.removeItem(keysJSON.gameSave);
+}

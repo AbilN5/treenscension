@@ -484,7 +484,7 @@
 							<b>WARNING: THIS WILL PERMANENTLY ERASE YOUR SAVE!</b>
 						</p>
 						<div class="saveButtonsFlex">
-							<button id="hardReset" class="pointerCursor jsButtonMark simpleButton jsSimpleButton">HARD RESET</button>
+							<button id="hardReset" class="pointerCursor jsButtonMark jsOpenPopupButton" data-target="hardResetPopup">HARD RESET</button>
 						</div>
 					</div>
 
@@ -640,7 +640,7 @@
 
 	</div>
 
-	<div class="popupShadow jsPopupShadow jsButtonMark hidden" id="jsPopupShadowID">
+	<div class="popupShadow jsPopupShadow jsClosePopup hidden" id="jsPopupShadowID">
 		<div class="popupWindowBorderOuter">
 			<div class="popupWindowBorderInner">
 
@@ -661,8 +661,27 @@
 					</div>
 
 					<div class="popupFlex jsPopupButtonBox">
-						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
-						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton">No</button>
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton jsClosePopup" data-event-key="condenseSoul" data-parameters-key="condenseSoulReset">Yes</button>
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton jsClosePopup">No</button>
+					</div>
+
+				</div>
+
+				<div class="popupContent jsPopupContent hidden" id="hardResetPopup">
+					
+					<h1>HARD RESET?</h1>
+
+					<p>Are you sure you want to do this? This process is not reversible</p>
+
+					<div class="popupFlex jsPopupButtonBox">
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton jsSimpleButton confirmation"
+						data-event-key="hardResetConfirmation" 
+						data-pass-event="true"
+						data-confirmation-counter="0" 
+						data-default="Yes">
+							Yes
+						</button>
+						<button class="pointerCursor buttonMark jsButtonMark jsPopupButton jsClosePopup negation">No</button>
 					</div>
 
 				</div>
