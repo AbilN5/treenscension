@@ -106,7 +106,7 @@ function roundToSignificantFigures(number, precision) {
 
 //replace string to question marks
 function replaceToQuestion(string) {
-	return string.replace(/[^:]/g, '?');
+  return string.replace(/(\<(.*?)\>)|[^:]/g, (_, content) => content ? `${content}` : '?');
 }
 
 //add bold

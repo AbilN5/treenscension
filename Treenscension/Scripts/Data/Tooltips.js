@@ -140,7 +140,7 @@ const tooltipParts = {
 const toUpdateTooltips = [];
 
 for (const entry in tooltips) {
-  if (tooltips[entry].requirement) {
+  if (tooltips[entry][`section${tooltips[entry].current}`] && tooltips[entry][`section${tooltips[entry].current}`].requirement) {
     toUpdateTooltips.push(entry);
   }
 };
