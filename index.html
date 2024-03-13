@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="Treenscension/Stylesheets/BaseStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/MainTabStyle.css">
 	<link rel="stylesheet" href="Treenscension/Stylesheets/PopupsStyle.css">
+	<link rel="stylesheet" href="Treenscension/Stylesheets/Tooltips.css">
 	<link class="jsAnimation" rel="stylesheet" href="Treenscension/Stylesheets/Animations.css">
 	<link class="jsAnimation" rel="stylesheet" href="Treenscension/Stylesheets/AnimatedBackgrounds.css">
 	<header id="header">
@@ -26,29 +27,41 @@
 				<li class="pointerCursor headerButton buttonMark jsButtonMark" id="jsChangelog" data-target="#changelog">Changelog</li>
 
 				<div class="headerIcons" id="gameSpeed">
-					<svg title="Pause" class="pointerCursor gameSpeedButton buttonMark jsButtonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameState" data-parameters-key="pause">
-						<use class="invisible" href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
-					</svg>
+					<div id="pauseButton">
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark jsGameSpeedSelected gameSpeedSelected" data-event-key="setGameState" data-parameters-key="pause">
+							<use class="invisible" href="Treenscension/Media/Icons/pause.svg#pauseIcon"/>
+						</svg>
+					</div>
+
+					<div id="playButton">
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="play">
+							<use class="invisible" href="Treenscension/Media/Icons/play.svg#playIcon"/>
+						</svg>
+					</div>
 					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="play">
-						<use class="invisible" href="Treenscension/Media/Icons/play.svg#playIcon"/>
-					</svg>
-					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFaster">
-						<use class="invisible" href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
-					</svg>
-					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playEvenFaster">
-						<use class="invisible" href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
-					</svg>
-					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFastest">
-						<use class="invisible" href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
-					</svg>
-					
-					<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="slow">
-						<use class="invisible" href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
-					</svg>
+					<div id="playFasterButton">
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFaster">
+							<use class="invisible" href="Treenscension/Media/Icons/playFaster.svg#playFasterIcon"/>
+						</svg>
+					</div>
+
+					<div id="playEvenFasterButton">					
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playEvenFaster">
+							<use class="invisible" href="Treenscension/Media/Icons/playEvenFaster.svg#playEvenFasterIcon"/>
+						</svg>
+					</div>
+
+					<div id="playFastestButton">					
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="playFastest">
+							<use class="invisible" href="Treenscension/Media/Icons/playFastest.svg#playFastestIcon"/>
+						</svg>
+					</div>
+
+					<div id="slowButton">					
+						<svg class="pointerCursor gameSpeedButton buttonMark jsButtonMark" data-event-key="setGameState" data-parameters-key="slow">
+							<use class="invisible" href="Treenscension/Media/Icons/slow.svg#slowIcon"/>
+						</svg>
+					</div>
 				</div>
 
 				<div id="gameSpeedDisplay">
@@ -707,6 +720,10 @@
 	</div>
 
 	<!--LIBRARIES-->
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+	<!--UTILITIES-->
+	<script src="Treenscension/Scripts/Utilities.js" type="text/javascript"></script>
 
 	<!--DATA-->
 	<script src="Treenscension/Scripts/Data/KeysJSON.js" type="text/javascript"></script>
@@ -714,6 +731,7 @@
 	<script src="Treenscension/Scripts/Data/GameSave.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Data/GameSpeed.js" type="text/javascript"></script>
 	<script src="Treenscension/Scripts/Data/LoadData.js" type="text/javascript"></script>
+	<script src="Treenscension/Scripts/Data/Tooltips.js" type="text/javascript"></script>
 
 	<!--FUNCTIONS-->
 	<script src="Treenscension/Scripts/SaveButtons.js" type="text/javascript"></script>

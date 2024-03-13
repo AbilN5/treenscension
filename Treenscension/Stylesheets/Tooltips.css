@@ -1,0 +1,48 @@
+.tooltip {
+  background-color: rgba(0, 0, 0, 1);
+  display: none;
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: normal;
+  border-radius: 8px;
+}
+
+.tooltip[data-show] {
+  display: block;
+}
+
+.tooltipsArrow,
+.tooltipsArrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
+
+.tooltipsArrow {
+  visibility: hidden;
+}
+
+.tooltipsArrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
+}
+
+.tooltip[data-popper-placement^='top'] > .tooltipsArrow {
+  bottom: -4px
+}
+
+.tooltip[data-popper-placement^='bottom'] > .tooltipsArrow {
+  top: -4px
+}
+
+.tooltip[data-popper-placement^='left'] > .tooltipsArrow {
+  right: -4px
+}
+
+.tooltip[data-popper-placement^='right'] > .tooltipsArrow {
+  left: -4px
+}
